@@ -4,16 +4,18 @@ When contributing to this repository, please first discuss the change you wish t
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md) , please follow it in all your interactions with the project.
 
-## Commit conventions standards 
+## Commit conventions standards
 
 See the [COMMIT_CONVENTIONS](COMMIT_CONVENTIONS.md) file.
 
 ## Branch naming standards
+
 Branch naming works with the following template : 
 feat_what-feature-is-integrated
 
 with the following prefixes :
-- feat
-- fix
-- refacto
-- docs
+
+-   feat
+-   fix
+-   refacto
+-   docs
