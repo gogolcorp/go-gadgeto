@@ -10,7 +10,7 @@ See the [COMMIT_CONVENTIONS](COMMIT_CONVENTIONS.md) file.
 
 ## Branch naming standards
 
-Branch naming works with the following template : 
+Branch naming works with the following template :
 feat_what-feature-is-integrated
 
 with the following prefixes :

@@ -28,7 +28,5 @@ The `Tag` is one of the following:
 
 Examples:
 
-```
 feat (frontend): Added /category route to access images by category.
 fix (database): Added migration to correct category structure.
-```

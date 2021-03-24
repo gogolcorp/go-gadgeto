@@ -13,11 +13,11 @@
 -   [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 -   [ ] This change requires a documentation update
 
-# How Has This Been Tested?
+## How Has This Been Tested?
 
 <!--Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration-->
 
-# Checklist:
+## Checklist
 
 -   [ ] My code follows the style guidelines of this project
 -   [ ] I have performed a self-review of my own code
