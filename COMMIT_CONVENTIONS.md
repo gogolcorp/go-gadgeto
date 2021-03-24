@@ -16,7 +16,7 @@ The `Tag` is one of the following:
 
 - `fix:`-> Bug fix
 
-- `refactor:`-> Modifications which brings neither new functionality nor performance improvement
+- `refacto:`-> Modifications which brings neither new functionality nor performance improvement
 
 - `docs:`-> Writing or updating documentation
 
