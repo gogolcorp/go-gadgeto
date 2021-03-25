@@ -93,6 +93,7 @@ func chooseToUseDocker() bool {
 	return wantsDocker
 }
 
+// CreateCmdConfig is the needed config for the command to work
 type CreateCmdConfig struct {
 	AppName 		string
 	GitUserName string
