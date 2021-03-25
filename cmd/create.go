@@ -52,6 +52,12 @@ var createCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
+		// Ask user wether to use docker or not
+		wantsDocker := false
+		if err := prompt.AskToUseDocker(&wantsDocker); err != nil {
+			log.Fatal(err)
+		}
+
 		/*
 		path, err := os.Getwd()
 		if err != nil {
