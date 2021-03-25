@@ -5,3 +5,17 @@
 [![CodeQL](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml)
 
 A CLI to initialize and work on go projects, mainly designed for API's
+
+## Install
+
+>💡 You need to have go installed correctly on your machine.
+
+Install the CLI by running :
+
+```sh
+go get github.com/edwinvautier/go-cli
+```
+
+Then you should be able to do :
+
+![run go-cli in shell](assets/go-cli.png)
