@@ -12,4 +12,8 @@ assignees: ''
 
 ## Description
 
+<!--Please describe what the user story consists in-->
+
 ## Related issues
+
+<!--Link existing issues-->
