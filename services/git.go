@@ -9,27 +9,35 @@ import (
 
 // GetGitUsername tries to find the git username inside cli config or in the git config
 func GetGitUsername() string {
+	var userName string
+
 	// try to get from viper
-	userName := viper.GetString("git-username")
+	userName = viper.GetString("git-username")
 	if userName != "" {
 		return userName
 	}
 
-	// else try to get from the command line
+	// Try to get from git config
+	userName = getFromGit()
+	storeToConfig(userName)
+
+	return userName
+}
+
+func getFromGit() string {
 	cmd := exec.Command("git", "config", "user.name")
 	stdout, err := cmd.Output()
-	userName = string(stdout)
-
 	if err != nil {
 		log.Error(err)
 		return ""
 	}
 
-	// Store to config if not empty
+	return string(stdout)
+}
+
+func storeToConfig(userName string) {
 	if userName != "" {
 		viper.Set("git-username", userName)
 		viper.WriteConfig()
 	}
-
-	return userName
 }
