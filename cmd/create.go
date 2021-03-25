@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/edwinvautier/go-cli/prompt"
 	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-cli/services"
 	"os"
 	"os/signal"
 	"strings"
@@ -34,32 +35,24 @@ var createCmd = &cobra.Command{
 		}
 
 		// Get git username
-		userName := helpers.GetGitUsername()
+		userName := services.GetGitUsername()
 		if userName == "" {
 			if err := prompt.AskGitUsername(&userName); err != nil {
-				log.Error(err)
-				return
+				log.Fatal(err)
 			}
 			viper.Set("git-username", userName)
 			if err := viper.WriteConfig(); err != nil {
 				log.Error(err)
 			}
 		}
-		
-		/*
-		var username string
-		if viper.GetString("username") != "" {
-			username = viper.GetString("username")
-		} else {
-			// Ask the user for it's github username
-			username = promptUserForGitUsername()
-			viper.Set("username", username)
-			viper.WriteConfig()
+
+		// Get the desired DB management system
+		dbms := ""
+		if err := prompt.AskDBMS(&dbms); err != nil {
+			log.Fatal(err)
 		}
 
-		// Ask the user for the modules he wants
-		modules := promptUserForModules()
-
+		/*
 		path, err := os.Getwd()
 		if err != nil {
 			log.Fatal("Couldn't find the current directory.")
