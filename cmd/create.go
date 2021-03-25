@@ -11,7 +11,7 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	//"github.com/edwinvautier/go-project-cli/services"
 	log "github.com/sirupsen/logrus"
-	//"github.com/spf13/viper"
+	"github.com/spf13/viper"
 	"github.com/spf13/cobra"
 )
 
@@ -40,7 +40,12 @@ var createCmd = &cobra.Command{
 				log.Error(err)
 				return
 			}
+			viper.Set("git-username", userName)
+			if err := viper.WriteConfig(); err != nil {
+				log.Error(err)
+			}
 		}
+		
 		/*
 		var username string
 		if viper.GetString("username") != "" {

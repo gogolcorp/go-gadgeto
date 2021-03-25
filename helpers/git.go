@@ -9,7 +9,7 @@ import (
 
 func GetGitUsername() string {
 	// try to get from viper
-	userName := viper.GetString("username")
+	userName := viper.GetString("git-username")
 	if userName != "" {
 		return userName
 	}
@@ -26,7 +26,7 @@ func GetGitUsername() string {
 
 	// Store to config if not empty
 	if userName != "" {
-		viper.Set("username", userName)
+		viper.Set("git-username", userName)
 		viper.WriteConfig()
 	}
 
