@@ -4,7 +4,7 @@
 [![Go](https://github.com/edwinvautier/go-cli/actions/workflows/go.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/go.yml)
 [![CodeQL](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml)
 
-A CLI to initialize and work on go projects, mainly designed for API's
+A CLI to initialize and work on go projects, mainly designed for API's.
 
 ## Install
 
