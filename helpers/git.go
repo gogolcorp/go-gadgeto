@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// GetGitUserName tries to find the git username inside cli config or in the git config
 func GetGitUsername() string {
 	// try to get from viper
 	userName := viper.GetString("git-username")
