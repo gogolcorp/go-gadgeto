@@ -33,6 +33,14 @@ var createCmd = &cobra.Command{
 			appName = helpers.JoinString(appName)
 		}
 
+		// Get git username
+		userName := helpers.GetGitUsername()
+		if userName == "" {
+			if err := prompt.AskGitUsername(&userName); err != nil {
+				log.Error(err)
+				return
+			}
+		}
 		/*
 		var username string
 		if viper.GetString("username") != "" {
