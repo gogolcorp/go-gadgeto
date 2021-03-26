@@ -18,7 +18,7 @@ go get github.com/edwinvautier/go-cli
 
 Then you should be able to do :
 
-![run go-cli in shell](assets/go-cli.png)
+![run go-cli in shell](assets/go-cli.gif)
 
 ## Initialize a project
 
