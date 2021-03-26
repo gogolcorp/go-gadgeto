@@ -24,6 +24,7 @@ func GetFilePartsFromName(name string) FileParts {
 	return fileParts
 }
 
+// FileParts contains the needed informations to execute template for a file
 type FileParts struct {
 	Name 				string
 	Path 				string
