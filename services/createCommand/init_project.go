@@ -6,6 +6,7 @@ import (
 
 	"github.com/edwinvautier/go-cli/config"
 	"github.com/edwinvautier/go-cli/prompt"
+	"github.com/edwinvautier/go-cli/services"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -19,6 +20,11 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.WithField("path", projectPath).Info("project directory created")
 	
+	if err := services.GitInit(projectPath); err != nil {
+		return err
+	}
+	log.Info("git initialized")
+
 	return nil
 }
 

@@ -41,3 +41,8 @@ func storeToConfig(userName string) {
 		viper.WriteConfig()
 	}
 }
+
+// GitInit initializes a git repository to the specified path
+func GitInit(path string) error {
+	return exec.Command("git", "init", path).Run()
+}
