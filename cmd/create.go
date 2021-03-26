@@ -1,16 +1,12 @@
 package cmd
 
 import (
-	"github.com/edwinvautier/go-cli/prompt"
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/services"
+	"github.com/edwinvautier/go-cli/config"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
-
+	
 	log "github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"github.com/spf13/cobra"
 )
 
@@ -20,10 +16,10 @@ var createCmd = &cobra.Command{
 	Short: "This command is used to initialize a new application.",
 	Long:  `This command is used to initialize a new application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		config := CreateCmdConfig{
+		commandConfig := config.CreateCmdConfig{
 			Args: args,
 		}
-		initCmdConfig(&config)
+		config.InitCreateCmdConfig(&commandConfig)
 
 		/*
 		path, err := os.Getwd()
@@ -45,60 +41,4 @@ func init() {
 		log.Info("Exiting...")
 		os.Exit(1)
 	}()
-}
-
-func initCmdConfig(config *CreateCmdConfig) {
-	config.AppName = getAppName(config.Args)
-	config.GitUserName = getGitUsername()
-	config.DBMS = getDBMS()
-	config.UseDocker = chooseToUseDocker()
-}
-
-func getAppName(args []string) string {
-	appName := strings.Join(args, "-")
-
-	// Check if the app name is empty
-	if appName == "" {
-		prompt.AskApplicationName(&appName)
-		appName = helpers.JoinString(appName)
-	}
-	return appName
-}
-
-func getGitUsername() string {
-	userName := services.GetGitUsername()
-	if userName == "" {
-		if err := prompt.AskGitUsername(&userName); err != nil {
-			log.Fatal(err)
-		}
-		viper.Set("git-username", userName)
-	}
-	return userName
-}
-
-func getDBMS() string {
-	// Get the desired DB management system
-	dbms := ""
-	if err := prompt.AskDBMS(&dbms); err != nil {
-		log.Fatal(err)
-	}
-	return dbms
-}
-
-func chooseToUseDocker() bool {
-	// Ask user wether to use docker or not
-	wantsDocker := false
-	prompt.AskToUseDocker(&wantsDocker)
-
-	return wantsDocker
-}
-
-// CreateCmdConfig is the needed config for the command to work
-type CreateCmdConfig struct {
-	AppName 		string
-	GitUserName string
-	DBMS				string
-	UseDocker		bool
-
-	Args				[]string
 }
