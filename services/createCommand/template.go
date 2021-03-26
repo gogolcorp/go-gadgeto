@@ -19,7 +19,7 @@ func GenerateFile(path string, name string, outputName string, config config.Cre
 
 	// Create the directory if not exist
 	if _, err := os.Stat(config.ProjectPath + "/" + path); os.IsNotExist(err) {
-		os.Mkdir(config.ProjectPath+"/"+path, os.ModePerm)
+		os.MkdirAll(config.ProjectPath+"/"+path, os.ModePerm)
 	}
 
 	err = executeTemplate(config, outputName, config.ProjectPath+"/"+path, templateString)

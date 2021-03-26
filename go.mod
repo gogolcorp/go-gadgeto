@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.2.9
+	github.com/edwinvautier/go-boilerplate v0.0.0-20210322134926-eb821f8d79a6 // indirect
 	github.com/gobuffalo/packd v1.0.0
 	github.com/gobuffalo/packr/v2 v2.8.1
 	github.com/karrick/godirwalk v1.16.1 // indirect
