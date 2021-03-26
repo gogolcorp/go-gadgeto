@@ -38,7 +38,7 @@ func getWorkDir() string {
 }
 
 func createProjectDir(path string) error {
-	if _, err := os.Stat(path); os.IsNotExist(err) {
+	if !DirectoryExists(path) {
 		return os.Mkdir(path, os.ModePerm)
 	}
 	log.Warn("A directory with this name already exists.")
@@ -58,4 +58,10 @@ func removeAll(path string) error {
 		return err
 	}
 	return os.Mkdir(path, os.ModePerm)
+}
+
+// DirectoryExists returns true if directory exists, false elseway
+func DirectoryExists(path string) bool {
+	_, err := os.Stat(path)
+	return os.IsExist(err)
 }

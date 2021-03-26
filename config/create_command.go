@@ -19,7 +19,6 @@ func InitCreateCmdConfig(config *CreateCmdConfig) {
 
 func getAppName(args []string) string {
 	appName := strings.Join(args, "-")
-
 	// Check if the app name is empty
 	if appName == "" {
 		prompt.AskApplicationName(&appName)
