@@ -15,18 +15,18 @@ func GetFilePartsFromName(name string) FileParts {
 	var fileParts FileParts
 
 	slices := strings.Split(name, "/")
-	fileParts.Name = slices[len(slices) - 1]
-	fileParts.Path = strings.Join(slices[:len(slices)- 1], "/") + "/"
-	
+	fileParts.Name = slices[len(slices)-1]
+	fileParts.Path = strings.Join(slices[:len(slices)-1], "/") + "/"
+
 	slices = strings.Split(fileParts.Name, ".")
-	fileParts.OutputName = strings.Join(slices[:len(slices) - 1], ".")
+	fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
 
 	return fileParts
 }
 
 // FileParts contains the needed informations to execute template for a file
 type FileParts struct {
-	Name 				string
-	Path 				string
-	OutputName 	string
+	Name       string
+	Path       string
+	OutputName string
 }

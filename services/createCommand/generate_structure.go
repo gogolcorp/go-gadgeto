@@ -8,7 +8,7 @@ import (
 )
 
 func generateTemplates(config config.CreateCmdConfig) error {
-	
+
 	config.Box.Walk(func(path string, f packd.File) error {
 		fInfo, _ := f.FileInfo()
 		fileParts := helpers.GetFilePartsFromName(fInfo.Name())

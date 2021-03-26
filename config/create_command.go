@@ -61,12 +61,12 @@ func chooseToUseDocker() bool {
 
 // CreateCmdConfig is the needed config for the command to work
 type CreateCmdConfig struct {
-	AppName     			string
-	GitUserName 			string
-	DBMS        			string
-	UseDocker   			bool
-	GoPackageFullPath	string
-	Args 							[]string
-	Box 							*packr.Box
-	ProjectPath				string
+	AppName           string
+	GitUserName       string
+	DBMS              string
+	UseDocker         bool
+	GoPackageFullPath string
+	Args              []string
+	Box               *packr.Box
+	ProjectPath       string
 }

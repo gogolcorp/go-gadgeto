@@ -1,4 +1,5 @@
 package services
+
 import "os"
 
 // DirectoryExists returns true if directory exists, false elseway

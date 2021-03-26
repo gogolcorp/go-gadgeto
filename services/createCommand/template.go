@@ -19,17 +19,17 @@ func GenerateFile(path string, name string, outputName string, config config.Cre
 
 	// Create the directory if not exist
 	if _, err := os.Stat(config.ProjectPath + "/" + path); os.IsNotExist(err) {
-		os.Mkdir(config.ProjectPath + "/" + path, os.ModePerm)
+		os.Mkdir(config.ProjectPath+"/"+path, os.ModePerm)
 	}
 
-	err = executeTemplate(config, outputName, config.ProjectPath + "/" + path, templateString)
+	err = executeTemplate(config, outputName, config.ProjectPath+"/"+path, templateString)
 	if err != nil {
 		log.Error(err)
 		return
 	}
 }
 
-func executeTemplate(config config.CreateCmdConfig, outputName string, path string, templateString string) error{
+func executeTemplate(config config.CreateCmdConfig, outputName string, path string, templateString string) error {
 	// Create the file
 	file, err := os.Create(path + outputName)
 	if err != nil {

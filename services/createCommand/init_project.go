@@ -14,12 +14,12 @@ import (
 func InitProject(config *config.CreateCmdConfig) error {
 	workingDirectory := getWorkDir()
 	config.ProjectPath = workingDirectory + "/" + config.AppName
-	
+
 	if err := createProjectDir(config.ProjectPath); err != nil {
 		return err
 	}
 	log.WithField("path", config.ProjectPath).Info("project directory created")
-	
+
 	if err := services.GitInit(config.ProjectPath); err != nil {
 		return err
 	}
