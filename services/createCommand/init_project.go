@@ -13,17 +13,22 @@ import (
 // InitProject creates the directory for a new project and all needed structure depending on the config given
 func InitProject(config *config.CreateCmdConfig) error {
 	workingDirectory := getWorkDir()
-	projectPath := workingDirectory + "/" + config.AppName
-
-	if err := createProjectDir(projectPath); err != nil {
+	config.ProjectPath = workingDirectory + "/" + config.AppName
+	
+	if err := createProjectDir(config.ProjectPath); err != nil {
 		return err
 	}
-	log.WithField("path", projectPath).Info("project directory created")
+	log.WithField("path", config.ProjectPath).Info("project directory created")
 	
-	if err := services.GitInit(projectPath); err != nil {
+	if err := services.GitInit(config.ProjectPath); err != nil {
 		return err
 	}
 	log.Info("git initialized")
+
+	if err := generateTemplates(*config); err != nil {
+		return err
+	}
+	log.Info("project initialization finished!")
 
 	return nil
 }
@@ -38,7 +43,7 @@ func getWorkDir() string {
 }
 
 func createProjectDir(path string) error {
-	if !DirectoryExists(path) {
+	if !services.DirectoryExists(path) {
 		return os.Mkdir(path, os.ModePerm)
 	}
 	log.Warn("A directory with this name already exists.")
@@ -47,21 +52,8 @@ func createProjectDir(path string) error {
 	prompt.AskToOverride(&wantsOverride)
 
 	if wantsOverride {
-		return removeAll(path)
+		return services.RemoveDirAndFiles(path)
 	}
 
 	return errors.New("Couldn't create project directory")
-}
-
-func removeAll(path string) error {
-	if err := os.RemoveAll(path); err != nil {
-		return err
-	}
-	return os.Mkdir(path, os.ModePerm)
-}
-
-// DirectoryExists returns true if directory exists, false elseway
-func DirectoryExists(path string) bool {
-	_, err := os.Stat(path)
-	return os.IsExist(err)
 }

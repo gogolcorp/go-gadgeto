@@ -1,12 +1,14 @@
 package config
 
 import (
+	"strings"
+
 	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/prompt"
 	"github.com/edwinvautier/go-cli/services"
+	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"strings"
 )
 
 // InitCreateCmdConfig creates the needed config for the create command by prompting user and doing other actions
@@ -15,6 +17,8 @@ func InitCreateCmdConfig(config *CreateCmdConfig) {
 	config.GitUserName = getGitUsername()
 	config.DBMS = getDBMS()
 	config.UseDocker = chooseToUseDocker()
+	config.GoPackageFullPath = "github.com/" + config.GitUserName + "/" + config.AppName
+	config.Box = packr.New("My Box", "../templates/files")
 }
 
 func getAppName(args []string) string {
@@ -57,10 +61,12 @@ func chooseToUseDocker() bool {
 
 // CreateCmdConfig is the needed config for the command to work
 type CreateCmdConfig struct {
-	AppName     string
-	GitUserName string
-	DBMS        string
-	UseDocker   bool
-
-	Args []string
+	AppName     			string
+	GitUserName 			string
+	DBMS        			string
+	UseDocker   			bool
+	GoPackageFullPath	string
+	Args 							[]string
+	Box 							*packr.Box
+	ProjectPath				string
 }
