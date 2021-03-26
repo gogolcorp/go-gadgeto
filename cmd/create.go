@@ -1,11 +1,13 @@
 package cmd
 
 import (
-	"github.com/edwinvautier/go-cli/config"
 	"os"
 	"os/signal"
 	"syscall"
-	
+
+	"github.com/edwinvautier/go-cli/config"
+	"github.com/edwinvautier/go-cli/services/createCommand"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -20,15 +22,8 @@ var createCmd = &cobra.Command{
 			Args: args,
 		}
 		config.InitCreateCmdConfig(&commandConfig)
-
-		/*
-		path, err := os.Getwd()
-		if err != nil {
-			log.Fatal("Couldn't find the current directory.")
-		}
-
-		services.CreateStructure(path+"/"+appName, modules, username, appName)
-		*/
+		
+		createCommand.InitProject(&commandConfig)
 	},
 }
 
