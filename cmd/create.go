@@ -22,7 +22,7 @@ var createCmd = &cobra.Command{
 			Args: args,
 		}
 		config.InitCreateCmdConfig(&commandConfig)
-		
+
 		createCommand.InitProject(&commandConfig)
 	},
 }

@@ -11,7 +11,7 @@ import (
 func InitProject(config *config.CreateCmdConfig) error {
 	workingDirectory := getWorkDir()
 	log.Info(workingDirectory)
-	
+
 	return nil
 }
 
