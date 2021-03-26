@@ -1,3 +1,0 @@
-package main
-
-nous avons créé : {{.AppName}}

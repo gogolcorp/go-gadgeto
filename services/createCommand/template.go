@@ -1,13 +1,14 @@
-package templates
+package createCommand
 
 import (
+	"html/template"
+	"os"
+
 	"github.com/edwinvautier/go-cli/config"
 	log "github.com/sirupsen/logrus"
-	"os"
-	"html/template"
 )
 
-// GenerateFile takes a file path, name, wanted output name and the command config, and tries to find and execute the file template
+// GenerateFile takes params such as path, file name and desired name + config to generate the file after being templated
 func GenerateFile(path string, name string, outputName string, config config.CreateCmdConfig) {
 	// Get template content as string
 	templateString, err := config.Box.FindString(path + name)

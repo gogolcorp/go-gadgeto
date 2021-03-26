@@ -18,7 +18,7 @@ func InitCreateCmdConfig(config *CreateCmdConfig) {
 	config.DBMS = getDBMS()
 	config.UseDocker = chooseToUseDocker()
 	config.GoPackageFullPath = "github.com/" + config.GitUserName + "/" + config.AppName
-	config.Box = packr.New("My Box", "../templates/files")
+	config.Box = packr.New("My Box", "../templates")
 }
 
 func getAppName(args []string) string {
