@@ -1,7 +1,7 @@
 package createCommand
 
 import (
-	"html/template"
+	"text/template"
 	"os"
 
 	"github.com/edwinvautier/go-cli/config"

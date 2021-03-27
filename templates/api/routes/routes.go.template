@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"{{.GoPackagaFullPath}}/api/controllers"
-	"{{.GoPackagaFullPath}}/shared/middlewares"
+	"{{.GoPackageFullPath}}/api/controllers"
+	"{{.GoPackageFullPath}}/shared/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
