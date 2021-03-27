@@ -1,2 +1,24 @@
 test:
 	go test -v ./tests
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+
+init: ## Init environment and starts docker app
+	make copy-files
+	make start
+
+copy-files: ## Copy files
+	bash -c "cp .env.dist .env" 
+
+start: ## start the ap
+	docker-compose up --build -d
+
+stop: ## stop the app
+	docker-compose stop
+
+generate-keys: ## Generate public and private RSA keys
+	openssl genrsa -des3 -out private.pem 2048
+	openssl rsa -in private.pem -outform PEM -pubout -out public.pem

@@ -30,6 +30,10 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.Info("project initialization finished!")
 
+	if err:= services.GoModInit(config.AppName); err != nil {
+		return err
+	}
+
 	return nil
 }
 

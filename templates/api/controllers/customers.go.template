@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"{{.GoPackageFullPath}}/api/repositories"
-	"{{.GoPackageFullPath}}/api/services"
+	"{{.GoPackageFullPath}}/shared/services"
 	"net/http"
 
 	"{{.GoPackageFullPath}}/api/models"
