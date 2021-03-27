@@ -1,0 +1,44 @@
+package controllers
+
+import (
+	"{{.GoPackageFullPath}}/api/repositories"
+	{{if .AuthModule}}"{{.GoPackageFullPath}}/shared/services"{{end}}
+	"net/http"
+
+	"{{.GoPackageFullPath}}/api/models"
+	"github.com/gin-gonic/gin"
+)
+
+// CreateCustomer is the controller to create a new customer
+func CreateCustomer(c *gin.Context) {
+	var customerForm models.CustomerForm
+	if err := c.ShouldBindJSON(&customerForm); err != nil {
+		c.JSON(http.StatusBadRequest, "Invalid informations provided, please refer to the documentation.")
+		return
+	}
+
+	// Validate user structure (email, password)
+	if err := models.ValidateCustomer(&customerForm); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	// Create customer object and persist it to db
+	customer := models.Customer{
+		Name:           customerForm.Name,
+		Email:          customerForm.Email,
+		{{if .AuthModule}}HashedPassword: services.HashPassword(customerForm.Password),{{end}}
+	}
+
+	if err := repositories.PersistCustomer(&customer); err != nil {
+		c.JSON(http.StatusInternalServerError, "Couldn't create user. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, models.CustomerJSON{ID: customer.ID, Name: customer.Name, Email: customer.Email})
+}
+
+// TestController is a simple controller to test if the API is alive when you go on your web browser at API root
+func TestController(c *gin.Context) {
+	c.JSON(http.StatusOK, "OKKKKKK")
+}

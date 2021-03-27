@@ -5,7 +5,7 @@
 [![CodeQL](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A CLI to initialize and work on go projects, mainly designed for API's
+A CLI to initialize and work on go projects, mainly designed for API's.
 
 ## Install
 
@@ -19,4 +19,18 @@ go get github.com/edwinvautier/go-cli
 
 Then you should be able to do :
 
-![run go-cli in shell](assets/go-cli.png)
+![run go-cli in shell](assets/go-cli.gif)
+
+## Initialize a project
+
+You can initialize a project in your working directory by running the `create` command.
+
+```sh
+go-cli create
+# or with app name
+go-cli create my-app-name
+```
+
+The CLI will eventually ask you your **git username**, the **DB management system** you'd like to use and if you want to **dockerize** the application or not.
+
+![run go-cli in shell](assets/go-cli-create.gif)

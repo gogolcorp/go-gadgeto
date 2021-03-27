@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: docker/go/Dockerfile
+    ports: 
+      - 8000:8000 
+    restart: on-failure
+    volumes:
+      - ./:/go/src/{{.GoPackageFullPath}}
+    depends_on:
+      - {{.DBMS}}          
+    networks:
+      - backend
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=db
+      - DB_HOST={{.DBMS}}
+      - DB_PORT={{if eq .DBMS "postgres"}}5432{{else}}3306{{end}}
+
+  {{.DBMS}}:
+    image: {{.DBMS}}
+    restart: always
+    environment:
+      {{ if eq .DBMS "postgres"}}- POSTGRES_USER=root  
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db
+      - DATABASE_HOST={{.DBMS}}
+      {{else}}- MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db{{end}}
+    ports:
+      - {{if eq .DBMS "postgres"}}5432:5432{{else}}3306:3306{{end}}
+    volumes:
+      - {{if eq .DBMS "postgres"}}postgres:/var/lib/postgresql/data{{else}}./mysql_data:/var/lib/mysql{{end}}
+    networks:
+      - backend
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - {{.DBMS}}
+    networks:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  api:
+  {{.DBMS}}:                  
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    driver: bridge

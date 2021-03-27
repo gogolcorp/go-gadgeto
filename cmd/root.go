@@ -1,4 +1,5 @@
 package cmd
+
 /*
 Copyright © 2021 Edwin Vautier <edwin.vautier@gmail.com>
 
@@ -18,6 +19,8 @@ limitations under the License.
 import (
 	"fmt"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -66,10 +69,10 @@ func initConfig() {
 		// Find home directory.
 		home, err := homedir.Dir()
 		cobra.CheckErr(err)
-
 		// Search config in home directory with name ".go-cli" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".go-cli")
+		viper.SetDefault("auth-module", false);
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -77,5 +80,19 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	} else {
+		home, err := homedir.Dir()
+		if err != nil {
+			log.Error("couldn't get your homedir")
+		}
+		createConfig(home)
 	}
+}
+
+func createConfig(homeDir string) {
+	_, err := os.Create(homeDir + "/.go-cli.yaml")
+	if err != nil {
+		log.Error("Couldn't create config file : ", err)
+	}
+	initConfig()
 }
