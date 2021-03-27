@@ -1,36 +1,44 @@
-# go-boilerplate
+# {{.AppName}}
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9f068e80047c476ea1b51a37537b1b2e)](https://app.codacy.com/gh/edwinvautier/go-boilerplate?utm_source=github.com&utm_medium=referral&utm_content=edwinvautier/go-boilerplate&utm_campaign=Badge_Grade_Settings)
-[![CodeQL](https://github.com/edwinvautier/go-boilerplate/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-boilerplate/actions/workflows/codeql-analysis.yml)
-[![Build](https://github.com/edwinvautier/go-boilerplate/actions/workflows/ci.yml/badge.svg)](https://github.com/edwinvautier/go-boilerplate/actions/workflows/ci.yml)
-
-A go boilerplate with docker-compose with hot reload, postgres, orm, github templates, license...
+[![CodeQL](https://{{.GoPackageFullPath}}/actions/workflows/codeql-analysis.yml/badge.svg)](https://{{.GoPackageFullPath}}/actions/workflows/codeql-analysis.yml)
+[![Build](https://{{.GoPackageFullPath}}/actions/workflows/ci.yml/badge.svg)](https://{{.GoPackageFullPath}}/actions/workflows/ci.yml)
 
 ## Setup
 
-Modify the `docker/go/Dockerfile` file and set the following line with the correct repository name :
+First time you run the project ? Run :
 
-`WORKDIR /go/src/github.com/edwinvautier/go-bot`
+```sh
+make first-run
+```
 
-Do the same in the `docker-compose.yml` inside the api volumes part.
+This command creates the go mod and tidies dependencies and then call the make init command.
 
-## Project setup
+> If you want more informations about the available make commands, run `make help`
+
+If you already have the go.mod and go.sum files you can run :
+
+```sh
+make init
+# or
+make start
+```
+
+The difference between make init and make start commands is that make init also copy .env.dist to .env and generates new RSA key.
+
+### Authentication setup
+
+The authentication module uses RSA keys to generate JWT tokens. This is why the make generate-keys command asks you three times for
+a password, you need to choose the **same password**.
+
+Once you chose a password you need to place it inside your `.env` file, as `RSA_PASSWORD`.
 
 Generate RSA keys for the token authentication :
 
 ```sh
-    # use the following password: private_key
+    # use the following password by default : password
     openssl genrsa -des3 -out private.pem 2048
     openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 
-```
-
-Update your environment. Create a `.env` file thanks to the `.env.dist` example.
-
-build app :
-
-```sh
-    docker-compose up --build
 ```
 
 ## Branch naming convention
@@ -55,3 +63,5 @@ The naming of the PR should follow the same rules as the [COMMIT_CONVENTIONS](CO
 ## Linter
 
 We use go linter [gofmt](https://blog.golang.org/gofmt) to automatically formats the source code.
+
+you can run `make format` to auto-format your files.

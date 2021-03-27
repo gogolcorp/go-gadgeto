@@ -7,6 +7,7 @@ help:
 
 
 init: ## Init environment and starts docker app
+	make generate-keys
 	make copy-files
 	make start
 
@@ -22,3 +23,11 @@ stop: ## stop the app
 generate-keys: ## Generate public and private RSA keys
 	openssl genrsa -des3 -out private.pem 2048
 	openssl rsa -in private.pem -outform PEM -pubout -out public.pem
+
+first-run: ## The command you run when you launch the project for the first time, creates your go mod and make init
+	go mod init
+	go mod tidy
+	make init
+
+format: ## Auto format go files with gofmt
+	gofmt -s -w main.go api/ shared/ tests/
