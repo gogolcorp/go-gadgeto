@@ -1,4 +1,4 @@
-package services
+package filesystem
 
 import "os"
 
@@ -14,4 +14,8 @@ func RemoveDirAndFiles(path string) error {
 		return err
 	}
 	return os.Mkdir(path, os.ModePerm)
+}
+
+func RemoveSingle(path string) error {
+	return os.Remove(path)
 }

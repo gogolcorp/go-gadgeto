@@ -7,6 +7,7 @@ import (
 	"github.com/edwinvautier/go-cli/config"
 	"github.com/edwinvautier/go-cli/prompt"
 	"github.com/edwinvautier/go-cli/services"
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -30,6 +31,10 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.Info("project initialization finished!")
 
+	if err := CleanAllFiles(config); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -43,7 +48,7 @@ func getWorkDir() string {
 }
 
 func createProjectDir(path string) error {
-	if !services.DirectoryExists(path) {
+	if !filesystem.DirectoryExists(path) {
 		return os.Mkdir(path, os.ModePerm)
 	}
 	log.Warn("A directory with this name already exists.")
@@ -52,7 +57,7 @@ func createProjectDir(path string) error {
 	prompt.AskToOverride(&wantsOverride)
 
 	if wantsOverride {
-		return services.RemoveDirAndFiles(path)
+		return filesystem.RemoveDirAndFiles(path)
 	}
 
 	return errors.New("Couldn't create project directory")

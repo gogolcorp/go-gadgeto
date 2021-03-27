@@ -72,6 +72,7 @@ func initConfig() {
 		// Search config in home directory with name ".go-cli" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".go-cli")
+		viper.SetDefault("auth-module", false);
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
