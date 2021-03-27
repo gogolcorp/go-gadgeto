@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   api:
@@ -11,27 +11,30 @@ services:
     volumes:
       - ./:/go/src/{{.GoPackageFullPath}}
     depends_on:
-      - postgres          
+      - {{.DBMS}}          
     networks:
       - backend
     environment:
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_NAME=db
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_HOST={{.DBMS}}
+      - DB_PORT={{if eq .DBMS "postgres"}}5432{{else}}3306{{end}}
 
-  postgres:
-    image: postgres:latest
+  {{.DBMS}}:
+    image: {{.DBMS}}
+    restart: always
     environment:
-      - POSTGRES_USER=root  
+      {{ if eq .DBMS "postgres"}}- POSTGRES_USER=root  
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=db
-      - DATABASE_HOST=postgres
+      - DATABASE_HOST={{.DBMS}}
+      {{else}}- MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db{{end}}
     ports:
-      - 5432:5432
+      - {{if eq .DBMS "postgres"}}5432:5432{{else}}3306:3306{{end}}
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - {{if eq .DBMS "postgres"}}postgres:/var/lib/postgresql/data{{else}}./mysql_data:/var/lib/mysql{{end}}
     networks:
       - backend
     
@@ -41,14 +44,14 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - postgres
+      - {{.DBMS}}
     networks:
       - backend
     restart: unless-stopped
 
 volumes:
   api:
-  postgres:                  
+  {{.DBMS}}:                  
 
 # Networks to be created to facilitate communication between containers
 networks:

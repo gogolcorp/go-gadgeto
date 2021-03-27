@@ -7,23 +7,24 @@ help:
 
 
 init: ## Init environment and starts docker app
-	make generate-keys
-	make copy-files
+	{{if .AuthModule}}make generate-keys
+	{{end}}make copy-files
 	make start
 
 copy-files: ## Copy files
 	bash -c "cp .env.dist .env" 
 
-start: ## start the ap
-	docker-compose up --build -d
+start: ## start the app
+	{{if.UseDocker}}docker-compose up --build -d{{else}}go run main.go{{end}}
 
-stop: ## stop the app
+{{if.UseDocker}}stop: ## stop the app
 	docker-compose stop
+{{end}}
 
-generate-keys: ## Generate public and private RSA keys
+{{if .AuthModule}}generate-keys: ## Generate public and private RSA keys
 	openssl genrsa -des3 -out private.pem 2048
 	openssl rsa -in private.pem -outform PEM -pubout -out public.pem
-
+{{end}}
 first-run: ## The command you run when you launch the project for the first time, creates your go mod and make init
 	go mod init
 	go mod tidy

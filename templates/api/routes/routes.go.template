@@ -2,18 +2,18 @@ package routes
 
 import (
 	"{{.GoPackageFullPath}}/api/controllers"
-	"{{.GoPackageFullPath}}/shared/middlewares"
+	{{if .AuthModule}}"{{.GoPackageFullPath}}/shared/middlewares"{{end}}
 	"github.com/gin-gonic/gin"
 )
 
 // Init initializes router with the following routes
 func Init(r *gin.Engine) {
 	r.POST("/register", controllers.CreateCustomer)
-	r.POST("/login", controllers.Login)
+	{{if .AuthModule}}r.POST("/login", controllers.Login){{end}}
 
 	api := r.Group("/api")
-	api.Use(middlewares.CheckAuthorization)
-	{
+	{{if .AuthModule}}api.Use(middlewares.CheckAuthorization)
+	{{"{"}}{{end}}
 		api.GET("/", controllers.TestController)
-	}
+	{{if .AuthModule}}{{"}"}}{{end}}
 }

@@ -4,7 +4,6 @@ import (
 	"github.com/edwinvautier/go-cli/config"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 )
 
 // CleanAllFiles removed all files that are not necessary as the user chose in the config
@@ -15,7 +14,7 @@ func CleanAllFiles(config *config.CreateCmdConfig) error {
 		}
 	}
 
-	if (true != viper.Get("auth-module")) {
+	if (!config.AuthModule) {
 		if err := removeAuthenticationFiles(config); err != nil {
 			log.Error("Couldn't remove authentication module files", err)
 		}

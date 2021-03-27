@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"{{.GoPackageFullPath}}/api/repositories"
-	"{{.GoPackageFullPath}}/shared/services"
+	{{if .AuthModule}}"{{.GoPackageFullPath}}/shared/services"{{end}}
 	"net/http"
 
 	"{{.GoPackageFullPath}}/api/models"
@@ -27,7 +27,7 @@ func CreateCustomer(c *gin.Context) {
 	customer := models.Customer{
 		Name:           customerForm.Name,
 		Email:          customerForm.Email,
-		HashedPassword: services.HashPassword(customerForm.Password),
+		{{if .AuthModule}}HashedPassword: services.HashPassword(customerForm.Password),{{end}}
 	}
 
 	if err := repositories.PersistCustomer(&customer); err != nil {

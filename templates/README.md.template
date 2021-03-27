@@ -24,8 +24,7 @@ make start
 ```
 
 The difference between make init and make start commands is that make init also copy .env.dist to .env and generates new RSA key.
-
-### Authentication setup
+{{if .AuthModule}}### Authentication setup
 
 The authentication module uses RSA keys to generate JWT tokens. This is why the make generate-keys command asks you three times for
 a password, you need to choose the **same password**.
@@ -40,7 +39,7 @@ Generate RSA keys for the token authentication :
     openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 
 ```
-
+{{end}}
 ## Branch naming convention
 
 You branch should have a name that reflects it's purpose.

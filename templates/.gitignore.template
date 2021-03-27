@@ -1,5 +1,5 @@
 .DS_Store
 .env
-public.pem
-private.pem
-tmp
+{{if .AuthModule}}public.pem
+private.pem{{end}}
+{{if .UseDocker}}tmp{{end}}

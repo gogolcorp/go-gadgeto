@@ -19,7 +19,7 @@ func InitCreateCmdConfig(config *CreateCmdConfig) {
 	config.UseDocker = chooseToUseDocker()
 	config.GoPackageFullPath = "github.com/" + strings.TrimSuffix(config.GitUserName, "\n") + "/" + config.AppName
 	config.Box = packr.New("My Box", "../templates")
-	log.Info(config.GoPackageFullPath)
+	config.AuthModule = viper.GetBool("auth-module")
 }
 
 func getAppName(args []string) string {
@@ -70,4 +70,5 @@ type CreateCmdConfig struct {
 	Args              []string
 	Box               *packr.Box
 	ProjectPath       string
+	AuthModule				bool
 }

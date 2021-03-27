@@ -2,7 +2,7 @@ package models
 
 import (
 	"errors"
-	"unicode"
+	{{if .AuthModule}}"unicode"{{end}}
 
 	"github.com/asaskevich/govalidator"
 )
@@ -12,14 +12,14 @@ type Customer struct {
 	ID             uint64 `gorm:"primary_key"`
 	Name           string `gorm:"size:255"`
 	Email          string `gorm:"size:255; unique"`
-	HashedPassword string
+	{{if .AuthModule}}HashedPassword string{{end}}
 }
 
 // CustomerForm is our struct to handle new users requests
 type CustomerForm struct {
 	Name     string `gorm:"size:255"`
 	Email    string `gorm:"size:255" valid:"email~Invalid email address"`
-	Password string `gorm:"size:255"`
+	{{if .AuthModule}}Password string `gorm:"size:255"`{{end}}
 }
 
 // CustomerJSON is the struct to return user without the hash password
@@ -38,14 +38,14 @@ func ValidateCustomer(customer *CustomerForm) error {
 		return errors.New("Invalid name")
 	}
 
-	if valid := verifyPassword(customer.Password); valid == false {
+	{{if .AuthModule}}if valid := verifyPassword(customer.Password); valid == false {
 		return errors.New("Password must be composed of at least 8 character, one uppercase letter and one number")
-	}
+	}{{end}}
 
 	return nil
 }
 
-func verifyPassword(s string) bool {
+{{if .AuthModule}}func verifyPassword(s string) bool {
 	number := false
 	upper := false
 
@@ -60,4 +60,4 @@ func verifyPassword(s string) bool {
 	}
 
 	return number && upper && len(s) >= 8
-}
+}{{end}}
