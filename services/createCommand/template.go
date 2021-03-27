@@ -1,8 +1,8 @@
 package createCommand
 
 import (
-	"text/template"
 	"os"
+	"text/template"
 
 	"github.com/edwinvautier/go-cli/config"
 	log "github.com/sirupsen/logrus"
