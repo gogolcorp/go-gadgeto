@@ -16,6 +16,7 @@ func RemoveDirAndFiles(path string) error {
 	return os.Mkdir(path, os.ModePerm)
 }
 
+// RemoveSingle removes a single resource from filesystem, file or directory
 func RemoveSingle(path string) error {
 	return os.Remove(path)
 }

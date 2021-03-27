@@ -31,11 +31,7 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.Info("project initialization finished!")
 
-	if err := CleanAllFiles(config); err != nil {
-		return err
-	}
-
-	return nil
+	return CleanAllFiles(config)
 }
 
 func getWorkDir() string {
