@@ -72,16 +72,3 @@ type CreateCmdConfig struct {
 	ProjectPath       string
 	AuthModule				bool
 }
-
-// Lorsque l'on appelle la CLI, il faut déterminer si on est dans un projet ou non
-// être dans un projet = avoir un fichier de config dans le workdir
-
-// Lorsque l'on utilise le go-cli create, il faut sauvegarder les choix de l'utilisateur dans la config du projet
-
-// Voir comment gérer plusieurs fichiers de config avec viper
-
-// Ainsi quand on va par exemple vouloir utiliser go-cli install auth-module, on pourra modifier la config du projet 
-// pour que les prochaines générations de templates ne suppriment pas certains fichiers
-
-// Les commandes n'ont pas toutes besoin du même contexte, en effet seule la commande de création a besoin du git username etc..
-// En revanche ces éléments (project name, dbms...) peuvent être stockés dans la config du nouveau projet
