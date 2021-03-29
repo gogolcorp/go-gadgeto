@@ -9,6 +9,7 @@ import (
 	"github.com/edwinvautier/go-cli/services"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 // InitProject creates the directory for a new project and all needed structure depending on the config given
@@ -25,6 +26,8 @@ func InitProject(config *config.CreateCmdConfig) error {
 		return err
 	}
 	log.Info("git initialized")
+
+	createProjectConfig(workingDirectory + "/" + config.AppName, config)
 
 	if err := generateTemplates(*config); err != nil {
 		return err
@@ -57,4 +60,28 @@ func createProjectDir(path string) error {
 	}
 
 	return errors.New("Couldn't create project directory")
+}
+
+func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
+	_, err := os.Create(workdir + "/.go-cli-config.yaml")
+	if err != nil {
+		log.Error("Couldn't create project config : ", err)
+	}
+
+	viper.AddConfigPath(workdir)
+	viper.SetConfigName(".go-cli-config")
+
+	// Set config defaults
+	viper.Set("package", config.GoPackageFullPath)
+	viper.Set("database", config.DBMS);
+	viper.Set("use_docker", config.UseDocker);
+	viper.SetDefault("modules.auth-module", false);
+
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		log.Info("Using config file : ", viper.ConfigFileUsed())
+	}
+	viper.WriteConfig()
 }
