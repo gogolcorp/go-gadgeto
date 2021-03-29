@@ -20,7 +20,7 @@ var Db *gorm.DB
 type Config struct {
 	User     string `env:"DB_USER"`
 	Password string `env:"DB_PASSWORD"`
-	Port     int    `env:"DB_PORT" envDefault:"5432"`
+	Port     int64    `env:"DB_PORT" envDefault:"5432"`
 	Host     string `env:"DB_HOST"`
 	Name     string `env:"DB_NAME"`
 }

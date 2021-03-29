@@ -5,11 +5,12 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"strconv"
 
 	"time"
 
-	"github.com/caarlos0/env"
 	"{{.GoPackageFullPath}}/shared/database"
+	"{{.GoPackageFullPath}}/shared/env"
 	"{{.GoPackageFullPath}}/shared/helpers"
 	"{{.GoPackageFullPath}}/api/routes"
 	"github.com/gin-gonic/gin"
@@ -21,10 +22,11 @@ func main() {
 
 	// Connect to database and execute migrations
 	cfg := database.Config{}
-	if err := env.Parse(&cfg); err != nil {
-		log.Fatal(err)
-	}
-
+	cfg.User = env.GoDotEnvVariable("DB_USER")
+	cfg.Password = env.GoDotEnvVariable("DB_PASSWORD")
+	cfg.Port, _ = strconv.ParseInt(env.GoDotEnvVariable("DB_PORT"), 10, 0)
+	cfg.Name = env.GoDotEnvVariable("DB_NAME")
+	cfg.Host = env.GoDotEnvVariable("DB_HOST")
 	err := database.Init(cfg)
 	helpers.DieOnError("database connection failed", err)
 	database.Migrate()
