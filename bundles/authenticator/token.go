@@ -10,8 +10,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type Authenticator struct {}
-
 // Rsa is the struct to get the rsa keys used to generate and verify tokens from the environment variables
 type Rsa struct {
 	PublicKeyPath  string

@@ -14,3 +14,6 @@ type Claim struct {
 	Email string
 	jwt.StandardClaims
 }
+
+// Authenticator is the struct for the authenticator bundle
+type Authenticator struct {}
