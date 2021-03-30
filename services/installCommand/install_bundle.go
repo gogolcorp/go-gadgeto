@@ -15,8 +15,10 @@ func InstallBundle(name string) error {
 		return errors.New(name + " bundle does not exist")
 	}
 
-	// load config
-	loadConfig(name)
+	// load & update config
+	if err := updateConfig(name); err != nil {
+		return err
+	}
 
 	// if it exists, execute the shell script it contains
 
@@ -39,8 +41,12 @@ func bundleExists(name string) bool {
 	return false
 }
 
-func loadConfig(name string) {
-	workdir, _ := os.Getwd()
+func updateConfig(name string) error {
+	workdir, err := os.Getwd()
+
+	if err != nil {
+		return err
+	}
 
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")
@@ -48,6 +54,9 @@ func loadConfig(name string) {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		log.Info("Using config file : ", viper.ConfigFileUsed())
+		viper.WriteConfig()
+		return nil
 	}
-	viper.WriteConfig()
+	
+	return err
 }

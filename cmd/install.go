@@ -18,6 +18,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 	"github.com/edwinvautier/go-cli/services/installCommand"
+	log "github.com/sirupsen/logrus"
 )
 
 // installCmd represents the install command
@@ -27,7 +28,9 @@ var installCmd = &cobra.Command{
 	Long: `A command that install bundles from edwinvautier/go-cli/bundles`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, bundleName := range args {
-			installCommand.InstallBundle(bundleName)
+			if err := installCommand.InstallBundle(bundleName); err != nil {
+				log.Error(err)
+			}
 		}
 	},
 }
