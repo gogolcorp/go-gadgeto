@@ -34,3 +34,19 @@ go-cli create my-app-name
 The CLI will eventually ask you your **git username**, the **DB management system** you'd like to use and if you want to **dockerize** the application or not.
 
 ![run go-cli in shell](assets/go-cli-create.gif)
+
+## Release Action
+
+> File: `.github/workflows/release.yml`
+
+Used to create a new release with 2 inputs:
+- branch
+- release tag
+
+The used GitHub Action works with 2 steps:
+- go build + go test
+- generate release with :
+  - release name
+  - tag name
+  - body containing changelogs
+
