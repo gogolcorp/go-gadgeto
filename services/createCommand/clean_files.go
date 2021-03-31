@@ -13,13 +13,7 @@ func CleanAllFiles(config *config.CreateCmdConfig) error {
 			log.Error("Could'nt remove docker files", err)
 		}
 	}
-
-	if (!config.AuthModule) {
-		if err := removeAuthenticationFiles(config); err != nil {
-			log.Error("Couldn't remove authentication module files", err)
-		}
-	}
-
+	
 	return nil
 }
 
