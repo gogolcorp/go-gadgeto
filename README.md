@@ -48,7 +48,7 @@ The used GitHub Action works with 2 steps:
 
 - go build + go test
 - generate release with :
-- 
+
   - release name
   - tag name
   - body containing changelogs
