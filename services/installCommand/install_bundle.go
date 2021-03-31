@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -25,6 +26,9 @@ func InstallBundle(name string) error {
 	}
 
 	// execute templates
+	if err := executeTemplates(box, name); err != nil {
+		return err
+	}
 	
 	// if it exists, execute the shell script it contains
 	if err := executeInstallScript(box, name); err != nil {
@@ -51,7 +55,7 @@ func executeInstallScript(box *packr.Box, name string) error {
 		return err
 	}
 
-	return nil
+	return filesystem.RemoveSingle(workdir + "/install.sh")
 }
 
 func bundleExists(name string, box *packr.Box) bool {
@@ -85,4 +89,9 @@ func updateConfig(name string) error {
 	}
 	
 	return err
+}
+
+func executeTemplates(box *packr.Box, name string) error {
+	
+	return nil
 }
