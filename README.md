@@ -36,3 +36,18 @@ go-cli create my-app-name
 The CLI will eventually ask you your **git username**, the **DB management system** you'd like to use and if you want to **dockerize** the application or not.
 
 ![run go-cli in shell](assets/go-cli-create.gif)
+
+## Install a bundle
+
+You can install bundles by using the install command of the CLI.
+This command will look for a bundle located inside the bundles folder of the repository and install it.
+
+### Bundle API
+
+Each bundle should have the following elements :
+
+- `templates` folder
+- `install.sh` script
+- `README.md` file to explain how bundle works and how to use it
+
+The templates part must follow the same filetree as the project that is created.
