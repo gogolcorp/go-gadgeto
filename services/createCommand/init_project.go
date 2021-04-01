@@ -27,7 +27,7 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.Info("git initialized")
 
-	createProjectConfig(workingDirectory + "/" + config.AppName, config)
+	createProjectConfig(workingDirectory+"/"+config.AppName, config)
 
 	if err := generateTemplates(*config); err != nil {
 		return err
@@ -73,9 +73,9 @@ func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
 
 	// Set config defaults
 	viper.Set("package", config.GoPackageFullPath)
-	viper.Set("database", config.DBMS);
-	viper.Set("use_docker", config.UseDocker);
-	viper.SetDefault("modules.auth-module", false);
+	viper.Set("database", config.DBMS)
+	viper.Set("use_docker", config.UseDocker)
+	viper.SetDefault("bundles.authenticator", false)
 
 	viper.AutomaticEnv() // read in environment variables that match
 

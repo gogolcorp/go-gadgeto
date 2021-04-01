@@ -8,15 +8,9 @@ import (
 
 // CleanAllFiles removed all files that are not necessary as the user chose in the config
 func CleanAllFiles(config *config.CreateCmdConfig) error {
-	if (!config.UseDocker) {
+	if !config.UseDocker {
 		if err := removeDockerFiles(config); err != nil {
 			log.Error("Could'nt remove docker files", err)
-		}
-	}
-
-	if (!config.AuthModule) {
-		if err := removeAuthenticationFiles(config); err != nil {
-			log.Error("Couldn't remove authentication module files", err)
 		}
 	}
 
@@ -28,7 +22,7 @@ func removeDockerFiles(config *config.CreateCmdConfig) error {
 	if err := filesystem.RemoveDirAndFiles(config.ProjectPath + "/docker"); err != nil {
 		return err
 	}
-	
+
 	if err := filesystem.RemoveSingle(config.ProjectPath + "/docker"); err != nil {
 		return err
 	}
