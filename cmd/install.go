@@ -16,16 +16,16 @@ limitations under the License.
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/edwinvautier/go-cli/services/installCommand"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/cobra"
 )
 
 // installCmd represents the install command
 var installCmd = &cobra.Command{
 	Use:   "install",
 	Short: "Install bundles to your app",
-	Long: `A command that install bundles from edwinvautier/go-cli/bundles`,
+	Long:  `A command that install bundles from edwinvautier/go-cli/bundles`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, bundleName := range args {
 			if err := installCommand.InstallBundle(bundleName); err != nil {

@@ -8,12 +8,12 @@ import (
 	"github.com/gobuffalo/packr/v2"
 )
 
-func InstallBundle(name string) error {	
+func InstallBundle(name string) error {
 	var installCmdConfig config.InstallCmdConfig
 	config.InitInstallCmdConfig(&installCmdConfig)
 	box := packr.New("Bundles", "../../bundles")
 
-	if(!bundleExists(name, box)) {
+	if !bundleExists(name, box) {
 		return errors.New(name + " bundle does not exist")
 	}
 
@@ -21,12 +21,12 @@ func InstallBundle(name string) error {
 	if err := executeTemplates(name, installCmdConfig); err != nil {
 		return err
 	}
-	
+
 	// if it exists, execute the shell script it contains
 	if err := executeInstallScript(box, name); err != nil {
 		return err
 	}
-	
+
 	// load & update config
 	if err := config.UpdateConfigAfterInstalling(name); err != nil {
 		return err
@@ -37,7 +37,7 @@ func InstallBundle(name string) error {
 
 func bundleExists(name string, box *packr.Box) bool {
 	files := box.List()
-	
+
 	for _, file := range files {
 		bundleName := strings.Split(file, "/")[0]
 		if bundleName == name {
@@ -47,4 +47,3 @@ func bundleExists(name string, box *packr.Box) bool {
 
 	return false
 }
-

@@ -11,11 +11,9 @@ import (
 	"text/template"
 )
 
-
-
 func executeTemplates(name string, installCmdConfig config.InstallCmdConfig) error {
-	box := packr.New("templates", "../../bundles/" + name + "/templates")
-	
+	box := packr.New("templates", "../../bundles/"+name+"/templates")
+
 	box.Walk(func(path string, f packd.File) error {
 		fInfo, _ := f.FileInfo()
 		fileParts := helpers.GetFilePartsFromName(fInfo.Name())

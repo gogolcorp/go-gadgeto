@@ -3,6 +3,7 @@ package authenticator
 import (
 	"github.com/dgrijalva/jwt-go"
 )
+
 type authenticatorInterface interface {
 	GenerateToken(string) (error, string)
 	DecodeToken(string)
@@ -16,7 +17,7 @@ type Claim struct {
 }
 
 // Authenticator is the struct for the authenticator bundle
-type Authenticator struct {}
+type Authenticator struct{}
 
 // New returns a new authenticator value
 func New() Authenticator {

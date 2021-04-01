@@ -70,5 +70,5 @@ type CreateCmdConfig struct {
 	Args              []string
 	Box               *packr.Box
 	ProjectPath       string
-	AuthModule				bool
+	AuthModule        bool
 }
