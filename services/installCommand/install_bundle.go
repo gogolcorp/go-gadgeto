@@ -8,6 +8,7 @@ import (
 	"github.com/gobuffalo/packr/v2"
 )
 
+// InstallBundle install bundle from its name
 func InstallBundle(name string) error {
 	var installCmdConfig config.InstallCmdConfig
 	config.InitInstallCmdConfig(&installCmdConfig)
@@ -28,11 +29,7 @@ func InstallBundle(name string) error {
 	}
 
 	// load & update config
-	if err := config.UpdateConfigAfterInstalling(name); err != nil {
-		return err
-	}
-
-	return nil
+	return config.UpdateConfigAfterInstalling(name)
 }
 
 func bundleExists(name string, box *packr.Box) bool {

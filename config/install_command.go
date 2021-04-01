@@ -44,6 +44,7 @@ func UpdateConfigAfterInstalling(name string) error {
 	return err
 }
 
+// InstallCmdConfig is the struct for the templates config of install command
 type InstallCmdConfig struct {
 	GoPackageFullPath string
 }
