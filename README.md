@@ -5,10 +5,11 @@
 [![CodeQL](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![version](https://img.shields.io/badge/version-0.0.3-red)
+[![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-cli.svg)](https://pkg.go.dev/github.com/edwinvautier/go-cli)
 
 A CLI to initialize and work on go projects, mainly designed for API's.
 
-## Install
+## Install CLI
 
 >💡 You need to have go installed correctly on your machine.
 
@@ -36,20 +37,17 @@ The CLI will eventually ask you your **git username**, the **DB management syste
 
 ![run go-cli in shell](assets/go-cli-create.gif)
 
-## Release Action
+## Install a bundle
 
-> File: `.github/workflows/release.yml`
+You can install bundles by using the install command of the CLI.
+This command will look for a bundle located inside the bundles folder of the repository and install it.
 
-Used to create a new release with 2 inputs:
+### Bundle API
 
-- branch
-- release tag
+Each bundle should have the following elements :
 
-The used GitHub Action works with 2 steps:
+- `templates` folder
+- `install.sh` script
+- `README.md` file to explain how bundle works and how to use it
 
-- go build + go test
-- generate release with :
-
-  - release name
-  - tag name
-  - body containing changelogs
+The templates part must follow the same filetree as the project that is created.
