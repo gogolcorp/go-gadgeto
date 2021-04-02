@@ -1,61 +1,30 @@
-name: Create Release
+name: goreleaser
 
 on:
-  # triggered manually by user action
-  workflow_dispatch:
-    inputs:
-      # the release tag using SemVer
-      tag:
-        description: "The release tag"
-        required: true
-        default: "0.0.0"
-
-
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  
 jobs:
-  go-build:
-    # build and test go app before create release
-    name: I - GO BUILD
+  goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - name: 1 - CHECKOUT
+      -
+        name: Checkout
         uses: actions/checkout@v2
-
-      - name: 2 - GO SETUP
+        with:
+          fetch-depth: 0
+      -
+        name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
-
-      - name: 3 - GO BUILD
-        run: go build -v ./...
-
-      - name: 4 - GO TEST
-        run: go test -v ./...
-
-  create-release:
-    # create release using tree changelog
-    name: II - RELEASE
-    needs: [ go-build ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: 1 - CHECKOUT
-        uses: actions/checkout@v2
-        
-      - name: 2 - CHANGELOG
-        id: changelog_id
-        uses: mikepenz/release-changelog-builder-action@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 3 - RELEASE
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+          go-version: 1.16
+      -
+        name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
         with:
-          tag_name: ${{ github.event.inputs.tag  }}
-          release_name: v${{ github.event.inputs.tag  }}
-          body: |
-            ${{ steps.changelog_id.outputs.changelog }}
-          draft: false
-          prerelease: false
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
