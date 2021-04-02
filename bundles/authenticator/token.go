@@ -18,6 +18,12 @@ type Rsa struct {
 	PrivateKey     interface{}
 }
 
+// Claim is the struct for the jwt claim
+type Claim struct {
+	Email string
+	jwt.StandardClaims
+}
+
 var rsa Rsa
 
 func initRsaKeys() error {
@@ -58,7 +64,7 @@ func initRsaKeys() error {
 }
 
 // GenerateToken creates a JWT with email and expiration time in the payload
-func (auth Authenticator) GenerateToken(email string) (string, error) {
+func GenerateToken(email string) (string, error) {
 	err := initRsaKeys()
 	if err != nil {
 		return "", errors.New("Couldn't init rsa keys")
@@ -88,7 +94,7 @@ func (auth Authenticator) GenerateToken(email string) (string, error) {
 }
 
 // DecodeToken decode and validates a token
-func (auth Authenticator) DecodeToken(tokenString string) (*jwt.Token, *Claim, error) {
+func DecodeToken(tokenString string) (*jwt.Token, *Claim, error) {
 	err := initRsaKeys()
 	if err != nil {
 		return nil, &Claim{}, errors.New("Couldn't init rsa keys")

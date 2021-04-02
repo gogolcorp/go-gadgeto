@@ -6,7 +6,7 @@ import (
 )
 
 // HashPassword takes a string in parameter and returns the same string hashed with sha512
-func (auth Authenticator) HashPassword(password string) string {
+func HashPassword(password string) string {
 	h := sha512.New()
 	h.Write([]byte(password))
 	bytesHash := h.Sum(nil)
