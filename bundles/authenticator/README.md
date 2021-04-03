@@ -27,7 +27,7 @@ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 
 > 💡 You need to use the same password for both commands, this password is the one you set as **RSA_PASSWORD**
 
-By default if you put your public.pem and private.pem in project root, then the path to them should be `../public.pem`.
+By default if you put your public.pem and private.pem in project root, then the path to them should be `public.pem`.
 
 ## Available methods
 
