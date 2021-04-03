@@ -46,14 +46,14 @@ You can use it inside the `api/routes/router.go` file :
 
 ```go
 func Init(r *gin.Engine) {
-	r.POST("/register", controllers.CreateCustomer)
+  r.POST("/register", controllers.CreateCustomer)
   r.POST("/login", controllers.Login)
 
-	api := r.Group("/api")
-	api.Use(middlewares.CheckAuthorization)
-	{
-		api.GET("/", controllers.TestController)
-	}
+  api := r.Group("/api")
+  api.Use(middlewares.CheckAuthorization)
+  {
+    api.GET("/", controllers.TestController)
+  }
 }
 ```
 
