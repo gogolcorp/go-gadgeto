@@ -7,7 +7,7 @@ import (
 	"{{.GoPackageFullPath}}/shared/env"
 	"{{.GoPackageFullPath}}/api/models"
 	"{{.GoPackageFullPath}}/api/repositories"
-	"{{.GoPackageFullPath}}/shared/services"
+	"github.com/edwinvautier/go-cli/bundles/authenticator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,14 +29,14 @@ func Login(c *gin.Context) {
 	}
 
 	// Verify password
-	hashedPwd := services.HashPassword(customerForm.Password)
+	hashedPwd := authenticator.HashPassword(customerForm.Password)
 	if hashedPwd != customer.HashedPassword {
 		c.JSON(http.StatusUnauthorized, "incorrect email or password.")
 		return
 	}
 
 	// Generate connection token
-	token, err := services.GenerateToken(customer.Email)
+	token, err := authenticator.GenerateToken(customer.Email)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "Couldn't create your authorization")
 		return

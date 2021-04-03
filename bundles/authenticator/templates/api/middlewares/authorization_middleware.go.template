@@ -7,7 +7,7 @@ import (
 	"{{.GoPackageFullPath}}/api/models"
 	"{{.GoPackageFullPath}}/api/repositories"
 
-	"{{.GoPackageFullPath}}/shared/services"
+	"github.com/edwinvautier/go-cli/bundles/authenticator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,7 +23,7 @@ func CheckAuthorization(c *gin.Context) {
 	token := strings.TrimPrefix(bearer, "Bearer ")
 
 	// validate and decode token to get its informations
-	_, claims, err := services.DecodeToken(token)
+	_, claims, err := authenticator.DecodeToken(token)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "Unauthorized")
 		return

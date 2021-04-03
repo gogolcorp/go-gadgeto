@@ -19,7 +19,6 @@ func TestValidateCustomer(t *testing.T) {
 			args: args{
 				&models.CustomerForm{
 					Name:     "",
-					Password: "tesT12345",
 					Email:    "bob@gmail.com",
 				},
 			},
@@ -30,19 +29,7 @@ func TestValidateCustomer(t *testing.T) {
 			args: args{
 				&models.CustomerForm{
 					Name:     "Bob",
-					Password: "tesT12345",
 					Email:    "bobgmail.com",
-				},
-			},
-			wantErr: true,
-		},
-		{
-			name: "wrong password",
-			args: args{
-				&models.CustomerForm{
-					Name:     "Bob",
-					Password: "test",
-					Email:    "bob@gmail.com",
 				},
 			},
 			wantErr: true,
@@ -52,7 +39,6 @@ func TestValidateCustomer(t *testing.T) {
 			args: args{
 				&models.CustomerForm{
 					Name:     "Bob",
-					Password: "tesT12345",
 					Email:    "bob@gmail.com",
 				},
 			},
