@@ -1,0 +1,37 @@
+package models
+
+import (
+	"errors"
+	"github.com/asaskevich/govalidator"{{if .HasDate}}
+	"time"{{end}}{{if .HasCustomTypes}}
+	"{{.GoPackageFullPath}}/api/models"{{end}}
+)
+
+// {{.EntityNamePascalCase}} is our struct for users
+type {{.EntityNamePascalCase}} struct {
+	ID             uint64 `gorm:"primary_key"`
+	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+	{{end}}
+}
+
+// {{.EntityNamePascalCase}}Form is our struct to handle new users requests
+type {{.EntityNamePascalCase}}Form struct {
+	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+	{{end}}
+}
+
+// {{.EntityNamePascalCase}}JSON is the struct to return {{.EntityNameLowerCase}} in json
+type {{.EntityNamePascalCase}}JSON struct {
+	ID          uint64
+	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+	{{end}}
+}
+
+// Validate{{.EntityNamePascalCase}} takes a {{.EntityNameLowerCase}} form as parameter and check if its properties are valid
+func Validate{{.EntityNamePascalCase}}({{.EntityNameLowerCase}} *{{.EntityNamePascalCase}}Form) error {
+	_, err := govalidator.ValidateStruct({{.EntityNameLowerCase}})
+	
+  return err
+}
+
+

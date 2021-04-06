@@ -1,0 +1,64 @@
+package repositories
+
+import (
+  "{{.GoPackageFullPath}}/shared/database"
+  "{{.GoPackageFullPath}}/api/models"
+)
+
+func Create{{.EntityNamePascalCase}}({{.EntityNameLowerCase}} *models.{{.EntityNamePascalCase}}) (*models.{{.EntityNamePascalCase}}, error) {
+	var err error
+	
+	err = database.Db.Debug().Create({{.EntityNameLowerCase}}).Error
+	if err != nil {
+		return &models.{{.EntityNamePascalCase}}{}, err
+	}
+
+	return {{.EntityNameLowerCase}}, nil
+}
+
+func Edit{{.EntityNamePascalCase}}ByID({{.EntityNameLowerCase}} *models.{{.EntityNamePascalCase}}, id uint64) error {
+	var err error
+	var old models.{{.EntityNamePascalCase}}
+	err = database.Db.Debug().Where("id = ?", id).First(&old).Error
+	if gorm.IsRecordNotFoundError(err) {
+		return errors.New("{{.EntityNameLowerCase}} Not Found")
+	}
+	{{.EntityNameLowerCase}}.ID = id
+
+	err = database.Db.Debug().Save(&{{.EntityNameLowerCase}}).Error
+	if err != nil {
+		return errors.New("Could'nt update {{.EntityNameLowerCase}}")
+	}
+
+	return nil
+}
+
+func Delete{{.EntityNamePascalCase}}ByID(id uint64) (models.{{.EntityNamePascalCase}}, error) {
+
+	var err error
+	var {{.EntityNameLowerCase}} models.{{.EntityNamePascalCase}}
+
+	err = database.Db.Debug().Delete(&{{.EntityNameLowerCase}}, id).Error
+	if err != nil {
+		return models.{{.EntityNamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return models.{{.EntityNamePascalCase}}{}, errors.New("{{.EntityNameLowerCase}} Not Found")
+	}
+
+	return {{.EntityNameLowerCase}}, err
+}
+
+func Find{{.EntityNamePascalCase}}ByID(id uint64) (*models.{{.EntityNamePascalCase}}, error) {
+	var err error
+	var {{.EntityNameLowerCase}} models.{{.EntityNamePascalCase}}
+	err = database.Db.Debug().Model({models.{.EntityNamePascalCase}}{}).Where("id = ?", id).Take(&{{.EntityNameLowerCase}}).Error
+	if err != nil {
+		return &models.{{.EntityNamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return &models.{{.EntityNamePascalCase}}{}, errors.New("{{.EntityNameLowerCase}} Not Found")
+	}
+
+	return &{{.EntityNameLowerCase}}, err
+}
