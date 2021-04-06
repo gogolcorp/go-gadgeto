@@ -1,0 +1,5 @@
+.DS_Store
+.env
+{{if .AuthModule}}public.pem
+private.pem{{end}}
+{{if .UseDocker}}tmp{{end}}
