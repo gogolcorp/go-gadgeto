@@ -28,7 +28,7 @@ func InitMakeCmdConfig(config *MakeCmdConfig) error {
 }
 
 // AddModelToConfig set the new bundle to true in config after install
-func AddModelToConfig(name string) error {
+func AddModelToConfig(entity NewEntity) error {
 	workdir, err := os.Getwd()
 	if err != nil {
 		return err
@@ -42,8 +42,8 @@ func AddModelToConfig(name string) error {
 		return err
 	}
 
-	models := viper.GetStringSlice("models")
-	models = append(models, name)
+	models := viper.Get("models").([]NewEntity)
+	models = append(models, entity)
 	log.Info("Using config file : ", viper.ConfigFileUsed())
 	viper.WriteConfig()
 
@@ -52,17 +52,21 @@ func AddModelToConfig(name string) error {
 
 // InstallCmdConfig is the struct used to configure make command
 type MakeCmdConfig struct {
-	GoPackageFullPath 		string
-	Box 									*packr.Box
-
-	EntityNamePascalCase 	string
-	EntityNameLowerCase		string
-	HasCustomTypes 				bool
-	HasDate 							bool
-	Fields								EntityField
+	GoPackageFullPath string
+	Box 							*packr.Box
+	Entity						NewEntity
 }
 
 type EntityField struct {
 	Type string
 	Name string
+}
+
+type NewEntity struct {
+	Name 									string
+	NamePascalCase 	string
+	NameLowerCase 	string
+	HasDate 							bool
+	HasCustomTypes				bool
+	Fields								[]EntityField
 }

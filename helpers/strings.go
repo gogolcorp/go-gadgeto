@@ -11,11 +11,16 @@ func JoinString(str string) string {
 }
 
 // GetFilePartsFromName tries to get path and name from the file name, also try to find desired extension
-func GetFilePartsFromName(name string) FileParts {
+func GetFilePartsFromName(name string, outputName string) FileParts {
 	var fileParts FileParts
 
 	slices := strings.Split(name, "/")
-	fileParts.Name = slices[len(slices)-1]
+	if outputName != "" {
+		fileParts.Name = slices[len(slices)-1]
+	} else {
+		fileParts.Name = outputName + ".template"
+	}
+	
 	fileParts.Path = strings.Join(slices[:len(slices)-1], "/") + "/"
 
 	slices = strings.Split(fileParts.Name, ".")

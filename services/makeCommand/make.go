@@ -11,6 +11,6 @@ func MakeEntity(entityName string) error {
 	if err := executeTemplates(makeCmdConfig); err != nil {
 		return err
 	}
-	
-	return nil
+
+	return config.AddModelToConfig(makeCmdConfig.Entity)
 }

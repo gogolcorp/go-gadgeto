@@ -5,60 +5,60 @@ import (
   "{{.GoPackageFullPath}}/api/models"
 )
 
-func Create{{.EntityNamePascalCase}}({{.EntityNameLowerCase}} *models.{{.EntityNamePascalCase}}) (*models.{{.EntityNamePascalCase}}, error) {
+func Create{{.Entity.NamePascalCase}}({{.Entity.NameLowerCase}} *models.{{.Entity.NamePascalCase}}) (*models.{{.Entity.NamePascalCase}}, error) {
 	var err error
 	
-	err = database.Db.Debug().Create({{.EntityNameLowerCase}}).Error
+	err = database.Db.Debug().Create({{.Entity.NameLowerCase}}).Error
 	if err != nil {
-		return &models.{{.EntityNamePascalCase}}{}, err
+		return &models.{{.Entity.NamePascalCase}}{}, err
 	}
 
-	return {{.EntityNameLowerCase}}, nil
+	return {{.Entity.NameLowerCase}}, nil
 }
 
-func Edit{{.EntityNamePascalCase}}ByID({{.EntityNameLowerCase}} *models.{{.EntityNamePascalCase}}, id uint64) error {
+func Edit{{.Entity.NamePascalCase}}ByID({{.Entity.NameLowerCase}} *models.{{.Entity.NamePascalCase}}, id uint64) error {
 	var err error
-	var old models.{{.EntityNamePascalCase}}
+	var old models.{{.Entity.NamePascalCase}}
 	err = database.Db.Debug().Where("id = ?", id).First(&old).Error
 	if gorm.IsRecordNotFoundError(err) {
-		return errors.New("{{.EntityNameLowerCase}} Not Found")
+		return errors.New("{{.Entity.NameLowerCase}} Not Found")
 	}
-	{{.EntityNameLowerCase}}.ID = id
+	{{.Entity.NameLowerCase}}.ID = id
 
-	err = database.Db.Debug().Save(&{{.EntityNameLowerCase}}).Error
+	err = database.Db.Debug().Save(&{{.Entity.NameLowerCase}}).Error
 	if err != nil {
-		return errors.New("Could'nt update {{.EntityNameLowerCase}}")
+		return errors.New("Could'nt update {{.Entity.NameLowerCase}}")
 	}
 
 	return nil
 }
 
-func Delete{{.EntityNamePascalCase}}ByID(id uint64) (models.{{.EntityNamePascalCase}}, error) {
+func Delete{{.Entity.NamePascalCase}}ByID(id uint64) (models.{{.Entity.NamePascalCase}}, error) {
 
 	var err error
-	var {{.EntityNameLowerCase}} models.{{.EntityNamePascalCase}}
+	var {{.Entity.NameLowerCase}} models.{{.Entity.NamePascalCase}}
 
-	err = database.Db.Debug().Delete(&{{.EntityNameLowerCase}}, id).Error
+	err = database.Db.Debug().Delete(&{{.Entity.NameLowerCase}}, id).Error
 	if err != nil {
-		return models.{{.EntityNamePascalCase}}{}, err
+		return models.{{.Entity.NamePascalCase}}{}, err
 	}
 	if gorm.IsRecordNotFoundError(err) {
-		return models.{{.EntityNamePascalCase}}{}, errors.New("{{.EntityNameLowerCase}} Not Found")
+		return models.{{.Entity.NamePascalCase}}{}, errors.New("{{.Entity.NameLowerCase}} Not Found")
 	}
 
-	return {{.EntityNameLowerCase}}, err
+	return {{.Entity.NameLowerCase}}, err
 }
 
-func Find{{.EntityNamePascalCase}}ByID(id uint64) (*models.{{.EntityNamePascalCase}}, error) {
+func Find{{.Entity.NamePascalCase}}ByID(id uint64) (*models.{{.Entity.NamePascalCase}}, error) {
 	var err error
-	var {{.EntityNameLowerCase}} models.{{.EntityNamePascalCase}}
-	err = database.Db.Debug().Model({models.{.EntityNamePascalCase}}{}).Where("id = ?", id).Take(&{{.EntityNameLowerCase}}).Error
+	var {{.Entity.NameLowerCase}} models.{{.Entity.NamePascalCase}}
+	err = database.Db.Debug().Model({models.{.Entity.NamePascalCase}}{}).Where("id = ?", id).Take(&{{.Entity.NameLowerCase}}).Error
 	if err != nil {
-		return &models.{{.EntityNamePascalCase}}{}, err
+		return &models.{{.Entity.NamePascalCase}}{}, err
 	}
 	if gorm.IsRecordNotFoundError(err) {
-		return &models.{{.EntityNamePascalCase}}{}, errors.New("{{.EntityNameLowerCase}} Not Found")
+		return &models.{{.Entity.NamePascalCase}}{}, errors.New("{{.Entity.NameLowerCase}} Not Found")
 	}
 
-	return &{{.EntityNameLowerCase}}, err
+	return &{{.Entity.NameLowerCase}}, err
 }

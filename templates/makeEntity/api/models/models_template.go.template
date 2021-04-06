@@ -2,34 +2,34 @@ package models
 
 import (
 	"errors"
-	"github.com/asaskevich/govalidator"{{if .HasDate}}
-	"time"{{end}}{{if .HasCustomTypes}}
+	"github.com/asaskevich/govalidator"{{if .Entity.HasDate}}
+	"time"{{end}}{{if .Entity.HasCustomTypes}}
 	"{{.GoPackageFullPath}}/api/models"{{end}}
 )
 
-// {{.EntityNamePascalCase}} is our struct for users
-type {{.EntityNamePascalCase}} struct {
+// {{.Entity.NamePascalCase}} is our struct for users
+type {{.Entity.NamePascalCase}} struct {
 	ID             uint64 `gorm:"primary_key"`
-	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+	{{range .Entity.Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
 	{{end}}
 }
 
-// {{.EntityNamePascalCase}}Form is our struct to handle new users requests
-type {{.EntityNamePascalCase}}Form struct {
-	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+// {{.Entity.NamePascalCase}}Form is our struct to handle new users requests
+type {{.Entity.NamePascalCase}}Form struct {
+	{{range .Entity.Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
 	{{end}}
 }
 
-// {{.EntityNamePascalCase}}JSON is the struct to return {{.EntityNameLowerCase}} in json
-type {{.EntityNamePascalCase}}JSON struct {
+// {{.Entity.NamePascalCase}}JSON is the struct to return {{.Entity.NameLowerCase}} in json
+type {{.Entity.NamePascalCase}}JSON struct {
 	ID          uint64
-	{{range .Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
+	{{range .Entity.Fields}}{{.Name}}	{{if (eq .Type "date")}}time.Time{{else}}{{if eq .Type "slice"}}[]{{.SliceType}}{{else}}{{.Type}}{{end}}{{end}}
 	{{end}}
 }
 
-// Validate{{.EntityNamePascalCase}} takes a {{.EntityNameLowerCase}} form as parameter and check if its properties are valid
-func Validate{{.EntityNamePascalCase}}({{.EntityNameLowerCase}} *{{.EntityNamePascalCase}}Form) error {
-	_, err := govalidator.ValidateStruct({{.EntityNameLowerCase}})
+// Validate{{.Entity.NamePascalCase}} takes a {{.Entity.NameLowerCase}} form as parameter and check if its properties are valid
+func Validate{{.Entity.NamePascalCase}}({{.Entity.NameLowerCase}} *{{.Entity.NamePascalCase}}Form) error {
+	_, err := govalidator.ValidateStruct({{.Entity.NameLowerCase}})
 	
   return err
 }
