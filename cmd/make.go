@@ -31,7 +31,9 @@ var makeCmd = &cobra.Command{
 		if !isAMakeCommand(args[0]) {
 			log.Fatal(args[0], " is not a make command!")
 		}
-		makeCommand.MakeEntity(args[1])
+		if err := makeCommand.MakeEntity(args[1]); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 
+	"github.com/edwinvautier/go-cli/prompt/entity"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -23,12 +24,11 @@ func InitMakeCmdConfig(config *MakeCmdConfig) error {
 
 	config.GoPackageFullPath = viper.GetString("package")
 	config.Box = packr.New("makeEntityBox", "../templates/makeEntity")
-	
-	return nil
+	return entity.PromptUserForEntityFields(&config.Entity)
 }
 
 // AddModelToConfig set the new bundle to true in config after install
-func AddModelToConfig(entity NewEntity) error {
+func AddModelToConfig(newEntity entity.NewEntity) error {
 	workdir, err := os.Getwd()
 	if err != nil {
 		return err
@@ -42,8 +42,8 @@ func AddModelToConfig(entity NewEntity) error {
 		return err
 	}
 
-	models := viper.Get("models").([]NewEntity)
-	models = append(models, entity)
+	models := viper.Get("models").([]entity.NewEntity)
+	models = append(models, newEntity)
 	log.Info("Using config file : ", viper.ConfigFileUsed())
 	viper.WriteConfig()
 
@@ -53,20 +53,6 @@ func AddModelToConfig(entity NewEntity) error {
 // InstallCmdConfig is the struct used to configure make command
 type MakeCmdConfig struct {
 	GoPackageFullPath string
-	Box 							*packr.Box
-	Entity						NewEntity
-}
-
-type EntityField struct {
-	Type string
-	Name string
-}
-
-type NewEntity struct {
-	Name 									string
-	NamePascalCase 	string
-	NameLowerCase 	string
-	HasDate 							bool
-	HasCustomTypes				bool
-	Fields								[]EntityField
+	Box 			*packr.Box
+	Entity		entity.NewEntity
 }

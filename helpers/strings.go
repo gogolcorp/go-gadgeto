@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"strings"
+	"unicode"
 )
 
 // JoinString takes a pointer to a string and modify this string in order to remove spaces
@@ -15,7 +16,7 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 	var fileParts FileParts
 
 	slices := strings.Split(name, "/")
-	if outputName != "" {
+	if outputName == "" {
 		fileParts.Name = slices[len(slices)-1]
 	} else {
 		fileParts.Name = outputName + ".template"
@@ -34,4 +35,11 @@ type FileParts struct {
 	Name       string
 	Path       string
 	OutputName string
+}
+
+// UpperCaseFirstChar returns the input string with first letter capitalized
+func UpperCaseFirstChar(word string) string {
+	a := []rune(word)
+	a[0] = unicode.ToUpper(a[0])
+	return string(a)
 }
