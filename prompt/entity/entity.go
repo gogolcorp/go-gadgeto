@@ -29,7 +29,7 @@ type NewEntity struct {
 
 // PromptUserForEntityFields prompts user in the CLI to choose entity fields wanted
 func PromptUserForEntityFields(entity *NewEntity) error{
-	for true {
+	for {
 		fieldName := ""
 		if err := promptForFieldName(&fieldName); err != nil {
 			return err
