@@ -127,9 +127,7 @@ func GetEntitiesList() []string {
 
 func choosedCustomType(cType string) bool{
 	entitiesList := GetEntitiesList()
-	log.Info(cType)
 	for _, entityName := range entitiesList {
-		log.Info(entityName)
         if entityName == cType {
             return true
         }
