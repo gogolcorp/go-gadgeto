@@ -16,17 +16,16 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 	var fileParts FileParts
 
 	slices := strings.Split(name, "/")
+	fileParts.Path = strings.Join(slices[:len(slices)-1], "/") + "/"
+	fileParts.Name = slices[len(slices)-1]
+	slices = strings.Split(fileParts.Name, ".")
+	
 	if outputName == "" {
-		fileParts.Name = slices[len(slices)-1]
+		fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
 	} else {
-		fileParts.Name = outputName + ".template"
+		fileParts.OutputName = outputName
 	}
 	
-	fileParts.Path = strings.Join(slices[:len(slices)-1], "/") + "/"
-
-	slices = strings.Split(fileParts.Name, ".")
-	fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
-
 	return fileParts
 }
 
@@ -42,4 +41,13 @@ func UpperCaseFirstChar(word string) string {
 	a := []rune(word)
 	a[0] = unicode.ToUpper(a[0])
 	return string(a)
+}
+
+// LowerCase returns input string lowercased
+func LowerCase(name string) string {
+	return strings.ToLower(name)
+}
+
+func PascalCase(name string) string {
+	return UpperCaseFirstChar(name)
 }

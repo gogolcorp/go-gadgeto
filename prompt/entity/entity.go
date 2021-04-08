@@ -7,6 +7,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -40,13 +41,16 @@ func PromptUserForEntityFields(entity *NewEntity) error{
 			break
 		}
 
+		var fieldType string
+		if err := promptForFieldType(&fieldType); err != nil {
+			logrus.Error("nul")
+			return err
+		}
+		
 		field := EntityField{
 			Name: helpers.UpperCaseFirstChar(fieldName),
+			Type: fieldType,
 			IsSlice: false,
-		}
-
-		if err := promptForFieldType(&field.Type); err != nil {
-			return err
 		}
 
 		if field.Type == "date" {
@@ -87,10 +91,10 @@ func promptForFieldName(fieldName *string) error {
 
 func promptForFieldType(fieldType *string) error {
 	typePrompt := &survey.Select{
-		Message: "Choose a type for " + *fieldType + ":",
+		Message: "Choose type :",
 		Options: GetTypeOptions(),
 	}
-	return survey.AskOne(typePrompt, &fieldType)
+	return survey.AskOne(typePrompt, fieldType)
 }
 
 // GetTypeOptions returns a list of strings for user prompt of data types when creating new models
