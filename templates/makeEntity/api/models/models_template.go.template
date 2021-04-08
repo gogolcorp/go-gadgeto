@@ -2,8 +2,7 @@ package models
 
 import (
 	"github.com/asaskevich/govalidator"{{if .Entity.HasDate}}
-	"time"{{end}}{{if .Entity.HasCustomTypes}}
-	"{{.GoPackageFullPath}}/api/models"{{end}}
+	"time"{{end}}
 )
 
 // {{.Entity.NamePascalCase}} is our struct for users

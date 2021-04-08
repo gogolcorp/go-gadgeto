@@ -66,13 +66,11 @@ func PromptUserForEntityFields(entity *NewEntity) error{
 
 			if choosedCustomType(field.SliceType) {
 				entity.HasCustomTypes = true
-				field.SliceType = "models." + field.SliceType
 			}
 		}
 
 		if choosedCustomType(field.Type) {
 			entity.HasCustomTypes = true
-			field.Type = "models." + field.Type
 		}
 		
 		entity.Fields = append(entity.Fields, field)
@@ -100,7 +98,7 @@ func promptForFieldType(fieldType *string) error {
 // GetTypeOptions returns a list of strings for user prompt of data types when creating new models
 func GetTypeOptions() []string {
 	entitiesList := GetEntitiesList()
-	options := []string{"string", "boolean", "int", "float", "date", "slice"}
+	options := []string{"string", "boolean", "int", "uint", "float32", "float64", "date", "slice"}
 	for _, entity := range entitiesList {
 		options = append(options, entity)
 	}
@@ -120,7 +118,8 @@ func GetEntitiesList() []string {
 	}
 	entities := make([]string, 0)
 	for _, file := range files {
-		entities = append(entities, strings.Split(file.Name(), "Struct.go")[0])
+		name := helpers.UpperCaseFirstChar(strings.Split(file.Name(), ".go")[0])
+		entities = append(entities, name)
 	}
 
 	return entities
