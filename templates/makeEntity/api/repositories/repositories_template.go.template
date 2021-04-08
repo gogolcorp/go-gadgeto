@@ -3,6 +3,8 @@ package repositories
 import (
   "{{.GoPackageFullPath}}/shared/database"
   "{{.GoPackageFullPath}}/api/models"
+	"errors"
+	"github.com/jinzhu/gorm"
 )
 
 func Create{{.Entity.NamePascalCase}}({{.Entity.NameLowerCase}} *models.{{.Entity.NamePascalCase}}) (*models.{{.Entity.NamePascalCase}}, error) {
@@ -52,7 +54,7 @@ func Delete{{.Entity.NamePascalCase}}ByID(id uint64) (models.{{.Entity.NamePasca
 func Find{{.Entity.NamePascalCase}}ByID(id uint64) (*models.{{.Entity.NamePascalCase}}, error) {
 	var err error
 	var {{.Entity.NameLowerCase}} models.{{.Entity.NamePascalCase}}
-	err = database.Db.Debug().Model({models.{.Entity.NamePascalCase}}{}).Where("id = ?", id).Take(&{{.Entity.NameLowerCase}}).Error
+	err = database.Db.Debug().Model(models.{{.Entity.NamePascalCase}}{}).Where("id = ?", id).Take(&{{.Entity.NameLowerCase}}).Error
 	if err != nil {
 		return &models.{{.Entity.NamePascalCase}}{}, err
 	}

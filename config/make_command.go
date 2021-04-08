@@ -39,14 +39,14 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 	
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")
-	viper.SetDefault("models", make([]entity.NewEntity, 0))
+	viper.SetDefault("models", map[string]map[string]string{})
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
 		return err
 	}
 
-	models := viper.Get("models").([]entity.NewEntity)
-	models = append(models, newEntity)
+	models := viper.GetStringMap("models")
+	models[newEntity.Name] = newEntity
 	viper.Set("models", models)
 	log.Info("Using config file : ", viper.ConfigFileUsed())
 	viper.WriteConfig()

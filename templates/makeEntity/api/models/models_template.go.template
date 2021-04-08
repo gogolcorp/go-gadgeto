@@ -1,7 +1,6 @@
 package models
 
 import (
-	"errors"
 	"github.com/asaskevich/govalidator"{{if .Entity.HasDate}}
 	"time"{{end}}{{if .Entity.HasCustomTypes}}
 	"{{.GoPackageFullPath}}/api/models"{{end}}
