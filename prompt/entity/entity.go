@@ -7,7 +7,6 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -43,7 +42,6 @@ func PromptUserForEntityFields(entity *NewEntity) error{
 
 		var fieldType string
 		if err := promptForFieldType(&fieldType); err != nil {
-			logrus.Error("nul")
 			return err
 		}
 		
@@ -99,9 +97,7 @@ func promptForFieldType(fieldType *string) error {
 func GetTypeOptions() []string {
 	entitiesList := GetEntitiesList()
 	options := []string{"string", "boolean", "int", "uint", "float32", "float64", "date", "slice"}
-	for _, entity := range entitiesList {
-		options = append(options, entity)
-	}
+	options = append(options, entitiesList...)
 
 	return options
 }
