@@ -42,6 +42,14 @@ The CLI will eventually ask you your **git username**, the **DB management syste
 You can install bundles by using the install command of the CLI.
 This command will look for a bundle located inside the bundles folder of the repository and install it.
 
+## Make new entity
+
+With **go-cli**, you can use the `make entity` command. It will create a new model and repository file with fields of your choice !
+
+```sh
+go-cli make entity entityYouWant
+```
+
 ### Bundle API
 
 Each bundle should have the following elements :
