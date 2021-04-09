@@ -30,23 +30,3 @@ func removeDockerFiles(config *config.CreateCmdConfig) error {
 	// Remove docker compose
 	return filesystem.RemoveSingle(config.ProjectPath + "/docker-compose.yml")
 }
-
-func removeAuthenticationFiles(config *config.CreateCmdConfig) error {
-	// Remove controller
-	if err := filesystem.RemoveSingle(config.ProjectPath + "/api/controllers/authentication.go"); err != nil {
-		return err
-	}
-
-	// Remove middleware
-	if err := filesystem.RemoveSingle(config.ProjectPath + "/shared/middlewares/authorization_middleware.go"); err != nil {
-		return err
-	}
-
-	// Remove password hasher service
-	if err := filesystem.RemoveSingle(config.ProjectPath + "/shared/services/token.go"); err != nil {
-		return err
-	}
-
-	// Remove token service
-	return filesystem.RemoveSingle(config.ProjectPath + "/shared/services/password_hasher.go")
-}

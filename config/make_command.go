@@ -3,8 +3,8 @@ package config
 import (
 	"os"
 
-	"github.com/edwinvautier/go-cli/prompt/entity"
 	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-cli/prompt/entity"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -12,21 +12,13 @@ import (
 
 // InitMakeCmdConfig creates the needed config for the create command by prompting user and doing other actions
 func InitMakeCmdConfig(config *MakeCmdConfig) error {
-	workdir, err := os.Getwd()
-	if err != nil {
-		return err
-	}
+	configBase := initBasicConfig(config)
 
-	viper.AddConfigPath(workdir)
-	viper.SetConfigName(".go-cli-config")
-	if err := viper.ReadInConfig(); err != nil {
-		return err
-	}
-
-	config.GoPackageFullPath = viper.GetString("package")
+	config.GoPackageFullPath = configBase.PackagePath
+	config.ProjectPath = configBase.ProjectPath
 	config.Box = packr.New("makeEntityBox", "../templates/makeEntity")
 	config.Entity.NameLowerCase = helpers.LowerCase(config.Entity.Name)
-	config.Entity.NamePascalCase = helpers.PascalCase(config.Entity.Name)
+	config.Entity.NamePascalCase = helpers.UpperCaseFirstChar(config.Entity.Name)
 	return entity.PromptUserForEntityFields(&config.Entity)
 }
 
@@ -36,7 +28,7 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 	if err != nil {
 		return err
 	}
-	
+
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")
 	viper.SetDefault("models", map[string]map[string]string{})
@@ -57,6 +49,17 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 // MakeCmdConfig is the struct used to configure make command
 type MakeCmdConfig struct {
 	GoPackageFullPath string
-	Box 			*packr.Box
-	Entity		entity.NewEntity
+	Box               *packr.Box
+	Entity            entity.NewEntity
+	ProjectPath       string
+}
+
+// GetBox returns the box in which templates for make command are stored
+func (cmd MakeCmdConfig) GetBox() *packr.Box {
+	return cmd.Box
+}
+
+// GetProjectPath returns the path to project in user's computer
+func (cmd MakeCmdConfig) GetProjectPath() string {
+	return cmd.ProjectPath
 }

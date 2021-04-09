@@ -1,4 +1,5 @@
 package cmd
+
 /*
 Copyright © 2021 Edwin Vautier <edwin.vautier@gmail.com>
 

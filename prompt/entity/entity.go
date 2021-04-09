@@ -10,27 +10,26 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 // EntityField represents a single field from an entity
 type EntityField struct {
-	Type 			string
-	Name 			string
-	IsSlice 	bool
-	SliceType	string
+	Type      string
+	Name      string
+	IsSlice   bool
+	SliceType string
 }
 
 // NewEntity represents the full entity that user wants to create
 type NewEntity struct {
-	Name 						string
-	NamePascalCase 	string
-	NameLowerCase 	string
-	HasDate 				bool
-	HasCustomTypes	bool
-	Fields					[]EntityField
+	Name           string
+	NamePascalCase string
+	NameLowerCase  string
+	HasDate        bool
+	HasCustomTypes bool
+	Fields         []EntityField
 }
 
 // PromptUserForEntityFields prompts user in the CLI to choose entity fields wanted
-func PromptUserForEntityFields(entity *NewEntity) error{
+func PromptUserForEntityFields(entity *NewEntity) error {
 	for {
 		fieldName := ""
 		if err := promptForFieldName(&fieldName); err != nil {
@@ -46,10 +45,10 @@ func PromptUserForEntityFields(entity *NewEntity) error{
 		if err := promptForFieldType(&fieldType); err != nil {
 			return err
 		}
-		
+
 		field := EntityField{
-			Name: helpers.UpperCaseFirstChar(fieldName),
-			Type: fieldType,
+			Name:    helpers.UpperCaseFirstChar(fieldName),
+			Type:    fieldType,
 			IsSlice: false,
 		}
 
@@ -72,7 +71,7 @@ func PromptUserForEntityFields(entity *NewEntity) error{
 		if choosedCustomType(field.Type) {
 			entity.HasCustomTypes = true
 		}
-		
+
 		entity.Fields = append(entity.Fields, field)
 	}
 
@@ -123,13 +122,13 @@ func GetEntitiesList() []string {
 	return entities
 }
 
-func choosedCustomType(cType string) bool{
+func choosedCustomType(cType string) bool {
 	entitiesList := GetEntitiesList()
 	for _, entityName := range entitiesList {
-        if entityName == cType {
-            return true
-        }
+		if entityName == cType {
+			return true
+		}
 	}
-	
+
 	return false
 }

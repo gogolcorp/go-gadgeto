@@ -72,3 +72,13 @@ type CreateCmdConfig struct {
 	ProjectPath       string
 	AuthModule        bool
 }
+
+// GetBox returns the box in which templates for create command are stored
+func (cmd CreateCmdConfig) GetBox() *packr.Box {
+	return cmd.Box
+}
+
+// GetProjectPath returns the path to project in user's computer
+func (cmd CreateCmdConfig) GetProjectPath() string {
+	return cmd.ProjectPath
+}
