@@ -4,7 +4,7 @@
 [![Go](https://github.com/edwinvautier/go-cli/actions/workflows/go.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/go.yml)
 [![CodeQL](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-cli/actions/workflows/codeql-analysis.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-0.0.5-red)
+![version](https://img.shields.io/badge/version-0.0.6-red)
 [![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-cli.svg)](https://pkg.go.dev/github.com/edwinvautier/go-cli)
 
 A CLI to initialize and work on go projects, mainly designed for API's.
