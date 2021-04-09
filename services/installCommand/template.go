@@ -16,7 +16,7 @@ func executeTemplates(name string, installCmdConfig config.InstallCmdConfig) err
 
 	box.Walk(func(path string, f packd.File) error {
 		fInfo, _ := f.FileInfo()
-		fileParts := helpers.GetFilePartsFromName(fInfo.Name())
+		fileParts := helpers.GetFilePartsFromName(fInfo.Name(), "")
 		generateFile(fileParts.Path, fileParts.Name, fileParts.OutputName, installCmdConfig, box)
 		return nil
 	})

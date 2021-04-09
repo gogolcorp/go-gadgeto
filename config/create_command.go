@@ -18,7 +18,7 @@ func InitCreateCmdConfig(config *CreateCmdConfig) {
 	config.DBMS = getDBMS()
 	config.UseDocker = chooseToUseDocker()
 	config.GoPackageFullPath = "github.com/" + strings.TrimSuffix(config.GitUserName, "\n") + "/" + config.AppName
-	config.Box = packr.New("My Box", "../templates")
+	config.Box = packr.New("My Box", "../templates/newProject")
 	config.AuthModule = viper.GetBool("auth-module")
 }
 

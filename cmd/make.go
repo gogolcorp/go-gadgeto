@@ -1,4 +1,5 @@
 package cmd
+
 /*
 Copyright © 2021 Edwin Vautier <edwin.vautier@gmail.com>
 
@@ -16,25 +17,30 @@ limitations under the License.
 */
 
 import (
-	"github.com/edwinvautier/go-cli/services/installCommand"
+	"github.com/edwinvautier/go-cli/services/makeCommand"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
-// installCmd represents the install command
-var installCmd = &cobra.Command{
-	Use:   "install",
-	Short: "Install bundles to your app",
-	Long:  `A command that install bundles from edwinvautier/go-cli/bundles`,
+// makeCmd represents the install command
+var makeCmd = &cobra.Command{
+	Use:   "make",
+	Short: "make is used to create new files, for example for models",
+	Long:  `make is used to create new files, for example for models, it creates your model file after prompting you for fields`,
 	Run: func(cmd *cobra.Command, args []string) {
-		for _, bundleName := range args {
-			if err := installCommand.InstallBundle(bundleName); err != nil {
-				log.Error(err)
-			}
+		if !isAMakeCommand(args[0]) {
+			log.Fatal(args[0], " is not a make command!")
+		}
+		if err := makeCommand.MakeEntity(args[1]); err != nil {
+			log.Fatal(err)
 		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(installCmd)
+	rootCmd.AddCommand(makeCmd)
+}
+
+func isAMakeCommand(commandName string) bool {
+	return commandName == "entity"
 }
