@@ -54,7 +54,7 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 	return nil
 }
 
-// InstallCmdConfig is the struct used to configure make command
+// MakeCmdConfig is the struct used to configure make command
 type MakeCmdConfig struct {
 	GoPackageFullPath string
 	Box 			*packr.Box

@@ -11,6 +11,7 @@ import (
 )
 
 
+// EntityField represents a single field from an entity
 type EntityField struct {
 	Type 			string
 	Name 			string
@@ -18,6 +19,7 @@ type EntityField struct {
 	SliceType	string
 }
 
+// NewEntity represents the full entity that user wants to create
 type NewEntity struct {
 	Name 						string
 	NamePascalCase 	string

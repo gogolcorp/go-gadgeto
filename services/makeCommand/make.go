@@ -2,6 +2,7 @@ package makeCommand
 
 import "github.com/edwinvautier/go-cli/config"
 
+// MakeEntity creates  the config and execute templates in order to create a new entity
 func MakeEntity(entityName string) error {
 	var makeCmdConfig config.MakeCmdConfig
 	makeCmdConfig.Entity.Name = entityName

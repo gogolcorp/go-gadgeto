@@ -48,6 +48,7 @@ func LowerCase(name string) string {
 	return strings.ToLower(name)
 }
 
+// PascalCase returns the string with uppercased first char
 func PascalCase(name string) string {
 	return UpperCaseFirstChar(name)
 }
