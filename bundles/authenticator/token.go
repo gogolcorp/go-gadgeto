@@ -9,13 +9,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 // Claim is the struct for the jwt claim
 type Claim struct {
 	Email string
 	jwt.StandardClaims
 }
-
 
 // GenerateToken creates a JWT with email and expiration time in the payload
 func GenerateToken(email string) (string, error) {

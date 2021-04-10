@@ -16,12 +16,12 @@ func Generate(path string, name string, outputName string, commandConfig config.
 		log.Error(err)
 		return
 	}
-	
+
 	// Create the directory if not exist
 	if _, err := os.Stat(commandConfig.GetProjectPath() + "/" + path); os.IsNotExist(err) {
 		os.MkdirAll(commandConfig.GetProjectPath()+"/"+path, os.ModePerm)
 	}
-	
+
 	err = executeTemplate(commandConfig, outputName, commandConfig.GetProjectPath()+"/"+path, templateString)
 	if err != nil {
 		log.Error("oups", err)

@@ -19,14 +19,14 @@ func initBasicConfig(config interface{}) baseConfig {
 		log.Error(err)
 		return baseConfig{}
 	}
-	
+
 	workdir, err := os.Getwd()
 	if err != nil {
 		log.Error(err)
 		return baseConfig{}
 	}
 
-	return baseConfig {
+	return baseConfig{
 		PackagePath: viper.GetString("package"),
 		ProjectPath: workdir,
 	}

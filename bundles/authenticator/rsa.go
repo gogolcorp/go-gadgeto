@@ -34,14 +34,14 @@ func initRsaKeys() error {
 		log.Error("Couldn't parse private.pem", err)
 		return err
 	}
-	
+
 	return nil
 }
 
 func getPublicPemFile(fileData *[]byte) error {
 	var err error
 	*fileData, err = ioutil.ReadFile(rsa.PublicKeyPath)
-	
+
 	return err
 }
 
@@ -53,7 +53,7 @@ func parsePublicKey(publicKey *interface{}) error {
 	}
 	var err error
 	*publicKey, err = jwt.ParseRSAPublicKeyFromPEM(fileData)
-	
+
 	return err
 }
 
@@ -63,10 +63,10 @@ func parsePrivateKey(privateKey *interface{}) error {
 		log.Error("Couldn't get private.pem file")
 		return err
 	}
-	
+
 	var err error
 	*privateKey, err = jwt.ParseRSAPrivateKeyFromPEMWithPassword(fileData, goDotEnvVariable("RSA_PASSWORD"))
-	
+
 	return err
 }
 
