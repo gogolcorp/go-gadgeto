@@ -19,13 +19,13 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 	fileParts.Path = strings.Join(slices[:len(slices)-1], "/") + "/"
 	fileParts.Name = slices[len(slices)-1]
 	slices = strings.Split(fileParts.Name, ".")
-	
+
 	if outputName == "" {
 		fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
 	} else {
 		fileParts.OutputName = outputName
 	}
-	
+
 	return fileParts
 }
 
@@ -46,9 +46,4 @@ func UpperCaseFirstChar(word string) string {
 // LowerCase returns input string lowercased
 func LowerCase(name string) string {
 	return strings.ToLower(name)
-}
-
-// PascalCase returns the string with uppercased first char
-func PascalCase(name string) string {
-	return UpperCaseFirstChar(name)
 }
