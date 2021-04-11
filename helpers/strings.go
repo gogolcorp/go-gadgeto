@@ -5,9 +5,13 @@ import (
 	"unicode"
 )
 
-// JoinString takes a pointer to a string and modify this string in order to remove spaces
+// JoinString takes a pointer to a string and modify this string in order to remove spaces and replace them by dashes
 func JoinString(str string) string {
 	slices := strings.Split(str, " ")
+	if slices[len(slices) - 1] == "" {
+		slices = slices[:len(slices) - 1]
+	}
+
 	return strings.Join(slices, "-")
 }
 
@@ -21,7 +25,11 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 	slices = strings.Split(fileParts.Name, ".")
 
 	if outputName == "" {
-		fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
+		if strings.Contains(fileParts.Name, ".") {
+			fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
+		} else {
+			fileParts.OutputName = fileParts.Name
+		}	
 	} else {
 		fileParts.OutputName = outputName
 	}
@@ -39,6 +47,10 @@ type FileParts struct {
 // UpperCaseFirstChar returns the input string with first letter capitalized
 func UpperCaseFirstChar(word string) string {
 	a := []rune(word)
+	if len(a) < 1 {
+		return ""
+	}
+
 	a[0] = unicode.ToUpper(a[0])
 	return string(a)
 }

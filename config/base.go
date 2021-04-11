@@ -14,8 +14,8 @@ type CommandConfigInterface interface {
 	GetProjectPath() string
 }
 
-func initBasicConfig(config interface{}) baseConfig {
-	if err := initViper(config); err != nil {
+func initBasicConfig() baseConfig {
+	if err := initViper(); err != nil {
 		log.Error(err)
 		return baseConfig{}
 	}

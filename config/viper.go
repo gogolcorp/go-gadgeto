@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func initViper(config interface{}) error {
+func initViper() error {
 	workdir, err := os.Getwd()
 	if err != nil {
 		return err
