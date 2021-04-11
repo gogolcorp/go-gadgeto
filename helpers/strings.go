@@ -5,9 +5,13 @@ import (
 	"unicode"
 )
 
-// JoinString takes a pointer to a string and modify this string in order to remove spaces
+// JoinString takes a pointer to a string and modify this string in order to remove spaces and replace them by dashes
 func JoinString(str string) string {
 	slices := strings.Split(str, " ")
+	if slices[len(slices) - 1] == "" {
+		slices = slices[:len(slices) - 1]
+	}
+
 	return strings.Join(slices, "-")
 }
 
