@@ -102,10 +102,7 @@ func TestAddModelToConfig(t *testing.T) {
 
 func TestMakeCmdConfig_GetBox(t *testing.T) {
 	type fields struct {
-		GoPackageFullPath string
 		Box               *packr.Box
-		Entity            entity.NewEntity
-		ProjectPath       string
 	}
 	tests := []struct {
 		name   string
@@ -123,10 +120,7 @@ func TestMakeCmdConfig_GetBox(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cmd := MakeCmdConfig{
-				GoPackageFullPath: tt.fields.GoPackageFullPath,
 				Box:               tt.fields.Box,
-				Entity:            tt.fields.Entity,
-				ProjectPath:       tt.fields.ProjectPath,
 			}
 			name := cmd.Box.Name
 			if got := cmd.GetBox().Name; !reflect.DeepEqual(got, name) {
@@ -138,9 +132,6 @@ func TestMakeCmdConfig_GetBox(t *testing.T) {
 
 func TestMakeCmdConfig_GetProjectPath(t *testing.T) {
 	type fields struct {
-		GoPackageFullPath string
-		Box               *packr.Box
-		Entity            entity.NewEntity
 		ProjectPath       string
 	}
 	tests := []struct {
@@ -166,9 +157,6 @@ func TestMakeCmdConfig_GetProjectPath(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cmd := MakeCmdConfig{
-				GoPackageFullPath: tt.fields.GoPackageFullPath,
-				Box:               tt.fields.Box,
-				Entity:            tt.fields.Entity,
 				ProjectPath:       tt.fields.ProjectPath,
 			}
 			if got := cmd.GetProjectPath(); got != tt.want {
