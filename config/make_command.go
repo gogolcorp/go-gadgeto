@@ -12,7 +12,7 @@ import (
 
 // InitMakeCmdConfig creates the needed config for the create command by prompting user and doing other actions
 func InitMakeCmdConfig(config *MakeCmdConfig) error {
-	configBase := initBasicConfig(config)
+	configBase := initBasicConfig()
 
 	config.GoPackageFullPath = configBase.PackagePath
 	config.ProjectPath = configBase.ProjectPath
