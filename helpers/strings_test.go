@@ -49,7 +49,42 @@ func TestGetFilePartsFromName(t *testing.T) {
 		args args
 		want FileParts
 	}{
-		// TODO: Add test cases.
+		{
+			name: "test without outputName",
+			args: args{
+				name: "/files/helloworld.go.test",
+				outputName: "",
+			},
+			want: FileParts{
+				Name: "helloworld.go.test",
+				OutputName: "helloworld.go",
+				Path: "/files/",
+			},
+		},
+		{
+			name: "test withOut extension",
+			args: args{
+				name: "/files/helloworldgotest",
+				outputName: "",
+			},
+			want: FileParts{
+				Name: "helloworldgotest",
+				OutputName: "helloworldgotest",
+				Path: "/files/",
+			},
+		},
+		{
+			name: "test simple path",
+			args: args{
+				name: "/files/helloworld.go",
+				outputName: "hello.txt",
+			},
+			want: FileParts{
+				Name: "helloworld.go",
+				OutputName: "hello.txt",
+				Path: "/files/",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -69,7 +104,21 @@ func TestUpperCaseFirstChar(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{	
+			name: "test with helloworld",
+			args: args{word: "helloworld"},
+			want: "Helloworld",
+		},
+		{	
+			name: "test empty",
+			args: args{word: ""},
+			want: "",
+		},
+		{	
+			name: "test without letter",
+			args: args{word: "1helloworld"},
+			want: "1helloworld",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -89,7 +138,21 @@ func TestLowerCase(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test all chars",
+			args: args{name: "AHHH"},
+			want: "ahhh",
+		},
+		{
+			name: "Test empty",
+			args: args{name: ""},
+			want: "",
+		},
+		{
+			name: "Test all lowercase",
+			args: args{name: "ahhh"},
+			want: "ahhh",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

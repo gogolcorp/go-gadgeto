@@ -25,7 +25,11 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 	slices = strings.Split(fileParts.Name, ".")
 
 	if outputName == "" {
-		fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
+		if strings.Contains(fileParts.Name, ".") {
+			fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
+		} else {
+			fileParts.OutputName = fileParts.Name
+		}	
 	} else {
 		fileParts.OutputName = outputName
 	}
@@ -43,6 +47,10 @@ type FileParts struct {
 // UpperCaseFirstChar returns the input string with first letter capitalized
 func UpperCaseFirstChar(word string) string {
 	a := []rune(word)
+	if len(a) < 1 {
+		return ""
+	}
+
 	a[0] = unicode.ToUpper(a[0])
 	return string(a)
 }
