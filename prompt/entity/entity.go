@@ -2,11 +2,11 @@ package entity
 
 import (
 	"io/ioutil"
-	"os"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -105,10 +105,7 @@ func GetTypeOptions() []string {
 
 // GetEntitiesList returns a slice of strings with all the entities names found in the models/ dir
 func GetEntitiesList() []string {
-	workdir, err := os.Getwd()
-	if err != nil {
-		log.Error(err)
-	}
+	workdir := filesystem.GetWorkdirOrDie()
 	files, err := ioutil.ReadDir(workdir + "/api/models")
 	if err != nil {
 		log.Fatal(err)

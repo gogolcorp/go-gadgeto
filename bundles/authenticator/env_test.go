@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"testing"
 
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -30,7 +31,7 @@ func Test_goDotEnvVariable(t *testing.T) {
 			}
 		})
 	}
-	workdir, _ := os.Getwd()
+	workdir:= filesystem.GetWorkdirOrDie()
 	createEnv := exec.Command("touch", workdir+"/.env")
 	createEnv.Run()
 

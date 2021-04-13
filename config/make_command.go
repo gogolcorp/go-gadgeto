@@ -1,10 +1,9 @@
 package config
 
 import (
-	"os"
-
 	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -24,10 +23,7 @@ func InitMakeCmdConfig(config *MakeCmdConfig) error {
 
 // AddModelToConfig set the new bundle to true in config after install
 func AddModelToConfig(newEntity entity.NewEntity) error {
-	workdir, err := os.Getwd()
-	if err != nil {
-		return err
-	}
+	workdir:= filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")

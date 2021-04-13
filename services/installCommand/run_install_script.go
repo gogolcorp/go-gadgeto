@@ -2,7 +2,6 @@ package installCommand
 
 import (
 	"io/ioutil"
-	"os"
 	"os/exec"
 
 	"github.com/edwinvautier/go-cli/services/filesystem"
@@ -10,11 +9,7 @@ import (
 )
 
 func executeInstallScript(box *packr.Box, name string) error {
-	workdir, err := os.Getwd()
-
-	if err != nil {
-		return err
-	}
+	workdir := filesystem.GetWorkdirOrDie()
 
 	fileString, err := box.FindString("/" + name + "/install.sh")
 	if err != nil {

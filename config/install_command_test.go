@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 )
 
@@ -99,7 +100,7 @@ func TestUpdateConfigAfterInstalling(t *testing.T) {
 	}
 
 	// create config file
-	workdir, _ := os.Getwd() 
+	workdir:= filesystem.GetWorkdirOrDie()
 	os.Create(workdir + "/.go-cli-config.yml")
 
 	tests = []struct {

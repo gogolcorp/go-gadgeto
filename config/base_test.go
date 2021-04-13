@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -26,10 +27,7 @@ func Test_initBasicConfig(t *testing.T) {
 		})
 	}
 
-	workdir, err := os.Getwd()
-	if err != nil {
-		log.Info(err)
-	}
+	workdir := filesystem.GetWorkdirOrDie()
 	os.Create(workdir + "/.go-cli-config.yml")
 	file, _ := os.OpenFile(workdir+"/.go-cli-config.yml", os.O_APPEND|os.O_WRONLY, 0644)
 	defer file.Close()
