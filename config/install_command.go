@@ -22,7 +22,9 @@ func UpdateConfigAfterInstalling(name string) {
 
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")
-	viper.Set("bundles."+name, true)
+	bundles := viper.GetStringSlice("bundles")
+	bundles = append(bundles, name)
+	viper.Set("bundles", bundles)
 	viper.ReadInConfig()
 	viper.WriteConfig()
 }

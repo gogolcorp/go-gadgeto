@@ -59,3 +59,14 @@ func UpperCaseFirstChar(word string) string {
 func LowerCase(name string) string {
 	return strings.ToLower(name)
 }
+
+// Check if a substring exists in strings slice
+func ContainsString(slice []string, substr string) bool {
+	for _, element := range slice {
+		if substr == element {
+			return true
+		}
+	}
+
+	return false
+}
