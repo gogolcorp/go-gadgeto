@@ -1,8 +1,7 @@
 package config
 
 import (
-	"os"
-
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -19,12 +18,7 @@ func initBasicConfig() baseConfig {
 		log.Error(err)
 		return baseConfig{}
 	}
-
-	workdir, err := os.Getwd()
-	if err != nil {
-		log.Error(err)
-		return baseConfig{}
-	}
+	workdir:= filesystem.GetWorkdirOrDie()
 
 	return baseConfig{
 		PackagePath: viper.GetString("package"),

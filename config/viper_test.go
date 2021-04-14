@@ -3,6 +3,8 @@ package config
 import (
 	"os"
 	"testing"
+
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -25,10 +27,7 @@ func Test_initViper(t *testing.T) {
 	}
 
 	// Create config file
-	workdir, err := os.Getwd()
-	if err != nil {
-		return
-	}
+	workdir := filesystem.GetWorkdirOrDie()
 	if _, err := os.Create(workdir + "/.go-cli-config.yml"); err != nil {
 		log.Error(err)
 		return

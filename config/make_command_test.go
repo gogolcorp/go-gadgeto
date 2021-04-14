@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 )
@@ -50,10 +51,7 @@ func TestAddModelToConfig(t *testing.T) {
 	}
 
 	// Create config file
-	workdir, err := os.Getwd()
-	if err != nil {
-		return
-	}
+	workdir:= filesystem.GetWorkdirOrDie()
 	if _, err := os.Create(workdir + "/.go-cli-config.yml"); err != nil {
 		log.Error(err)
 		return

@@ -14,8 +14,8 @@ import (
 
 // InitProject creates the directory for a new project and all needed structure depending on the config given
 func InitProject(config *config.CreateCmdConfig) error {
-	workingDirectory := getWorkDir()
-	config.ProjectPath = workingDirectory + "/" + config.AppName
+	workdir := filesystem.GetWorkdirOrDie()
+	config.ProjectPath = workdir + "/" + config.AppName
 
 	if err := createProjectDir(config.ProjectPath); err != nil {
 		return err
@@ -27,7 +27,7 @@ func InitProject(config *config.CreateCmdConfig) error {
 	}
 	log.Info("git initialized")
 
-	createProjectConfig(workingDirectory+"/"+config.AppName, config)
+	createProjectConfig(workdir+"/"+config.AppName, config)
 
 	if err := generateTemplates(*config); err != nil {
 		return err
@@ -35,15 +35,6 @@ func InitProject(config *config.CreateCmdConfig) error {
 	log.Info("project initialization finished!")
 
 	return CleanAllFiles(config)
-}
-
-func getWorkDir() string {
-	path, err := os.Getwd()
-	if err != nil {
-		log.Fatal("Couldn't get your working directory")
-	}
-
-	return path
 }
 
 func createProjectDir(path string) error {

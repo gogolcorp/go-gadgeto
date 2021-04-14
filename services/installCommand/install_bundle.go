@@ -27,9 +27,10 @@ func InstallBundle(name string) error {
 	if err := executeInstallScript(box, name); err != nil {
 		return err
 	}
-
 	// load & update config
-	return config.UpdateConfigAfterInstalling(name)
+	config.UpdateConfigAfterInstalling(name)
+
+	return nil
 }
 
 func bundleExists(name string, box *packr.Box) bool {

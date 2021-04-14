@@ -1,9 +1,7 @@
 package config
 
 import (
-	"os"
 	"reflect"
-	"strings"
 	"testing"
 
 	"github.com/gobuffalo/packr/v2"
@@ -73,58 +71,4 @@ func TestInstallCmdConfig_GetProjectPath(t *testing.T) {
 			}
 		})
 	}
-}
-
-func TestUpdateConfigAfterInstalling(t *testing.T) {
-	type args struct {
-		name string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{
-			name: "Test without viper",
-			args: args{name: "authenticator"},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := UpdateConfigAfterInstalling(tt.args.name); (err != nil) != tt.wantErr {
-				t.Errorf("UpdateConfigAfterInstalling() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-
-	// create config file
-	workdir, _ := os.Getwd() 
-	os.Create(workdir + "/.go-cli-config.yml")
-
-	tests = []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{
-			name: "Test without viper",
-			args: args{name: "authenticator"},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := UpdateConfigAfterInstalling(tt.args.name); (err != nil) != tt.wantErr {
-				t.Errorf("UpdateConfigAfterInstalling() error = %v, wantErr %v", err, tt.wantErr)
-			}
-			box := packr.New("test box", workdir)
-			fileContent, _ := box.FindString(".go-cli-config.yml")
-			if !strings.Contains(fileContent, "authenticator: true") {
-				t.Errorf("file was not written")
-			}
-		})
-	}
-
-	os.Remove(workdir + "/.go-cli-config.yml")
 }
