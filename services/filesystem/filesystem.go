@@ -9,7 +9,8 @@ import (
 // DirectoryExists returns true if directory exists, false elseway
 func DirectoryExists(path string) bool {
 	_, err := os.Stat(path)
-	return os.IsExist(err)
+
+	return !os.IsNotExist(err)
 }
 
 // RemoveDirAndFiles removes the given directory and all its files
