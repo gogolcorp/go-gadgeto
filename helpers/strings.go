@@ -8,8 +8,8 @@ import (
 // JoinString takes a pointer to a string and modify this string in order to remove spaces and replace them by dashes
 func JoinString(str string) string {
 	slices := strings.Split(str, " ")
-	if slices[len(slices) - 1] == "" {
-		slices = slices[:len(slices) - 1]
+	if slices[len(slices)-1] == "" {
+		slices = slices[:len(slices)-1]
 	}
 
 	return strings.Join(slices, "-")
@@ -29,7 +29,7 @@ func GetFilePartsFromName(name string, outputName string) FileParts {
 			fileParts.OutputName = strings.Join(slices[:len(slices)-1], ".")
 		} else {
 			fileParts.OutputName = fileParts.Name
-		}	
+		}
 	} else {
 		fileParts.OutputName = outputName
 	}

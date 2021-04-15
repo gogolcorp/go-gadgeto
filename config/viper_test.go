@@ -14,13 +14,13 @@ func Test_initViper(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Test without config file",
+			name:    "Test without config file",
 			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := initViper(); (err != nil) != tt.wantErr {
+			if err := InitViper(); (err != nil) != tt.wantErr {
 				t.Errorf("initViper() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -32,19 +32,19 @@ func Test_initViper(t *testing.T) {
 		log.Error(err)
 		return
 	}
-	
+
 	tests = []struct {
 		name    string
 		wantErr bool
 	}{
 		{
-			name: "Test with config file",
+			name:    "Test with config file",
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := initViper(); (err != nil) != tt.wantErr {
+			if err := InitViper(); (err != nil) != tt.wantErr {
 				t.Errorf("initViper() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

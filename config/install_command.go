@@ -18,7 +18,7 @@ func InitInstallCmdConfig(config *InstallCmdConfig) error {
 
 // UpdateConfigAfterInstalling set the new bundle to true in config after install
 func UpdateConfigAfterInstalling(name string) {
-	workdir:= filesystem.GetWorkdirOrDie()
+	workdir := filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")

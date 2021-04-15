@@ -31,7 +31,7 @@ var installCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, bundleName := range args {
 			if bundles.IsInstalled(bundleName) {
-				break
+				continue
 			}
 			if err := installCommand.InstallBundle(bundleName); err != nil {
 				log.Error(err)

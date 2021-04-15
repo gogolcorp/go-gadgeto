@@ -5,8 +5,9 @@ import (
 	"github.com/spf13/viper"
 )
 
-func initViper() error {
-	workdir:= filesystem.GetWorkdirOrDie()
+// init acces to viper config in workdir
+func InitViper() error {
+	workdir := filesystem.GetWorkdirOrDie()
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")
 

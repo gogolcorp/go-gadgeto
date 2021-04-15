@@ -31,7 +31,7 @@ func Test_goDotEnvVariable(t *testing.T) {
 			}
 		})
 	}
-	workdir:= filesystem.GetWorkdirOrDie()
+	workdir := filesystem.GetWorkdirOrDie()
 	createEnv := exec.Command("touch", workdir+"/.env")
 	createEnv.Run()
 

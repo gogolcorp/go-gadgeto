@@ -14,11 +14,11 @@ type CommandConfigInterface interface {
 }
 
 func initBasicConfig() baseConfig {
-	if err := initViper(); err != nil {
+	if err := InitViper(); err != nil {
 		log.Error(err)
 		return baseConfig{}
 	}
-	workdir:= filesystem.GetWorkdirOrDie()
+	workdir := filesystem.GetWorkdirOrDie()
 
 	return baseConfig{
 		PackagePath: viper.GetString("package"),
