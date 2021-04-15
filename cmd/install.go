@@ -17,6 +17,7 @@ limitations under the License.
 */
 
 import (
+	"github.com/edwinvautier/go-cli/config/bundles"
 	"github.com/edwinvautier/go-cli/services/installCommand"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -29,6 +30,9 @@ var installCmd = &cobra.Command{
 	Long:  `A command that install bundles from edwinvautier/go-cli/bundles`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, bundleName := range args {
+			if bundles.IsInstalled(bundleName) {
+				continue
+			}
 			if err := installCommand.InstallBundle(bundleName); err != nil {
 				log.Error(err)
 			}

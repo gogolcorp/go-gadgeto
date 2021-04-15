@@ -34,7 +34,7 @@ func TestDirectoryExists(t *testing.T) {
 	}
 
 	if err := os.Mkdir(dirPath, os.ModePerm); err != nil {
-		log.Error("mkdir : ",err)
+		log.Error("mkdir : ", err)
 	}
 	tests = []struct {
 		name string
@@ -69,8 +69,8 @@ func TestRemoveDirAndFiles(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Test without directory",
-			args: args{path: dirPath},
+			name:    "Test without directory",
+			args:    args{path: dirPath},
 			wantErr: false,
 		},
 	}
@@ -82,10 +82,10 @@ func TestRemoveDirAndFiles(t *testing.T) {
 		})
 	}
 	if err := os.Mkdir(dirPath, os.ModePerm); err != nil {
-		log.Error("mkdir : ",err)
+		log.Error("mkdir : ", err)
 	}
 	if _, err := os.Create(dirPath + "/test.txt"); err != nil {
-		log.Error("create file : ",err)
+		log.Error("create file : ", err)
 	}
 
 	tests = []struct {
@@ -94,8 +94,8 @@ func TestRemoveDirAndFiles(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Test with directory",
-			args: args{path: dirPath},
+			name:    "Test with directory",
+			args:    args{path: dirPath},
 			wantErr: false,
 		},
 	}

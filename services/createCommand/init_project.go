@@ -66,7 +66,7 @@ func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
 	viper.Set("package", config.GoPackageFullPath)
 	viper.Set("database", config.DBMS)
 	viper.Set("use_docker", config.UseDocker)
-	viper.SetDefault("bundles.authenticator", false)
+	viper.SetDefault("bundles", []string{})
 
 	viper.AutomaticEnv() // read in environment variables that match
 

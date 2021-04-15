@@ -52,37 +52,37 @@ func TestGetFilePartsFromName(t *testing.T) {
 		{
 			name: "test without outputName",
 			args: args{
-				name: "/files/helloworld.go.test",
+				name:       "/files/helloworld.go.test",
 				outputName: "",
 			},
 			want: FileParts{
-				Name: "helloworld.go.test",
+				Name:       "helloworld.go.test",
 				OutputName: "helloworld.go",
-				Path: "/files/",
+				Path:       "/files/",
 			},
 		},
 		{
 			name: "test withOut extension",
 			args: args{
-				name: "/files/helloworldgotest",
+				name:       "/files/helloworldgotest",
 				outputName: "",
 			},
 			want: FileParts{
-				Name: "helloworldgotest",
+				Name:       "helloworldgotest",
 				OutputName: "helloworldgotest",
-				Path: "/files/",
+				Path:       "/files/",
 			},
 		},
 		{
 			name: "test simple path",
 			args: args{
-				name: "/files/helloworld.go",
+				name:       "/files/helloworld.go",
 				outputName: "hello.txt",
 			},
 			want: FileParts{
-				Name: "helloworld.go",
+				Name:       "helloworld.go",
 				OutputName: "hello.txt",
-				Path: "/files/",
+				Path:       "/files/",
 			},
 		},
 	}
@@ -104,17 +104,17 @@ func TestUpperCaseFirstChar(t *testing.T) {
 		args args
 		want string
 	}{
-		{	
+		{
 			name: "test with helloworld",
 			args: args{word: "helloworld"},
 			want: "Helloworld",
 		},
-		{	
+		{
 			name: "test empty",
 			args: args{word: ""},
 			want: "",
 		},
-		{	
+		{
 			name: "test without letter",
 			args: args{word: "1helloworld"},
 			want: "1helloworld",

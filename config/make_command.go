@@ -23,7 +23,7 @@ func InitMakeCmdConfig(config *MakeCmdConfig) error {
 
 // AddModelToConfig set the new bundle to true in config after install
 func AddModelToConfig(newEntity entity.NewEntity) error {
-	workdir:= filesystem.GetWorkdirOrDie()
+	workdir := filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
 	viper.SetConfigName(".go-cli-config")

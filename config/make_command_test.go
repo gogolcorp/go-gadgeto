@@ -24,16 +24,16 @@ func TestAddModelToConfig(t *testing.T) {
 			name: "",
 			args: args{
 				newEntity: entity.NewEntity{
-					Name: "",
+					Name:           "",
 					NamePascalCase: "",
-					NameLowerCase: "",
-					HasDate: false,
+					NameLowerCase:  "",
+					HasDate:        false,
 					HasCustomTypes: false,
 					Fields: []entity.EntityField{
 						{
-							Type: "string",
-							Name: "Name",
-							IsSlice: false,
+							Type:      "string",
+							Name:      "Name",
+							IsSlice:   false,
 							SliceType: "",
 						},
 					},
@@ -51,7 +51,7 @@ func TestAddModelToConfig(t *testing.T) {
 	}
 
 	// Create config file
-	workdir:= filesystem.GetWorkdirOrDie()
+	workdir := filesystem.GetWorkdirOrDie()
 	if _, err := os.Create(workdir + "/.go-cli-config.yml"); err != nil {
 		log.Error(err)
 		return
@@ -66,16 +66,16 @@ func TestAddModelToConfig(t *testing.T) {
 			name: "",
 			args: args{
 				newEntity: entity.NewEntity{
-					Name: "",
+					Name:           "",
 					NamePascalCase: "",
-					NameLowerCase: "",
-					HasDate: false,
+					NameLowerCase:  "",
+					HasDate:        false,
 					HasCustomTypes: false,
 					Fields: []entity.EntityField{
 						{
-							Type: "string",
-							Name: "Name",
-							IsSlice: false,
+							Type:      "string",
+							Name:      "Name",
+							IsSlice:   false,
 							SliceType: "",
 						},
 					},
@@ -100,7 +100,7 @@ func TestAddModelToConfig(t *testing.T) {
 
 func TestMakeCmdConfig_GetBox(t *testing.T) {
 	type fields struct {
-		Box               *packr.Box
+		Box *packr.Box
 	}
 	tests := []struct {
 		name   string
@@ -118,7 +118,7 @@ func TestMakeCmdConfig_GetBox(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cmd := MakeCmdConfig{
-				Box:               tt.fields.Box,
+				Box: tt.fields.Box,
 			}
 			name := cmd.Box.Name
 			if got := cmd.GetBox().Name; !reflect.DeepEqual(got, name) {
@@ -130,7 +130,7 @@ func TestMakeCmdConfig_GetBox(t *testing.T) {
 
 func TestMakeCmdConfig_GetProjectPath(t *testing.T) {
 	type fields struct {
-		ProjectPath       string
+		ProjectPath string
 	}
 	tests := []struct {
 		name   string
@@ -155,7 +155,7 @@ func TestMakeCmdConfig_GetProjectPath(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cmd := MakeCmdConfig{
-				ProjectPath:       tt.fields.ProjectPath,
+				ProjectPath: tt.fields.ProjectPath,
 			}
 			if got := cmd.GetProjectPath(); got != tt.want {
 				t.Errorf("MakeCmdConfig.GetProjectPath() = %v, want %v", got, tt.want)
