@@ -11,17 +11,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Read the project main parts in order to refresh the config store in the .go-cli-config.yml
+// UpdateConfig reads the project main parts in order to refresh the config store in the .go-cli-config.yml
 func UpdateConfig() error {
 	if err := InitViper(); err != nil {
 		return err
 	}
 
 	// Update models
-	if err := updateModels(); err != nil {
-		return err
-	}
-	return nil
+	return updateModels()
 }
 
 func updateModels() error {

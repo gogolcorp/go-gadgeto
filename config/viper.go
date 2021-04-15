@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// init acces to viper config in workdir
+// InitViper init acces to viper config in workdir
 func InitViper() error {
 	workdir := filesystem.GetWorkdirOrDie()
 	viper.AddConfigPath(workdir)
