@@ -11,7 +11,7 @@ func executeTemplates(makeCmdConfig config.MakeCmdConfig) error {
 
 	makeCmdConfig.Box.Walk(func(path string, f packd.File) error {
 		fInfo, _ := f.FileInfo()
-		fileParts := helpers.GetFilePartsFromName(fInfo.Name(), makeCmdConfig.Entity.NameLowerCase+".go")
+		fileParts := helpers.GetFilePartsFromName(fInfo.Name(), makeCmdConfig.Model.NameLowerCase+".go")
 		files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
 		return nil
 	})

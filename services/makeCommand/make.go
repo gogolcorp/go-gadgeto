@@ -2,10 +2,10 @@ package makeCommand
 
 import "github.com/edwinvautier/go-cli/config"
 
-// MakeEntity creates  the config and execute templates in order to create a new entity
-func MakeEntity(entityName string) error {
+// MakeModel creates  the config and execute templates in order to create a new Model
+func MakeModel(modelName string) error {
 	var makeCmdConfig config.MakeCmdConfig
-	makeCmdConfig.Entity.Name = entityName
+	makeCmdConfig.Model.Name = modelName
 	if err := config.InitMakeCmdConfig(&makeCmdConfig); err != nil {
 		return err
 	}
@@ -14,5 +14,5 @@ func MakeEntity(entityName string) error {
 		return err
 	}
 
-	return config.AddModelToConfig(makeCmdConfig.Entity)
+	return config.AddModelToConfig(makeCmdConfig.Model)
 }

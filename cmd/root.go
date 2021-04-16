@@ -33,7 +33,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "go-cli",
 	Short: "go-cli is used to setup your go project, in case of an API mainly.",
-	Long: `go-cli helps you by providing commands such as create, make entity... in order for you to focus
+	Long: `go-cli helps you by providing commands such as create, make model... in order for you to focus
 	on the most important parts of your domain logic.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:

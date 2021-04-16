@@ -3,12 +3,12 @@ package updateCommand
 import (
 	"testing"
 
-	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 )
 
-func TestParseEntity(t *testing.T) {
+func TestParseModel(t *testing.T) {
 	type args struct {
-		model       *entity.NewEntity
+		model       *modelPrompt.NewModel
 		fileContent string
 	}
 	tests := []struct {
@@ -19,7 +19,7 @@ func TestParseEntity(t *testing.T) {
 		{
 			name: "Test with bad file",
 			args: args{
-				model:       &entity.NewEntity{Name: "customer"},
+				model:       &modelPrompt.NewModel{Name: "customer"},
 				fileContent: "",
 			},
 			wantFields: false,
@@ -27,7 +27,7 @@ func TestParseEntity(t *testing.T) {
 		{
 			name: "Test with goo file file",
 			args: args{
-				model:       &entity.NewEntity{Name: "customer"},
+				model:       &modelPrompt.NewModel{Name: "customer"},
 				fileContent: "type Customer struct {\nID int\n Name string\n}",
 			},
 			wantFields: true,
@@ -35,7 +35,7 @@ func TestParseEntity(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ParseEntity(tt.args.model, tt.args.fileContent)
+			ParseModel(tt.args.model, tt.args.fileContent)
 			if tt.wantFields && len(tt.args.model.Fields) < 1 {
 				t.Error("No fields : ", tt.args.model)
 			}
@@ -45,63 +45,63 @@ func TestParseEntity(t *testing.T) {
 
 func Test_parseField(t *testing.T) {
 	type args struct {
-		model *entity.NewEntity
-		field *entity.EntityField
+		model *modelPrompt.NewModel
+		field *modelPrompt.ModelField
 		line  string
 	}
 	tests := []struct {
-		name string
-		args args
-		wantName bool
-		wantType bool
+		name        string
+		args        args
+		wantName    bool
+		wantType    bool
 		wantHasDate bool
 		wantIsSlice bool
 	}{
 		{
 			name: "test with bad line",
 			args: args{
-				model: &entity.NewEntity{Name: "Customer"},
-				field: &entity.EntityField{},
-				line: "blop",
+				model: &modelPrompt.NewModel{Name: "Customer"},
+				field: &modelPrompt.ModelField{},
+				line:  "blop",
 			},
-			wantName: false,
-			wantType: false,
+			wantName:    false,
+			wantType:    false,
 			wantHasDate: false,
 			wantIsSlice: false,
 		},
 		{
 			name: "test with standard type",
 			args: args{
-				model: &entity.NewEntity{Name: "Customer"},
-				field: &entity.EntityField{},
-				line: "ID int",
+				model: &modelPrompt.NewModel{Name: "Customer"},
+				field: &modelPrompt.ModelField{},
+				line:  "ID int",
 			},
-			wantName: true,
-			wantType: true,
+			wantName:    true,
+			wantType:    true,
 			wantHasDate: false,
 			wantIsSlice: false,
 		},
 		{
 			name: "test with date",
 			args: args{
-				model: &entity.NewEntity{Name: "Customer"},
-				field: &entity.EntityField{},
-				line: "\tCreatedAt time.Time",
+				model: &modelPrompt.NewModel{Name: "Customer"},
+				field: &modelPrompt.ModelField{},
+				line:  "\tCreatedAt time.Time",
 			},
-			wantName: true,
-			wantType: true,
+			wantName:    true,
+			wantType:    true,
 			wantHasDate: true,
 			wantIsSlice: false,
 		},
 		{
 			name: "test with slice",
 			args: args{
-				model: &entity.NewEntity{Name: "Customer"},
-				field: &entity.EntityField{},
-				line: "TodoList []string",
+				model: &modelPrompt.NewModel{Name: "Customer"},
+				field: &modelPrompt.ModelField{},
+				line:  "TodoList []string",
 			},
-			wantName: false,
-			wantType: false,
+			wantName:    false,
+			wantType:    false,
 			wantHasDate: false,
 			wantIsSlice: false,
 		},
@@ -109,7 +109,7 @@ func Test_parseField(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			parseField(tt.args.model, tt.args.field, tt.args.line)
-		
+
 			if tt.wantName && len(tt.args.field.Name) < 2 {
 				t.Error("No field name : ", tt.args.field)
 			}

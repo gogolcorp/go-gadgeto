@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
@@ -15,14 +15,14 @@ func InitMakeCmdConfig(config *MakeCmdConfig) error {
 
 	config.GoPackageFullPath = configBase.PackagePath
 	config.ProjectPath = configBase.ProjectPath
-	config.Box = packr.New("makeEntityBox", "../templates/makeEntity")
-	config.Entity.NameLowerCase = helpers.LowerCase(config.Entity.Name)
-	config.Entity.NamePascalCase = helpers.UpperCaseFirstChar(config.Entity.Name)
-	return entity.PromptUserForEntityFields(&config.Entity)
+	config.Box = packr.New("makeModelBox", "../templates/makeModel")
+	config.Model.NameLowerCase = helpers.LowerCase(config.Model.Name)
+	config.Model.NamePascalCase = helpers.UpperCaseFirstChar(config.Model.Name)
+	return modelPrompt.PromptUserForModelFields(&config.Model)
 }
 
 // AddModelToConfig set the new bundle to true in config after install
-func AddModelToConfig(newEntity entity.NewEntity) error {
+func AddModelToConfig(newModel modelPrompt.NewModel) error {
 	workdir := filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
@@ -34,7 +34,7 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 	}
 
 	models := viper.GetStringMap("models")
-	models[newEntity.Name] = newEntity
+	models[newModel.Name] = newModel
 	viper.Set("models", models)
 	log.Info("Using config file : ", viper.ConfigFileUsed())
 	viper.WriteConfig()
@@ -46,7 +46,7 @@ func AddModelToConfig(newEntity entity.NewEntity) error {
 type MakeCmdConfig struct {
 	GoPackageFullPath string
 	Box               *packr.Box
-	Entity            entity.NewEntity
+	Model             modelPrompt.NewModel
 	ProjectPath       string
 }
 

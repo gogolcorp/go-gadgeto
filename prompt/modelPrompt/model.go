@@ -1,4 +1,4 @@
-package entity
+package modelPrompt
 
 import (
 	"io/ioutil"
@@ -10,26 +10,26 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// EntityField represents a single field from an entity
-type EntityField struct {
+// ModelField represents a single field from a model
+type ModelField struct {
 	Type      string
 	Name      string
 	IsSlice   bool
 	SliceType string
 }
 
-// NewEntity represents the full entity that user wants to create
-type NewEntity struct {
+// NewModel represents the full model that user wants to create
+type NewModel struct {
 	Name           string
 	NamePascalCase string
 	NameLowerCase  string
 	HasDate        bool
 	HasCustomTypes bool
-	Fields         []EntityField
+	Fields         []ModelField
 }
 
-// PromptUserForEntityFields prompts user in the CLI to choose entity fields wanted
-func PromptUserForEntityFields(entity *NewEntity) error {
+// PromptUserForModelFields prompts user in the CLI to choose model fields wanted
+func PromptUserForModelFields(model *NewModel) error {
 	for {
 		fieldName := ""
 		if err := promptForFieldName(&fieldName); err != nil {
@@ -46,14 +46,14 @@ func PromptUserForEntityFields(entity *NewEntity) error {
 			return err
 		}
 
-		field := EntityField{
+		field := ModelField{
 			Name:    helpers.UpperCaseFirstChar(fieldName),
 			Type:    fieldType,
 			IsSlice: false,
 		}
 
 		if field.Type == "date" {
-			entity.HasDate = true
+			model.HasDate = true
 		} else if field.Type == "slice" {
 			field.IsSlice = true
 
@@ -64,15 +64,15 @@ func PromptUserForEntityFields(entity *NewEntity) error {
 			survey.AskOne(sliceTypePrompt, &field.SliceType)
 
 			if choosedCustomType(field.SliceType) {
-				entity.HasCustomTypes = true
+				model.HasCustomTypes = true
 			}
 		}
 
 		if choosedCustomType(field.Type) {
-			entity.HasCustomTypes = true
+			model.HasCustomTypes = true
 		}
 
-		entity.Fields = append(entity.Fields, field)
+		model.Fields = append(model.Fields, field)
 	}
 
 	return nil
@@ -96,33 +96,33 @@ func promptForFieldType(fieldType *string) error {
 
 // GetTypeOptions returns a list of strings for user prompt of data types when creating new models
 func GetTypeOptions() []string {
-	entitiesList := GetEntitiesList()
+	modelsList := GetModelsList()
 	options := []string{"string", "boolean", "int", "uint", "float32", "float64", "date", "slice"}
-	options = append(options, entitiesList...)
+	options = append(options, modelsList...)
 
 	return options
 }
 
-// GetEntitiesList returns a slice of strings with all the entities names found in the models/ dir
-func GetEntitiesList() []string {
+// GetModelsList returns a slice of strings with all the models names found in the models/ dir
+func GetModelsList() []string {
 	workdir := filesystem.GetWorkdirOrDie()
 	files, err := ioutil.ReadDir(workdir + "/api/models")
 	if err != nil {
 		log.Fatal(err)
 	}
-	entities := make([]string, 0)
+	models := make([]string, 0)
 	for _, file := range files {
 		name := helpers.UpperCaseFirstChar(strings.Split(file.Name(), ".go")[0])
-		entities = append(entities, name)
+		models = append(models, name)
 	}
 
-	return entities
+	return models
 }
 
 func choosedCustomType(cType string) bool {
-	entitiesList := GetEntitiesList()
-	for _, entityName := range entitiesList {
-		if entityName == cType {
+	modelsList := GetModelsList()
+	for _, modelName := range modelsList {
+		if modelName == cType {
 			return true
 		}
 	}

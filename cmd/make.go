@@ -31,7 +31,7 @@ var makeCmd = &cobra.Command{
 		if !isAMakeCommand(args[0]) {
 			log.Fatal(args[0], " is not a make command!")
 		}
-		if err := makeCommand.MakeEntity(args[1]); err != nil {
+		if err := makeCommand.MakeModel(args[1]); err != nil {
 			log.Fatal(err)
 		}
 	},
@@ -42,5 +42,5 @@ func init() {
 }
 
 func isAMakeCommand(commandName string) bool {
-	return commandName == "entity"
+	return commandName == "model"
 }

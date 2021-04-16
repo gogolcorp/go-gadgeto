@@ -59,4 +59,4 @@ func Init(r *gin.Engine) {
 
 `login controller` is also created, feel free to modify it to your needs.
 
-Your customer entity should have a password, you can use the authenticator.HashPassword to do so.
+Your customer model should have a password, you can use the authenticator.HashPassword to do so.
