@@ -18,7 +18,7 @@ func Create{{.Model.NamePascalCase}}({{.Model.NameLowerCase}} *models.{{.Model.N
 	return {{.Model.NameLowerCase}}, nil
 }
 
-func Edit{{.Model.NamePascalCase}}ByID({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}, id uint64) error {
+func Update{{.Model.NamePascalCase}}ByID({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}, id uint64) error {
 	var err error
 	var old models.{{.Model.NamePascalCase}}
 	err = database.Db.Debug().Where("id = ?", id).First(&old).Error
@@ -63,4 +63,18 @@ func Find{{.Model.NamePascalCase}}ByID(id uint64) (*models.{{.Model.NamePascalCa
 	}
 
 	return &{{.Model.NameLowerCase}}, err
+}
+
+func FindAll{{.Model.NamePascalCase}}() (*[]models.{{.Model.NamePascalCase}}, error) {
+	var err error
+	var {{.Model.NameLowerCase}}List []models.{{.Model.NamePascalCase}}
+	err = database.Db.Debug().Find(&{{.Model.NameLowerCase}}List).Error
+	if err != nil {
+		return &models.{{.Model.NamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return &models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
+	}
+
+	return &{{.Model.NameLowerCase}}List, err
 }

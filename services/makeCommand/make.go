@@ -6,7 +6,7 @@ import "github.com/edwinvautier/go-cli/config"
 func MakeModel(modelName string) error {
 	var makeCmdConfig config.MakeCmdConfig
 	makeCmdConfig.Model.Name = modelName
-	if err := config.InitMakeCmdConfig(&makeCmdConfig); err != nil {
+	if err := config.InitMakeModelCmdConfig(&makeCmdConfig); err != nil {
 		return err
 	}
 
@@ -15,4 +15,17 @@ func MakeModel(modelName string) error {
 	}
 
 	return config.AddModelToConfig(makeCmdConfig.Model)
+}
+
+// MakeCrud creates controllers for the model chosen
+func MakeCrud(modelName string) error {
+	var makeCmdConfig config.MakeCmdConfig
+	makeCmdConfig.Model.Name = modelName
+	config.InitMakeCRUDCmdConfig(&makeCmdConfig)
+
+	if err := executeTemplates(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return nil
 }
