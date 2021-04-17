@@ -7,15 +7,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func Create{{.Model.NamePascalCase}}({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}) (*models.{{.Model.NamePascalCase}}, error) {
-	var err error
-	
-	err = database.Db.Debug().Create({{.Model.NameLowerCase}}).Error
-	if err != nil {
-		return &models.{{.Model.NamePascalCase}}{}, err
-	}
-
-	return {{.Model.NameLowerCase}}, nil
+func Create{{.Model.NamePascalCase}}({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}) error {
+	return database.Db.Debug().Create({{.Model.NameLowerCase}}).Error
 }
 
 func Update{{.Model.NamePascalCase}}ByID({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}, id uint64) error {

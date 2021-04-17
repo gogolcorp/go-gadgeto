@@ -3,12 +3,15 @@ package updateCommand
 import (
 	"strings"
 
+	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 )
 
 // ParseModel takes a file string and try to parse model from it
 func ParseModel(model *modelPrompt.NewModel, fileContent string) {
-	lines := strings.Split(fileContent, "\n")
+	content := strings.ReplaceAll(fileContent, "\t", " ")
+	lines := strings.Split(content, "\n")
+	
 	// look inside it for infos
 	lineIsStruct := false
 	for _, line := range lines {
@@ -23,7 +26,7 @@ func ParseModel(model *modelPrompt.NewModel, fileContent string) {
 			var field modelPrompt.ModelField
 			parseField(model, &field, line)
 
-			if len(field.Name) > 2 || len(field.Type) > 2 {
+			if (len(field.Name) > 2 || len(field.Type) > 2) && helpers.LowerCase(field.Name) != "id" {
 				model.Fields = append(model.Fields, field)
 			}
 		}
