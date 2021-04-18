@@ -68,4 +68,4 @@ go-cli make model modelYouWant
 go-cli make crud entityName
 ```
 
-**go-cli** will eventually asks you to run the `go-update` command, that reads the models files, and parse their fields to the config.
+**go-cli** will eventually asks you to run the `go-cli update` command, that reads the models files, and parse their fields to the config.
