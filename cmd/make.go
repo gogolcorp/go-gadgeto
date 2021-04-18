@@ -33,12 +33,10 @@ var makeCmd = &cobra.Command{
 			if err := makeCommand.MakeModel(args[1]); err != nil {
 				log.Fatal(err)
 			}
-			break
 		case "crud":
 			if err := makeCommand.MakeCrud(args[1]); err != nil {
 				log.Fatal(err)
 			}
-			break
 		default:
 			log.Fatal(args[0], " is not a make command!")
 		}
@@ -47,8 +45,4 @@ var makeCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(makeCmd)
-}
-
-func isAMakeCommand(commandName string) bool {
-	return commandName == "model"
 }

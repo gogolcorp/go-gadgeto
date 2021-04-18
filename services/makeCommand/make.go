@@ -27,5 +27,9 @@ func MakeCrud(modelName string) error {
 		return err
 	}
 
-	return executeTemplates(makeCmdConfig)
+	if err := executeTemplates(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return AddControllersToRouter(makeCmdConfig.Model.NamePascalCase)
 }

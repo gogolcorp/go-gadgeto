@@ -69,7 +69,11 @@ func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
 	if err := InitViper(); err != nil {
 		log.Fatal("couldn't read config, try again")
 	}
-	models := viper.GetStringSlice("models")
+	modelsStructs := viper.GetStringMap("models")
+	var models []string
+	for key := range modelsStructs {
+		models = append(models, key)
+	}
 	if !helpers.ContainsString(models, config.Model.Name) {
 		return errors.New("model does not exist, check if you api/models/" + config.Model.Name + ".go file exists and try running go-cli update")
 	}
