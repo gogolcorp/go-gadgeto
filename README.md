@@ -8,12 +8,11 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-cli.svg)](https://pkg.go.dev/github.com/edwinvautier/go-cli)
 [![codecov](https://codecov.io/gh/edwinvautier/go-cli/branch/main/graph/badge.svg?token=1USTLF2NA0)](https://codecov.io/gh/edwinvautier/go-cli)
 
-
 A CLI to initialize and work on go projects, mainly designed for API's.
 
 ## Install CLI
 
->💡 You need to have go installed correctly on your machine.
+>💡 You need to have go installed correctly on your machine. More informations are available in the wiki.
 
 Install the CLI by running :
 
@@ -21,9 +20,7 @@ Install the CLI by running :
 go get github.com/edwinvautier/go-cli
 ```
 
-Then you should be able to do :
-
-![run go-cli in shell](assets/go-cli.gif)
+Run `go-cli -h` in order to know more about commands.
 
 ## Initialize a project
 
@@ -37,21 +34,14 @@ go-cli create my-app-name
 
 The CLI will eventually ask you your **git username**, the **DB management system** you'd like to use and if you want to **dockerize** the application or not.
 
-![run go-cli in shell](assets/go-cli-create.gif)
-
 ## Install a bundle
 
 You can install bundles by using the install command of the CLI.
 This command will look for a bundle located inside the bundles folder of the repository and install it.
 
-## Make new model
-
-With **go-cli**, you can use the `make model` command. It will create a new model and repository file with fields of your choice !
-
 ```sh
-go-cli make model modelYouWant
+go-cli install authenticator
 ```
-
 ### Bundle API
 
 Each bundle should have the following elements :
@@ -61,3 +51,21 @@ Each bundle should have the following elements :
 - `README.md` file to explain how bundle works and how to use it
 
 The templates part must follow the same filetree as the project that is created.
+
+## Make new model
+
+With **go-cli**, you can use the `make model` command. It will create a new model and repository file with fields of your choice !
+
+```sh
+go-cli make model modelYouWant
+```
+
+## Make CRUD
+
+**go-cli** can generate your controllers, to do so, you just have to use the `make crud` command :
+
+```sh
+go-cli make crud entityName
+```
+
+**go-cli** will eventually asks you to run the `go-update` command, that reads the models files, and parse their fields to the config.
