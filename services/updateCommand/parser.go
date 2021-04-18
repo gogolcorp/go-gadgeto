@@ -11,7 +11,7 @@ import (
 func ParseModel(model *modelPrompt.NewModel, fileContent string) {
 	content := strings.ReplaceAll(fileContent, "\t", " ")
 	lines := strings.Split(content, "\n")
-	
+
 	// look inside it for infos
 	lineIsStruct := false
 	for _, line := range lines {

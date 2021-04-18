@@ -1,6 +1,8 @@
 package config
 
 import (
+	"errors"
+
 	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 	"github.com/edwinvautier/go-cli/services/filesystem"
@@ -62,15 +64,20 @@ func (cmd MakeCmdConfig) GetProjectPath() string {
 }
 
 // InitMakeCRUDCmdConfig creates the needed config for the make crud command
-func InitMakeCRUDCmdConfig(config *MakeCmdConfig) {
+func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
 	// Get model from config
 	if err := InitViper(); err != nil {
 		log.Fatal("couldn't read config, try again")
 	}
+	models := viper.GetStringSlice("models")
+	if !helpers.ContainsString(models, config.Model.Name) {
+		return errors.New("model does not exist, check if you api/models/" + config.Model.Name + ".go file exists and try running go-cli update")
+	}
+
 	modelData := viper.GetStringMap("models." + config.Model.Name)
 	var model modelPrompt.NewModel
 	if err := mapstructure.Decode(modelData, &model); err != nil {
-		log.Error("decode error : ", err)
+		return errors.New("error while decoding " + config.Model.Name)
 	}
 	config.Model = model
 	configBase := initBasicConfig()
@@ -78,4 +85,6 @@ func InitMakeCRUDCmdConfig(config *MakeCmdConfig) {
 	config.GoPackageFullPath = configBase.PackagePath
 	config.ProjectPath = configBase.ProjectPath
 	config.Box = packr.New("makeCRUDBox", "../templates/makeCRUD")
+
+	return nil
 }

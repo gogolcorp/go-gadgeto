@@ -1,6 +1,8 @@
 package makeCommand
 
-import "github.com/edwinvautier/go-cli/config"
+import (
+	"github.com/edwinvautier/go-cli/config"
+)
 
 // MakeModel creates  the config and execute templates in order to create a new Model
 func MakeModel(modelName string) error {
@@ -21,11 +23,9 @@ func MakeModel(modelName string) error {
 func MakeCrud(modelName string) error {
 	var makeCmdConfig config.MakeCmdConfig
 	makeCmdConfig.Model.Name = modelName
-	config.InitMakeCRUDCmdConfig(&makeCmdConfig)
-
-	if err := executeTemplates(makeCmdConfig); err != nil {
+	if err := config.InitMakeCRUDCmdConfig(&makeCmdConfig); err != nil {
 		return err
 	}
 
-	return nil
+	return executeTemplates(makeCmdConfig)
 }
