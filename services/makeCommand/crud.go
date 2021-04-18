@@ -9,6 +9,7 @@ import (
 	"github.com/edwinvautier/go-cli/services/filesystem"
 )
 
+// AddControllersToRouter creates the routes inside the router file for the 5 controllers created by the crud command
 func AddControllersToRouter(modelNamePascalCase string) error {
 	workdir := filesystem.GetWorkdirOrDie()
 	routerFile, err := ioutil.ReadFile(workdir + "/api/routes/routes.go")
