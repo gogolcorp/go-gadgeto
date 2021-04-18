@@ -45,7 +45,11 @@ func PromptUserForModelFields(model *NewModel) error {
 		if err := promptForFieldType(&fieldType); err != nil {
 			return err
 		}
-
+		if fieldType == "other" {
+			if err := promptAnyFieldType(&fieldType); err != nil {
+				return err
+			}
+		}
 		field := ModelField{
 			Name:    helpers.UpperCaseFirstChar(fieldName),
 			Type:    fieldType,
@@ -58,8 +62,9 @@ func PromptUserForModelFields(model *NewModel) error {
 			field.IsSlice = true
 
 			sliceTypePrompt := &survey.Select{
-				Message: "Slice type :",
-				Options: GetTypeOptions(),
+				Message:  "Slice type :",
+				Options:  GetTypeOptions(),
+				PageSize: 12,
 			}
 			survey.AskOne(sliceTypePrompt, &field.SliceType)
 
@@ -88,8 +93,9 @@ func promptForFieldName(fieldName *string) error {
 
 func promptForFieldType(fieldType *string) error {
 	typePrompt := &survey.Select{
-		Message: "Choose type :",
-		Options: GetTypeOptions(),
+		Message:  "Choose type :",
+		Options:  GetTypeOptions(),
+		PageSize: 12,
 	}
 	return survey.AskOne(typePrompt, fieldType)
 }
@@ -97,8 +103,27 @@ func promptForFieldType(fieldType *string) error {
 // GetTypeOptions returns a list of strings for user prompt of data types when creating new models
 func GetTypeOptions() []string {
 	modelsList := GetModelsList()
-	options := []string{"string", "boolean", "int", "uint", "float32", "float64", "date", "slice"}
+	options := []string{
+		"string",
+		"boolean",
+		"int",
+		"int16",
+		"int32",
+		"int64",
+		"uint",
+		"uint16",
+		"uint32",
+		"uint64",
+		"float32",
+		"float64",
+		"date",
+		"slice",
+		"interface{}",
+		"byte",
+		"rune",
+	}
 	options = append(options, modelsList...)
+	options = append(options, "other")
 
 	return options
 }
@@ -128,4 +153,11 @@ func choosedCustomType(cType string) bool {
 	}
 
 	return false
+}
+
+func promptAnyFieldType(fType *string) error {
+	prompt := &survey.Input{
+		Message: "Choose field type, ex : []string",
+	}
+	return survey.AskOne(prompt, fType)
 }
