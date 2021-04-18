@@ -1,0 +1,92 @@
+package controllers
+
+import (
+  "net/http"
+  "github.com/gin-gonic/gin"
+  "{{.GoPackageFullPath}}/api/models"
+  "{{.GoPackageFullPath}}/api/repositories"
+)
+
+// Create{{.Model.NamePascalCase}} is the controller to create a new {{.Model.NameLowerCase}}
+func Create{{.Model.NamePascalCase}}(c *gin.Context) {
+  var {{.Model.NameLowerCase}}Form models.{{.Model.NamePascalCase}}Form
+  if err := c.ShouldBindJSON(&{{.Model.NameLowerCase}}Form); err != nil {
+    c.JSON(http.StatusBadRequest, "invalid informations provided")
+    return
+  }
+
+	if err := models.Validate{{.Model.NamePascalCase}}(&{{.Model.NameLowerCase}}Form); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	{{.Model.NameLowerCase}} := models.{{.Model.NamePascalCase}}{ {{range .Model.Fields}}
+	  {{.Name}}: {{$.Model.NameLowerCase}}Form.{{.Name}},{{end}}
+	}
+
+	if err := repositories.Create{{.Model.NamePascalCase}}(&{{.Model.NameLowerCase}}); err != nil {
+		c.JSON(http.StatusInternalServerError, "Couldn't create {{.Model.NameLowerCase}}. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, {{.Model.NameLowerCase}})
+}
+
+// Get{{.Model.NamePascalCase}}ByID is the controller to get a {{.Model.NameLowerCase}} by id
+func Get{{.Model.NamePascalCase}}ByID(c *gin.Context) {
+  ID := c.Param("id")
+
+	{{.Model.NameLowerCase}}, err := repositories.Find{{.Model.NamePascalCase}}ByID(ID);
+  if err != nil {
+		c.JSON(http.StatusNotFound, "Couldn't find {{.Model.NameLowerCase}}. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, {{.Model.NameLowerCase}})
+}
+
+// GetAll{{.Model.NamePascalCase}} is the controller to get all {{.Model.NameLowerCase}}
+func GetAll{{.Model.NamePascalCase}}(c *gin.Context) {
+	{{.Model.NameLowerCase}}List, err := repositories.FindAll{{.Model.NamePascalCase}}();
+  if err != nil {
+		c.JSON(http.StatusNotFound, "Couldn't find {{.Model.NameLowerCase}}. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, {{.Model.NameLowerCase}}List)
+}
+
+// Update{{.Model.NamePascalCase}} is the controller to update a {{.Model.NameLowerCase}}
+func Update{{.Model.NamePascalCase}}(c *gin.Context) {
+  ID := c.Param("id") 
+  var {{.Model.NameLowerCase}} models.{{.Model.NamePascalCase}}
+  if err := c.ShouldBindJSON(&{{.Model.NameLowerCase}}); err != nil {
+    c.JSON(http.StatusBadRequest, "invalid informations provided")
+    return
+  }
+
+	if err := models.Validate{{.Model.NamePascalCase}}(&{{.Model.NameLowerCase}}); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if err := repositories.Update{{.Model.NamePascalCase}}ByID(&{{.Model.NameLowerCase}}, ID); err != nil {
+		c.JSON(http.StatusInternalServerError, "Couldn't update {{.Model.NameLowerCase}}. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, {{.Model.NameLowerCase}})
+}
+
+// Delete{{.Model.NamePascalCase}}ByID is the controller to delete a {{.Model.NameLowerCase}} by id
+func Delete{{.Model.NamePascalCase}}ByID(c *gin.Context) {
+  ID := c.Param("id")
+
+	_, err := repositories.Delete{{.Model.NamePascalCase}}ByID(ID);
+  if err != nil {
+		c.JSON(http.StatusNotFound, "Couldn't find {{.Model.NameLowerCase}}. Try again.")
+		return
+	}
+
+	c.JSON(http.StatusOK, "{{.Model.NameLowerCase}} deleted")
+}

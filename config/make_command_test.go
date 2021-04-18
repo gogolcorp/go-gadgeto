@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
@@ -13,7 +13,7 @@ import (
 
 func TestAddModelToConfig(t *testing.T) {
 	type args struct {
-		newEntity entity.NewEntity
+		NewModel modelPrompt.NewModel
 	}
 	tests := []struct {
 		name    string
@@ -23,13 +23,13 @@ func TestAddModelToConfig(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				newEntity: entity.NewEntity{
+				NewModel: modelPrompt.NewModel{
 					Name:           "",
 					NamePascalCase: "",
 					NameLowerCase:  "",
 					HasDate:        false,
 					HasCustomTypes: false,
-					Fields: []entity.EntityField{
+					Fields: []modelPrompt.ModelField{
 						{
 							Type:      "string",
 							Name:      "Name",
@@ -44,7 +44,7 @@ func TestAddModelToConfig(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := AddModelToConfig(tt.args.newEntity); (err != nil) != tt.wantErr {
+			if err := AddModelToConfig(tt.args.NewModel); (err != nil) != tt.wantErr {
 				t.Errorf("AddModelToConfig() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -65,13 +65,13 @@ func TestAddModelToConfig(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				newEntity: entity.NewEntity{
+				NewModel: modelPrompt.NewModel{
 					Name:           "",
 					NamePascalCase: "",
 					NameLowerCase:  "",
 					HasDate:        false,
 					HasCustomTypes: false,
-					Fields: []entity.EntityField{
+					Fields: []modelPrompt.ModelField{
 						{
 							Type:      "string",
 							Name:      "Name",
@@ -86,7 +86,7 @@ func TestAddModelToConfig(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := AddModelToConfig(tt.args.newEntity); (err != nil) != tt.wantErr {
+			if err := AddModelToConfig(tt.args.NewModel); (err != nil) != tt.wantErr {
 				t.Errorf("AddModelToConfig() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

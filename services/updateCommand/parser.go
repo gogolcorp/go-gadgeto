@@ -3,12 +3,15 @@ package updateCommand
 import (
 	"strings"
 
-	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 )
 
-// ParseEntity takes a file string and try to parse entity from it
-func ParseEntity(model *entity.NewEntity, fileContent string) {
-	lines := strings.Split(fileContent, "\n")
+// ParseModel takes a file string and try to parse model from it
+func ParseModel(model *modelPrompt.NewModel, fileContent string) {
+	content := strings.ReplaceAll(fileContent, "\t", " ")
+	lines := strings.Split(content, "\n")
+
 	// look inside it for infos
 	lineIsStruct := false
 	for _, line := range lines {
@@ -20,10 +23,10 @@ func ParseEntity(model *entity.NewEntity, fileContent string) {
 		}
 
 		if lineIsStruct {
-			var field entity.EntityField
+			var field modelPrompt.ModelField
 			parseField(model, &field, line)
 
-			if len(field.Name) > 2 || len(field.Type) > 2 {
+			if (len(field.Name) > 2 || len(field.Type) > 2) && helpers.LowerCase(field.Name) != "id" {
 				model.Fields = append(model.Fields, field)
 			}
 		}
@@ -34,7 +37,7 @@ func ParseEntity(model *entity.NewEntity, fileContent string) {
 	}
 }
 
-func assignType(model *entity.NewEntity, field *entity.EntityField, element string) {
+func assignType(model *modelPrompt.NewModel, field *modelPrompt.ModelField, element string) {
 	if strings.Contains(element, "[]") {
 		field.IsSlice = true
 		field.SliceType = strings.Trim(element, "[]")
@@ -50,11 +53,11 @@ func hasClosingBracket(line string) bool {
 	return strings.Contains(line, "}")
 }
 
-func haveFoundFields(model *entity.NewEntity) bool {
+func haveFoundFields(model *modelPrompt.NewModel) bool {
 	return len(model.Fields) > 0
 }
 
-func parseField(model *entity.NewEntity, field *entity.EntityField, line string) {
+func parseField(model *modelPrompt.NewModel, field *modelPrompt.ModelField, line string) {
 	elements := strings.Split(line, " ")
 
 	for _, element := range elements {

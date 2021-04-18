@@ -1,0 +1,73 @@
+package repositories
+
+import (
+  "{{.GoPackageFullPath}}/shared/database"
+  "{{.GoPackageFullPath}}/api/models"
+	"errors"
+	"github.com/jinzhu/gorm"
+)
+
+func Create{{.Model.NamePascalCase}}({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}) error {
+	return database.Db.Debug().Create({{.Model.NameLowerCase}}).Error
+}
+
+func Update{{.Model.NamePascalCase}}ByID({{.Model.NameLowerCase}} *models.{{.Model.NamePascalCase}}, id uint64) error {
+	var err error
+	var old models.{{.Model.NamePascalCase}}
+	err = database.Db.Debug().Where("id = ?", id).First(&old).Error
+	if gorm.IsRecordNotFoundError(err) {
+		return errors.New("{{.Model.NameLowerCase}} Not Found")
+	}
+	{{.Model.NameLowerCase}}.ID = id
+
+	err = database.Db.Debug().Save(&{{.Model.NameLowerCase}}).Error
+	if err != nil {
+		return errors.New("Could'nt update {{.Model.NameLowerCase}}")
+	}
+
+	return nil
+}
+
+func Delete{{.Model.NamePascalCase}}ByID(id uint64) (models.{{.Model.NamePascalCase}}, error) {
+
+	var err error
+	var {{.Model.NameLowerCase}} models.{{.Model.NamePascalCase}}
+
+	err = database.Db.Debug().Delete(&{{.Model.NameLowerCase}}, id).Error
+	if err != nil {
+		return models.{{.Model.NamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
+	}
+
+	return {{.Model.NameLowerCase}}, err
+}
+
+func Find{{.Model.NamePascalCase}}ByID(id uint64) (*models.{{.Model.NamePascalCase}}, error) {
+	var err error
+	var {{.Model.NameLowerCase}} models.{{.Model.NamePascalCase}}
+	err = database.Db.Debug().Model(models.{{.Model.NamePascalCase}}{}).Where("id = ?", id).Take(&{{.Model.NameLowerCase}}).Error
+	if err != nil {
+		return &models.{{.Model.NamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return &models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
+	}
+
+	return &{{.Model.NameLowerCase}}, err
+}
+
+func FindAll{{.Model.NamePascalCase}}() (*[]models.{{.Model.NamePascalCase}}, error) {
+	var err error
+	var {{.Model.NameLowerCase}}List []models.{{.Model.NamePascalCase}}
+	err = database.Db.Debug().Find(&{{.Model.NameLowerCase}}List).Error
+	if err != nil {
+		return &models.{{.Model.NamePascalCase}}{}, err
+	}
+	if gorm.IsRecordNotFoundError(err) {
+		return &models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
+	}
+
+	return &{{.Model.NameLowerCase}}List, err
+}

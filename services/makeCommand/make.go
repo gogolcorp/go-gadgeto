@@ -1,12 +1,14 @@
 package makeCommand
 
-import "github.com/edwinvautier/go-cli/config"
+import (
+	"github.com/edwinvautier/go-cli/config"
+)
 
-// MakeEntity creates  the config and execute templates in order to create a new entity
-func MakeEntity(entityName string) error {
+// MakeModel creates  the config and execute templates in order to create a new Model
+func MakeModel(modelName string) error {
 	var makeCmdConfig config.MakeCmdConfig
-	makeCmdConfig.Entity.Name = entityName
-	if err := config.InitMakeCmdConfig(&makeCmdConfig); err != nil {
+	makeCmdConfig.Model.Name = modelName
+	if err := config.InitMakeModelCmdConfig(&makeCmdConfig); err != nil {
 		return err
 	}
 
@@ -14,5 +16,20 @@ func MakeEntity(entityName string) error {
 		return err
 	}
 
-	return config.AddModelToConfig(makeCmdConfig.Entity)
+	return config.AddModelToConfig(makeCmdConfig.Model)
+}
+
+// MakeCrud creates controllers for the model chosen
+func MakeCrud(modelName string) error {
+	var makeCmdConfig config.MakeCmdConfig
+	makeCmdConfig.Model.Name = modelName
+	if err := config.InitMakeCRUDCmdConfig(&makeCmdConfig); err != nil {
+		return err
+	}
+
+	if err := executeTemplates(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return AddControllersToRouter(makeCmdConfig.Model.NamePascalCase)
 }

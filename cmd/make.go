@@ -28,19 +28,21 @@ var makeCmd = &cobra.Command{
 	Short: "make is used to create new files, for example for models",
 	Long:  `make is used to create new files, for example for models, it creates your model file after prompting you for fields`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if !isAMakeCommand(args[0]) {
+		switch args[0] {
+		case "model":
+			if err := makeCommand.MakeModel(args[1]); err != nil {
+				log.Fatal(err)
+			}
+		case "crud":
+			if err := makeCommand.MakeCrud(args[1]); err != nil {
+				log.Fatal(err)
+			}
+		default:
 			log.Fatal(args[0], " is not a make command!")
-		}
-		if err := makeCommand.MakeEntity(args[1]); err != nil {
-			log.Fatal(err)
 		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(makeCmd)
-}
-
-func isAMakeCommand(commandName string) bool {
-	return commandName == "entity"
 }

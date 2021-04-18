@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 
 	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt/entity"
+	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 	"github.com/edwinvautier/go-cli/services/updateCommand"
 	log "github.com/sirupsen/logrus"
@@ -26,23 +26,23 @@ func updateModels() error {
 	configModels := viper.GetStringMap("models")
 
 	// Get project models list
-	projectModels := entity.GetEntitiesList()
+	projectModels := modelPrompt.GetModelsList()
 
-	// Trigger config generation for each new entity
+	// Trigger config generation for each new model
 	for _, modelName := range projectModels {
 		if configModels[helpers.LowerCase(modelName)] != nil {
 			continue
 		}
 
-		var entity entity.NewEntity
-		entity.Name = modelName
-		if err := generateModel(&entity); err != nil {
+		var model modelPrompt.NewModel
+		model.Name = modelName
+		if err := generateModel(&model); err != nil {
 			log.Error("couldn't add " + modelName + "to config")
 			return err
 		}
 
-		if err := AddModelToConfig(entity); err != nil {
-			log.Error("couldn't add entity to config : ", err)
+		if err := AddModelToConfig(model); err != nil {
+			log.Error("couldn't add model to config : ", err)
 			return err
 		}
 	}
@@ -50,7 +50,7 @@ func updateModels() error {
 	return nil
 }
 
-func generateModel(model *entity.NewEntity) error {
+func generateModel(model *modelPrompt.NewModel) error {
 	model.NamePascalCase = model.Name
 	model.NameLowerCase = helpers.LowerCase(model.Name)
 
@@ -64,7 +64,7 @@ func generateModel(model *entity.NewEntity) error {
 		return err
 	}
 	contentString := string(content)
-	updateCommand.ParseEntity(model, contentString)
+	updateCommand.ParseModel(model, contentString)
 
 	return nil
 }

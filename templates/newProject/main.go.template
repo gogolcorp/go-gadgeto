@@ -14,7 +14,7 @@ import (
 	"{{.GoPackageFullPath}}/shared/helpers"
 	"{{.GoPackageFullPath}}/api/routes"
 	"github.com/gin-gonic/gin"
-	cors "github.com/itsjamie/gin-cors"
+	"github.com/gin-contrib/cors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -34,14 +34,13 @@ func main() {
 	// Setup router
 	router := gin.Default()
 
-	router.Use(cors.Middleware(cors.Config{
-		Origins:         "*",
-		Methods:         "GET, PUT, POST, DELETE",
-		RequestHeaders:  "Origin, Authorization, Content-Type",
-		ExposedHeaders:  "Authorization",
-		MaxAge:          50 * time.Second,
-		Credentials:     true,
-		ValidateHeaders: false,
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:   	[]string{"*"},
+		AllowMethods:   	[]string{"GET", "PUT", "POST", "DELETE"},
+		AllowHeaders:  	  []string{"Origin", "Authorization", "Content-Type"},
+		ExposedHeaders:   []string{"Authorization"},
+		MaxAge:           50 * time.Second,
+		AllowCredentials: true,
 	}))
 	routes.Init(router)
 
