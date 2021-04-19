@@ -42,6 +42,7 @@ This command will look for a bundle located inside the bundles folder of the rep
 ```sh
 go-cli install authenticator
 ```
+
 ### Bundle API
 
 Each bundle should have the following elements :
@@ -68,4 +69,4 @@ go-cli make model modelYouWant
 go-cli make crud entityName
 ```
 
-**go-cli** will eventually asks you to run the `go-update` command, that reads the models files, and parse their fields to the config.
+**go-cli** will eventually asks you to run the `go-cli update` command, that reads the models files, and parse their fields to the config.

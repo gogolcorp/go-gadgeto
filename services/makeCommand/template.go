@@ -18,3 +18,10 @@ func executeTemplates(makeCmdConfig config.MakeCmdConfig) error {
 
 	return nil
 }
+
+func executeModelTemplate(makeCmdConfig config.MakeCmdConfig) error {
+	fileParts := helpers.GetFilePartsFromName("api/models/models_template.go.template", makeCmdConfig.Model.NameLowerCase+".go")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+
+	return nil
+}

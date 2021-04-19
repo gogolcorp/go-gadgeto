@@ -69,13 +69,9 @@ func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
 	if err := InitViper(); err != nil {
 		log.Fatal("couldn't read config, try again")
 	}
-	modelsStructs := viper.GetStringMap("models")
-	var models []string
-	for key := range modelsStructs {
-		models = append(models, key)
-	}
-	if !helpers.ContainsString(models, config.Model.Name) {
-		return errors.New("model does not exist, check if you api/models/" + config.Model.Name + ".go file exists and try running go-cli update")
+
+	if !IsInConfig(config.Model.Name) {
+		return errors.New("could'nt find this model, run go-cli update or go-cli make model to fix it")
 	}
 
 	modelData := viper.GetStringMap("models." + config.Model.Name)
@@ -91,4 +87,32 @@ func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
 	config.Box = packr.New("makeCRUDBox", "../templates/makeCRUD")
 
 	return nil
+}
+
+// IsInConfig returns a boolean telling wether the modelName was found in config or not
+func IsInConfig(modelName string) bool {
+	if err := InitViper(); err != nil {
+		log.Error("error when loading viper")
+		return false
+	}
+	modelsStructs := viper.GetStringMap("models")
+	var models []string
+	for key := range modelsStructs {
+		models = append(models, key)
+	}
+
+	return helpers.ContainsString(models, modelName)
+}
+
+// InitUpdateModelConfig is the same as initMakeModelConfig but it gather infos from config first
+func InitUpdateModelConfig(config *MakeCmdConfig) error {
+	log.Info("model already exists! Select fields to add :")
+	modelData := viper.GetStringMap("models." + config.Model.Name)
+	var model modelPrompt.NewModel
+	if err := mapstructure.Decode(modelData, &model); err != nil {
+		return errors.New("error while decoding " + config.Model.Name)
+	}
+	config.Model = model
+
+	return InitMakeModelCmdConfig(config)
 }
