@@ -16,6 +16,10 @@ func MakeModel(modelName string) error {
 		return err
 	}
 
+	if err := AddModelToMigrations(makeCmdConfig.Model.NamePascalCase); err != nil {
+		return err
+	}
+
 	return config.AddModelToConfig(makeCmdConfig.Model)
 }
 

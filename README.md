@@ -42,6 +42,7 @@ This command will look for a bundle located inside the bundles folder of the rep
 ```sh
 go-cli install authenticator
 ```
+
 ### Bundle API
 
 Each bundle should have the following elements :
