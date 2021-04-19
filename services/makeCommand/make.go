@@ -2,12 +2,17 @@ package makeCommand
 
 import (
 	"github.com/edwinvautier/go-cli/config"
+	"github.com/edwinvautier/go-cli/helpers"
 )
 
 // MakeModel creates  the config and execute templates in order to create a new Model
 func MakeModel(modelName string) error {
 	var makeCmdConfig config.MakeCmdConfig
 	makeCmdConfig.Model.Name = modelName
+	if config.IsInConfig(helpers.LowerCase(modelName)) {
+		return updateModel(modelName)
+	}
+
 	if err := config.InitMakeModelCmdConfig(&makeCmdConfig); err != nil {
 		return err
 	}
@@ -36,4 +41,19 @@ func MakeCrud(modelName string) error {
 	}
 
 	return AddControllersToRouter(makeCmdConfig.Model.NamePascalCase)
+}
+
+func updateModel(modelName string) error {
+	var makeCmdConfig config.MakeCmdConfig
+	makeCmdConfig.Model.Name = modelName
+
+	if err := config.InitUpdateModelConfig(&makeCmdConfig); err != nil {
+		return err
+	}
+
+	if err := executeModelTemplate(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return config.AddModelToConfig(makeCmdConfig.Model)
 }
