@@ -104,6 +104,7 @@ func IsInConfig(modelName string) bool {
 	return helpers.ContainsString(models, modelName)
 }
 
+// InitUpdateModelConfig is the same as initMakeModelConfig but it gather infos from config first
 func InitUpdateModelConfig(config *MakeCmdConfig) error {
 	log.Info("model already exists! Select fields to add :")
 	modelData := viper.GetStringMap("models." + config.Model.Name)
