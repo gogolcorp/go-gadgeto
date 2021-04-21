@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/prompt/modelPrompt"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 )
@@ -52,7 +52,7 @@ func TestAddModelToConfig(t *testing.T) {
 
 	// Create config file
 	workdir := filesystem.GetWorkdirOrDie()
-	if _, err := os.Create(workdir + "/.go-cli-config.yml"); err != nil {
+	if _, err := os.Create(workdir + "/.go-gadgeto-config.yml"); err != nil {
 		log.Error(err)
 		return
 	}
@@ -92,7 +92,7 @@ func TestAddModelToConfig(t *testing.T) {
 		})
 	}
 
-	if err := os.Remove(workdir + "/.go-cli-config.yml"); err != nil {
+	if err := os.Remove(workdir + "/.go-gadgeto-config.yml"); err != nil {
 		log.Error(err)
 		return
 	}

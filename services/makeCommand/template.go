@@ -1,9 +1,9 @@
 package makeCommand
 
 import (
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/services/files"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/services/files"
 	"github.com/gobuffalo/packd"
 )
 

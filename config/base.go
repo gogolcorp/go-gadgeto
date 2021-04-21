@@ -1,13 +1,13 @@
 package config
 
 import (
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
-// CommandConfigInterface is the base for all go-cli commands
+// CommandConfigInterface is the base for all go-gadgeto commands
 type CommandConfigInterface interface {
 	GetBox() *packr.Box
 	GetProjectPath() string

@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 

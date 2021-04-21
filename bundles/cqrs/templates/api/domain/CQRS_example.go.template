@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/edwinvautier/go-cli/cqrs"
+import "github.com/edwinvautier/go-gadgeto/cqrs"
 
 var CommandBus cqrs.CommandBus
 

@@ -1,4 +1,4 @@
-module github.com/edwinvautier/go-cli
+module github.com/edwinvautier/go-gadgeto
 
 go 1.15
 

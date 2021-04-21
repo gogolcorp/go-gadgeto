@@ -3,9 +3,9 @@ package config
 import (
 	"strings"
 
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt"
-	"github.com/edwinvautier/go-cli/services"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/prompt"
+	"github.com/edwinvautier/go-gadgeto/services"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
