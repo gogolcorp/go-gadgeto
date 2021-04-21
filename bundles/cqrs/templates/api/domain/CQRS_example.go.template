@@ -1,0 +1,31 @@
+package domain
+
+import "github.com/edwinvautier/go-cli/cqrs"
+
+var CommandBus cqrs.CommandBus
+
+type CreateCommandHandler struct {}
+
+type CreateCommand struct {
+  ID uint64
+}
+
+func (handler CreateCommandHandler) Handle(command cqrs.CommandMessage) (interface{}, error) {
+  cmd := command.Payload()
+
+  return &cmd, nil
+}
+
+func InitBus() {
+  CommandBus = cqrs.NewCommandBus()
+  CommandBus.RegisterHandler(CreateCommandHandler{}, CreateCommand{})
+}
+
+func dispatchACommand() (interface{}, error){
+  command := CreateCommand{
+    ID: 1,
+  }
+  cmdDescriptor := cqrs.NewCommandMessage(&command)
+
+  return CommandBus.Dispatch(cmdDescriptor)
+}
