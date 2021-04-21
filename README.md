@@ -70,3 +70,25 @@ go-cli make crud entityName
 ```
 
 **go-cli** will eventually asks you to run the `go-cli update` command, that reads the models files, and parse their fields to the config.
+
+## Make fixtures
+
+**go-cli** can generate your fixtures, to do so, you just have to use the `make fixtures` command :
+
+```sh
+go-cli make fixtures entityName
+```
+
+**go-cli** will eventually asks you to run the `go-cli update` command, that reads the models files, and parse their fields to the config.
+
+## Make tests
+
+> Only works with models files for the moment.
+
+**go-cli** can generate your tests, to do so, you just have to use the `make tests` command :
+
+```sh
+go-cli make tests entityName
+```
+
+**go-cli** will eventually asks you to run the `go-cli update` command, that reads the models files, and parse their fields to the config.

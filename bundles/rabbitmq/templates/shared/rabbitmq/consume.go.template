@@ -1,0 +1,46 @@
+package rabbitmq
+
+import (
+	log "github.com/sirupsen/logrus"
+	"os"
+	"encoding/json"
+)
+
+// ConsumeQueueService represents a queue
+type ConsumeQueueService struct {
+	Queue string
+}
+
+// Consume implements the ConsumeQueueService to get the targeted queue and takes a channel to retrieve the message
+// Mostly used as a goroutine to create a concurrent function in order to listen on all messages received by the specified queue.
+func (cqs *ConsumeQueueService) Consume(results chan<- interface{}) {
+	url := os.Getenv("AMQP_URL")
+
+	if url == "" {
+		url = "amqp://user:bitnami@rabbitmq:5672"
+	}
+
+	log.Info(" CONSUMING QUEUE:", cqs.Queue)
+
+	cfg := Config{
+		URL:        url,
+		QueueName:  cqs.Queue,
+		Exchange:   "",
+		RoutingKey: "#",
+	}
+	queue, err := NewQueueInstance(cfg)
+	if err != nil {
+		log.Error("error declaring the new queue instance: " + err.Error())
+	}
+	messages, err := queue.Consume()
+	if err != nil {
+		log.Error("error consuming the queue: " + err.Error())
+	}
+	for message := range messages {
+		var data interface{}
+		if err := json.Unmarshal(message, &data); err != nil {
+			log.Error("error in byte conversion of event: " + err.Error())
+		}
+		results <- data
+	}
+}
