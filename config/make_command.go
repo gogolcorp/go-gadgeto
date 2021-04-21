@@ -12,6 +12,25 @@ import (
 	"github.com/spf13/viper"
 )
 
+// MakeCmdConfig is the struct used to configure make command
+type MakeCmdConfig struct {
+	GoPackageFullPath string
+	Box               *packr.Box
+	Model             modelPrompt.NewModel
+	ProjectPath       string
+	FixturesModels    []string
+}
+
+// GetBox returns the box in which templates for make command are stored
+func (cmd MakeCmdConfig) GetBox() *packr.Box {
+	return cmd.Box
+}
+
+// GetProjectPath returns the path to project in user's computer
+func (cmd MakeCmdConfig) GetProjectPath() string {
+	return cmd.ProjectPath
+}
+
 // InitMakeModelCmdConfig creates the needed config for the create command by prompting user and doing other actions
 func InitMakeModelCmdConfig(config *MakeCmdConfig) error {
 	configBase := initBasicConfig()
@@ -45,26 +64,8 @@ func AddModelToConfig(newModel modelPrompt.NewModel) error {
 	return nil
 }
 
-// MakeCmdConfig is the struct used to configure make command
-type MakeCmdConfig struct {
-	GoPackageFullPath string
-	Box               *packr.Box
-	Model             modelPrompt.NewModel
-	ProjectPath       string
-}
-
-// GetBox returns the box in which templates for make command are stored
-func (cmd MakeCmdConfig) GetBox() *packr.Box {
-	return cmd.Box
-}
-
-// GetProjectPath returns the path to project in user's computer
-func (cmd MakeCmdConfig) GetProjectPath() string {
-	return cmd.ProjectPath
-}
-
 // InitMakeCRUDCmdConfig creates the needed config for the make crud command
-func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
+func InitModelConfig(config *MakeCmdConfig) error {
 	// Get model from config
 	if err := InitViper(); err != nil {
 		log.Fatal("couldn't read config, try again")
@@ -84,7 +85,31 @@ func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
 
 	config.GoPackageFullPath = configBase.PackagePath
 	config.ProjectPath = configBase.ProjectPath
+
+	return nil
+}
+
+// InitMakeCRUDCmdConfig inits a config for the make CRUD command
+func InitMakeCRUDCmdConfig(config *MakeCmdConfig) error {
+	if err := InitModelConfig(config); err != nil {
+		return err
+	}
 	config.Box = packr.New("makeCRUDBox", "../templates/makeCRUD")
+
+	return nil
+}
+
+// InitMakeFixturesCmdConfig inits a config for the make fixtures command
+func InitMakeFixturesCmdConfig(config *MakeCmdConfig) error {
+	if err := InitModelConfig(config); err != nil {
+		return err
+	}
+	config.Box = packr.New("makeFixturesBox", "../templates/makeFixtures")
+	config.FixturesModels = filesystem.GetFixturesModelsList()
+
+	if !helpers.ContainsString(config.FixturesModels, config.Model.NamePascalCase) {
+		config.FixturesModels = append(config.FixturesModels, config.Model.NamePascalCase)
+	}
 
 	return nil
 }

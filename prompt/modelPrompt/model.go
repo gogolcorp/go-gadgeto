@@ -1,13 +1,9 @@
 package modelPrompt
 
 import (
-	"io/ioutil"
-	"strings"
-
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/services/filesystem"
-	log "github.com/sirupsen/logrus"
 )
 
 // ModelField represents a single field from a model
@@ -102,7 +98,7 @@ func promptForFieldType(fieldType *string) error {
 
 // GetTypeOptions returns a list of strings for user prompt of data types when creating new models
 func GetTypeOptions() []string {
-	modelsList := GetModelsList()
+	modelsList := filesystem.GetModelsList()
 	options := []string{
 		"string",
 		"boolean",
@@ -128,24 +124,8 @@ func GetTypeOptions() []string {
 	return options
 }
 
-// GetModelsList returns a slice of strings with all the models names found in the models/ dir
-func GetModelsList() []string {
-	workdir := filesystem.GetWorkdirOrDie()
-	files, err := ioutil.ReadDir(workdir + "/api/models")
-	if err != nil {
-		log.Fatal(err)
-	}
-	models := make([]string, 0)
-	for _, file := range files {
-		name := helpers.UpperCaseFirstChar(strings.Split(file.Name(), ".go")[0])
-		models = append(models, name)
-	}
-
-	return models
-}
-
 func choosedCustomType(cType string) bool {
-	modelsList := GetModelsList()
+	modelsList := filesystem.GetModelsList()
 	for _, modelName := range modelsList {
 		if modelName == cType {
 			return true

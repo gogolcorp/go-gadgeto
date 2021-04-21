@@ -26,7 +26,7 @@ func updateModels() error {
 	configModels := viper.GetStringMap("models")
 
 	// Get project models list
-	projectModels := modelPrompt.GetModelsList()
+	projectModels := filesystem.GetModelsList()
 
 	// Trigger config generation for each new model
 	for _, modelName := range projectModels {
