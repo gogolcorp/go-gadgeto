@@ -31,9 +31,9 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "go-cli",
-	Short: "go-cli is used to setup your go project, in case of an API mainly.",
-	Long: `go-cli helps you by providing commands such as create, make model... in order for you to focus
+	Use:   "go-gadgeto",
+	Short: "go-gadgeto is used to setup your go project, in case of an API mainly.",
+	Long: `go-gadgeto helps you by providing commands such as create, make model... in order for you to focus
 	on the most important parts of your domain logic.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
@@ -53,7 +53,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-cli.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-gadgeto.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -69,9 +69,9 @@ func initConfig() {
 		// Find home directory.
 		home, err := homedir.Dir()
 		cobra.CheckErr(err)
-		// Search config in home directory with name ".go-cli" (without extension).
+		// Search config in home directory with name ".go-gadgeto" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".go-cli")
+		viper.SetConfigName(".go-gadgeto")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -89,7 +89,7 @@ func initConfig() {
 }
 
 func createConfig(homeDir string) {
-	_, err := os.Create(homeDir + "/.go-cli.yaml")
+	_, err := os.Create(homeDir + "/.go-gadgeto.yaml")
 	if err != nil {
 		log.Error("Couldn't create config file : ", err)
 	}

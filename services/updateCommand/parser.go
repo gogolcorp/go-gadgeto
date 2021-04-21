@@ -3,8 +3,8 @@ package updateCommand
 import (
 	"strings"
 
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/prompt/modelPrompt"
 )
 
 // ParseModel takes a file string and try to parse model from it

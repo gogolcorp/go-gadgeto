@@ -7,7 +7,7 @@ This bundle is used to set up Command Query Responsibility Segregation on your p
 As the provided bundle is only a library of functions, structs and interfaces no setup is required. You just have to import
 
 ```sh
-github.com/edwinvautier/go-cli/bundles/cqrs
+github.com/edwinvautier/go-gadgeto/bundles/cqrs
 ```
 
 ## Available methods and interfaces

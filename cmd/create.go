@@ -21,8 +21,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/services/createCommand"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/services/createCommand"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"

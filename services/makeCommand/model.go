@@ -5,9 +5,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 )
 
 // MakeModel creates  the config and execute templates in order to create a new Model

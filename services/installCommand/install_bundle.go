@@ -2,7 +2,7 @@ package installCommand
 
 import (
 	"errors"
-	"github.com/edwinvautier/go-cli/config"
+	"github.com/edwinvautier/go-gadgeto/config"
 	"github.com/gobuffalo/packr/v2"
 	log "github.com/sirupsen/logrus"
 	"strings"

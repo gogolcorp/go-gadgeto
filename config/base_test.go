@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -28,8 +28,8 @@ func Test_initBasicConfig(t *testing.T) {
 	}
 
 	workdir := filesystem.GetWorkdirOrDie()
-	os.Create(workdir + "/.go-cli-config.yml")
-	file, _ := os.OpenFile(workdir+"/.go-cli-config.yml", os.O_APPEND|os.O_WRONLY, 0644)
+	os.Create(workdir + "/.go-gadgeto-config.yml")
+	file, _ := os.OpenFile(workdir+"/.go-gadgeto-config.yml", os.O_APPEND|os.O_WRONLY, 0644)
 	defer file.Close()
 	if _, err := file.WriteString("package: helloworld"); err != nil {
 		log.Fatal(err)
@@ -54,5 +54,5 @@ func Test_initBasicConfig(t *testing.T) {
 		})
 	}
 
-	os.Remove(workdir + "/.go-cli-config.yml")
+	os.Remove(workdir + "/.go-gadgeto-config.yml")
 }

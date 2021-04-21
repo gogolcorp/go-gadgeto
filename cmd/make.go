@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/edwinvautier/go-cli/services/makeCommand"
+	"github.com/edwinvautier/go-gadgeto/services/makeCommand"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

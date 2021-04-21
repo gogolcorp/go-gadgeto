@@ -2,8 +2,8 @@ package modelPrompt
 
 import (
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 )
 
 // ModelField represents a single field from a model

@@ -3,7 +3,7 @@ package updateCommand
 import (
 	"testing"
 
-	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
+	"github.com/edwinvautier/go-gadgeto/prompt/modelPrompt"
 )
 
 func TestParseModel(t *testing.T) {

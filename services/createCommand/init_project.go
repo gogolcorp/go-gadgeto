@@ -4,10 +4,10 @@ import (
 	"errors"
 	"os"
 
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/prompt"
-	"github.com/edwinvautier/go-cli/services"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/prompt"
+	"github.com/edwinvautier/go-gadgeto/services"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
@@ -54,13 +54,13 @@ func createProjectDir(path string) error {
 }
 
 func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
-	_, err := os.Create(workdir + "/.go-cli-config.yaml")
+	_, err := os.Create(workdir + "/.go-gadgeto-config.yaml")
 	if err != nil {
 		log.Error("Couldn't create project config : ", err)
 	}
 
 	viper.AddConfigPath(workdir)
-	viper.SetConfigName(".go-cli-config")
+	viper.SetConfigName(".go-gadgeto-config")
 
 	// Set config defaults
 	viper.Set("package", config.GoPackageFullPath)

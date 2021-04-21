@@ -1,7 +1,7 @@
 package makeCommand
 
 import (
-	"github.com/edwinvautier/go-cli/config"
+	"github.com/edwinvautier/go-gadgeto/config"
 	log "github.com/sirupsen/logrus"
 )
 

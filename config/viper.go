@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/spf13/viper"
 )
 
@@ -9,7 +9,7 @@ import (
 func InitViper() error {
 	workdir := filesystem.GetWorkdirOrDie()
 	viper.AddConfigPath(workdir)
-	viper.SetConfigName(".go-cli-config")
+	viper.SetConfigName(".go-gadgeto-config")
 
 	return viper.ReadInConfig()
 }

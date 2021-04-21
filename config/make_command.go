@@ -3,9 +3,9 @@ package config
 import (
 	"errors"
 
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/prompt/modelPrompt"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/mitchellh/mapstructure"
 	log "github.com/sirupsen/logrus"
@@ -48,7 +48,7 @@ func AddModelToConfig(newModel modelPrompt.NewModel) error {
 	workdir := filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
-	viper.SetConfigName(".go-cli-config")
+	viper.SetConfigName(".go-gadgeto-config")
 	viper.SetDefault("models", map[string]map[string]string{})
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
@@ -72,7 +72,7 @@ func InitModelConfig(config *MakeCmdConfig) error {
 	}
 
 	if !IsInConfig(config.Model.Name) {
-		return errors.New("could'nt find this model, run go-cli update or go-cli make model to fix it")
+		return errors.New("could'nt find this model, run go-gadgeto update or go-gadgeto make model to fix it")
 	}
 
 	modelData := viper.GetStringMap("models." + config.Model.Name)
