@@ -3,7 +3,7 @@ package installCommand
 import (
 	"errors"
 	"strings"
-
+	log "github.com/sirupsen/logrus"
 	"github.com/edwinvautier/go-cli/config"
 	"github.com/gobuffalo/packr/v2"
 )
@@ -29,6 +29,7 @@ func InstallBundle(name string) error {
 	}
 	// load & update config
 	config.UpdateConfigAfterInstalling(name)
+	log.Info("successfully installed ", name, " bundle" )
 
 	return nil
 }
