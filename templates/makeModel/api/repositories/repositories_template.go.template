@@ -63,10 +63,10 @@ func FindAll{{.Model.NamePascalCase}}() (*[]models.{{.Model.NamePascalCase}}, er
 	var {{.Model.NameLowerCase}}List []models.{{.Model.NamePascalCase}}
 	err = database.Db.Debug().Find(&{{.Model.NameLowerCase}}List).Error
 	if err != nil {
-		return &models.{{.Model.NamePascalCase}}{}, err
+		return &[]models.{{.Model.NamePascalCase}}{}, err
 	}
 	if gorm.IsRecordNotFoundError(err) {
-		return &models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
+		return &[]models.{{.Model.NamePascalCase}}{}, errors.New("{{.Model.NameLowerCase}} Not Found")
 	}
 
 	return &{{.Model.NameLowerCase}}List, err

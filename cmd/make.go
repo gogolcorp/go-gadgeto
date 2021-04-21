@@ -37,6 +37,14 @@ var makeCmd = &cobra.Command{
 			if err := makeCommand.MakeCrud(args[1]); err != nil {
 				log.Fatal(err)
 			}
+		case "fixtures":
+			if err := makeCommand.MakeFixtures(args[1]); err != nil {
+				log.Fatal(err)
+			}
+		case "tests":
+			if err := makeCommand.MakeTests(args[1]); err != nil {
+				log.Fatal(err)
+			}
 		default:
 			log.Fatal(args[0], " is not a make command!")
 		}

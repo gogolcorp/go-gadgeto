@@ -1,0 +1,10 @@
+package fixtures
+
+// RunFixtures execute all fixtures functions specified, it depends on migrations
+func RunFixtures() error { {{range .FixturesModels}}
+  if err := Insert{{.}}(); err != nil {
+    return err
+  }{{end}}
+
+	return nil
+}

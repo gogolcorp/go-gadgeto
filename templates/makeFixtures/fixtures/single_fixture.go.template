@@ -1,0 +1,32 @@
+package fixtures
+
+import (
+	"encoding/json"
+
+	"{{.GoPackageFullPath}}/api/models"
+	"{{.GoPackageFullPath}}/api/repositories"
+	"github.com/gobuffalo/packr/v2"
+	log "github.com/sirupsen/logrus"
+)
+
+// Insert{{.Model.NamePascalCase}} looks for {{.Model.NameLowerCase}} in {{.Model.NameLowerCase}}.json file and inserts them inside db
+func Insert{{.Model.NamePascalCase}}() error {
+	box := packr.New("{{.Model.NameLowerCase}}", ".")
+	{{.Model.NameLowerCase}}Data, err := box.FindString("{{.Model.NameLowerCase}}.json")
+	if err != nil {
+		log.Error(err)
+	}
+
+	var {{.Model.NameLowerCase}}List []models.{{.Model.NamePascalCase}}
+	if err := json.Unmarshal([]byte({{.Model.NameLowerCase}}Data), &{{.Model.NameLowerCase}}List); err != nil {
+		return err
+	}
+
+	for _, {{.Model.NameLowerCase}} := range {{.Model.NameLowerCase}}List {
+		if err := repositories.Create{{.Model.NamePascalCase}}(&{{.Model.NameLowerCase}}); err != nil {
+			log.Error(err)
+		}
+	}
+
+	return nil
+}

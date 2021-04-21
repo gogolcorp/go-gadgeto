@@ -38,7 +38,7 @@ func main() {
 		AllowOrigins:   	[]string{"*"},
 		AllowMethods:   	[]string{"GET", "PUT", "POST", "DELETE"},
 		AllowHeaders:  	  []string{"Origin", "Authorization", "Content-Type"},
-		ExposedHeaders:   []string{"Authorization"},
+		ExposeHeaders:   []string{"Authorization"},
 		MaxAge:           50 * time.Second,
 		AllowCredentials: true,
 	}))

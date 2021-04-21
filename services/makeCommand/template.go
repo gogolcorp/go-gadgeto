@@ -25,3 +25,24 @@ func executeModelTemplate(makeCmdConfig config.MakeCmdConfig) error {
 
 	return nil
 }
+
+func executeFixturesTemplates(makeCmdConfig config.MakeCmdConfig) error {
+	// Generate base
+	fileParts := helpers.GetFilePartsFromName("fixtures/fixtures.go.template", "fixtures.go")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+
+	// Generate fixture templates
+	fileParts = helpers.GetFilePartsFromName("fixtures/single_fixture.go.template", makeCmdConfig.Model.NameLowerCase+".go")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+
+	fileParts = helpers.GetFilePartsFromName("fixtures/fixture.json.template", makeCmdConfig.Model.NameLowerCase+".json")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+	return nil
+}
+
+func executeTestsTemplates(makeCmdConfig config.MakeCmdConfig) error {
+	fileParts := helpers.GetFilePartsFromName("api/models/model_test.go.template", makeCmdConfig.Model.NameLowerCase+"_test.go")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+
+	return nil
+}
