@@ -13,11 +13,11 @@ func GetModelsList() []string {
 	workdir := GetWorkdirOrDie()
 	files, err := ioutil.ReadDir(workdir + "/api/models")
 	if err != nil {
+<<<<<<< HEAD
 		log.Fatal("couldn't read models directory: ", err)
+=======
+		log.Fatal(err)
 	}
-
-	models := make([]string, 0)
-	for _, file := range files {
 		name := helpers.UpperCaseFirstChar(strings.Split(file.Name(), ".go")[0])
 		models = append(models, name)
 	}
