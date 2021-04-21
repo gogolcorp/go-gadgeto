@@ -28,5 +28,3 @@ func Validate{{.Model.NamePascalCase}}({{.Model.NameLowerCase}} *{{.Model.NamePa
 	
   return err
 }
-
-

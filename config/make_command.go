@@ -114,6 +114,16 @@ func InitMakeFixturesCmdConfig(config *MakeCmdConfig) error {
 	return nil
 }
 
+// InitMakeTestsCmdConfig inits a config for the make tests command
+func InitMakeTestsCmdConfig(config *MakeCmdConfig) error {
+	if err := InitModelConfig(config); err != nil {
+		return err
+	}
+	config.Box = packr.New("makeTestsBox", "../templates/makeTests")
+
+	return nil
+}
+
 // IsInConfig returns a boolean telling wether the modelName was found in config or not
 func IsInConfig(modelName string) bool {
 	if err := InitViper(); err != nil {

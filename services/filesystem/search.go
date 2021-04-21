@@ -31,7 +31,6 @@ func GetFixturesModelsList() []string {
 	files, err := ioutil.ReadDir(workdir + "/fixtures")
 	models := make([]string, 0)
 	if err != nil {
-		log.Error("No fixtures", err)
 		return models
 	}
 

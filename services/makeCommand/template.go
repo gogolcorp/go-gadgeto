@@ -39,3 +39,10 @@ func executeFixturesTemplates(makeCmdConfig config.MakeCmdConfig) error {
 	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
 	return nil
 }
+
+func executeTestsTemplates(makeCmdConfig config.MakeCmdConfig) error {
+	fileParts := helpers.GetFilePartsFromName("api/models/model_test.go.template", makeCmdConfig.Model.NameLowerCase+"_test.go")
+	files.Generate(fileParts.Path, fileParts.Name, fileParts.OutputName, makeCmdConfig)
+
+	return nil
+}
