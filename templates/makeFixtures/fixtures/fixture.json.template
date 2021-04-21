@@ -1,0 +1,5 @@
+[
+  { {{range .Model.Fields}}
+    "{{.Name}}": "",{{end}}
+  }
+]

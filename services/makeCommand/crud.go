@@ -5,9 +5,40 @@ import (
 	"os"
 	"strings"
 
+	"github.com/edwinvautier/go-cli/config"
 	"github.com/edwinvautier/go-cli/helpers"
 	"github.com/edwinvautier/go-cli/services/filesystem"
 )
+
+// MakeCrud creates controllers for the model chosen
+func MakeCrud(modelName string) error {
+	var makeCmdConfig config.MakeCmdConfig
+	makeCmdConfig.Model.Name = modelName
+	if err := config.InitMakeCRUDCmdConfig(&makeCmdConfig); err != nil {
+		return err
+	}
+
+	if err := executeTemplates(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return AddControllersToRouter(makeCmdConfig.Model.NamePascalCase)
+}
+
+func updateModel(modelName string) error {
+	var makeCmdConfig config.MakeCmdConfig
+	makeCmdConfig.Model.Name = modelName
+
+	if err := config.InitUpdateModelConfig(&makeCmdConfig); err != nil {
+		return err
+	}
+
+	if err := executeModelTemplate(makeCmdConfig); err != nil {
+		return err
+	}
+
+	return config.AddModelToConfig(makeCmdConfig.Model)
+}
 
 // AddControllersToRouter creates the routes inside the router file for the 5 controllers created by the crud command
 func AddControllersToRouter(modelNamePascalCase string) error {
