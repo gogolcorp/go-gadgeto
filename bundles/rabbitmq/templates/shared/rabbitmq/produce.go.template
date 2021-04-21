@@ -1,0 +1,44 @@
+package rabbitmq
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
+// QueueService represents a queue and its data
+type QueueService struct {
+	Queue string
+	Data  interface{}
+}
+
+// NewMessageToRabbit sends a new message to the configured rabbit queue
+func (qs *QueueService) NewMessageToRabbit() error {
+	url := os.Getenv("AMQP_URL")
+
+	if url == "" {
+		url = "amqp://user:bitnami@rabbitmq:5672"
+	}
+	cfg := Config{
+		URL:        url,
+		QueueName:  qs.Queue,
+		Exchange:   "",
+		RoutingKey: qs.Queue,
+	}
+	queue, err := NewQueueInstance(cfg)
+	if err != nil {
+		fmt.Println("error declaring the new queue instance: " + err.Error())
+		return err
+	}
+	data, err := json.Marshal(qs.Data)
+	if err != nil {
+		fmt.Println("error in json conversion of event: " + err.Error())
+		return err
+	}
+	err = queue.Publish(data)
+	if err != nil {
+		fmt.Println("error publishing a message to the queue:" + err.Error())
+		return err
+	}
+	return nil
+}
