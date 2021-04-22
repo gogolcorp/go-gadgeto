@@ -66,7 +66,7 @@ go-gadgeto make model modelYouWant
 **go-gadgeto** can generate your controllers, to do so, you just have to use the `make crud` command :
 
 ```sh
-go-gadgeto make crud entityName
+go-gadgeto make crud modelName
 ```
 
 **go-gadgeto** will eventually asks you to run the `go-gadgeto update` command, that reads the models files, and parse their fields to the config.
@@ -76,7 +76,7 @@ go-gadgeto make crud entityName
 **go-gadgeto** can generate your fixtures, to do so, you just have to use the `make fixtures` command :
 
 ```sh
-go-gadgeto make fixtures entityName
+go-gadgeto make fixtures modelName
 ```
 
 **go-gadgeto** will eventually asks you to run the `go-gadgeto update` command, that reads the models files, and parse their fields to the config.
@@ -88,7 +88,7 @@ go-gadgeto make fixtures entityName
 **go-gadgeto** can generate your tests, to do so, you just have to use the `make tests` command :
 
 ```sh
-go-gadgeto make tests entityName
+go-gadgeto make tests modelName
 ```
 
 **go-gadgeto** will eventually asks you to run the `go-gadgeto update` command, that reads the models files, and parse their fields to the config.
