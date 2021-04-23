@@ -13,7 +13,7 @@ func Generate(path string, name string, outputName string, commandConfig config.
 	// Get template content as string
 	templateString, err := commandConfig.GetBox().FindString(path + name)
 	if err != nil {
-		log.Error(err)
+		log.WithField("path", path+name).Error("couldn't get template")
 		return
 	}
 
@@ -24,7 +24,7 @@ func Generate(path string, name string, outputName string, commandConfig config.
 
 	err = executeTemplate(commandConfig, outputName, commandConfig.GetProjectPath()+"/"+path, templateString)
 	if err != nil {
-		log.Error("oups", err)
+		log.WithField("path", path+outputName).Error("couldn't create file")
 		return
 	}
 }
@@ -33,7 +33,6 @@ func executeTemplate(config config.CommandConfigInterface, outputName string, pa
 	// Create the file
 	file, err := os.Create(path + outputName)
 	if err != nil {
-		log.Error(err)
 		return err
 	}
 

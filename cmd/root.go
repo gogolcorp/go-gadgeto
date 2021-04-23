@@ -82,7 +82,7 @@ func initConfig() {
 	} else {
 		home, err := homedir.Dir()
 		if err != nil {
-			log.Error("couldn't get your homedir")
+			log.Error("couldn't get your home directory")
 		}
 		createConfig(home)
 	}
@@ -91,7 +91,7 @@ func initConfig() {
 func createConfig(homeDir string) {
 	_, err := os.Create(homeDir + "/.go-gadgeto.yaml")
 	if err != nil {
-		log.Error("Couldn't create config file : ", err)
+		log.Error("couldn't create config file: ", err)
 	}
 	initConfig()
 }

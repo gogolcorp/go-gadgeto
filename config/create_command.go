@@ -36,7 +36,7 @@ func getGitUsername() string {
 	userName := services.GetGitUsername()
 	if userName == "" {
 		if err := prompt.AskGitUsername(&userName); err != nil {
-			log.Fatal(err)
+			log.Fatal("go-gadgeto needs your git username to initialize a new project")
 		}
 		viper.Set("git-username", userName)
 	}
@@ -47,14 +47,14 @@ func getDBMS() string {
 	// Get the desired DB management system
 	dbms := ""
 	if err := prompt.AskDBMS(&dbms); err != nil {
-		log.Fatal(err)
+		log.Fatal("go-gadgeto needs you to choose a database management system")
 	}
 	return dbms
 }
 
 func chooseToUseDocker() bool {
 	// Ask user wether to use docker or not
-	wantsDocker := false
+	wantsDocker := true
 	prompt.AskToUseDocker(&wantsDocker)
 
 	return wantsDocker

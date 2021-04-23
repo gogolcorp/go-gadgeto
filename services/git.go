@@ -28,7 +28,6 @@ func getFromGit() string {
 	cmd := exec.Command("git", "config", "user.name")
 	stdout, err := cmd.Output()
 	if err != nil {
-		log.Error(err)
 		return ""
 	}
 
