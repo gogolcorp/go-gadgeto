@@ -3,7 +3,6 @@ package services
 import (
 	"os/exec"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
