@@ -29,7 +29,7 @@ func RemoveSingle(path string) error {
 func GetWorkdirOrDie() string {
 	workdir, err := os.Getwd()
 	if err != nil {
-		log.Fatal("Couldn't get workdir")
+		log.Fatal("couldn't get workdir")
 	}
 
 	return workdir

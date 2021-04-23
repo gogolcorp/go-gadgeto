@@ -40,7 +40,7 @@ var createCmd = &cobra.Command{
 		config.InitCreateCmdConfig(&commandConfig)
 
 		if err := createCommand.InitProject(&commandConfig); err != nil {
-			log.Error("create command failed : ", err)
+			log.Error("project initialization failed: ", err)
 		}
 	},
 }

@@ -26,12 +26,12 @@ func initRsaKeys() error {
 	rsa.PrivateKeyPath = goDotEnvVariable("RSA_PRIVATE_PATH")
 
 	if err := parsePublicKey(&rsa.PublicKey); err != nil {
-		log.Error("Couldnt parse public.pem", err)
+		log.Error("Couldnt parse public.pem: ", err)
 		return err
 	}
 
 	if err := parsePrivateKey(&rsa.PrivateKey); err != nil {
-		log.Error("Couldn't parse private.pem", err)
+		log.Error("Couldn't parse private.pem: ", err)
 		return err
 	}
 

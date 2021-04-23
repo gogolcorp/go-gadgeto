@@ -41,7 +41,7 @@ func createProjectDir(path string) error {
 	if !filesystem.DirectoryExists(path) {
 		return os.Mkdir(path, os.ModePerm)
 	}
-	log.Warn("A directory with this name already exists.")
+	log.Warn("a directory with this name already exists.")
 
 	wantsOverride := false
 	prompt.AskToOverride(&wantsOverride)
@@ -50,13 +50,13 @@ func createProjectDir(path string) error {
 		return filesystem.RemoveDirAndFiles(path)
 	}
 
-	return errors.New("Couldn't create project directory")
+	return errors.New("couldn't create project directory")
 }
 
 func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
 	_, err := os.Create(workdir + "/.go-gadgeto-config.yaml")
 	if err != nil {
-		log.Error("Couldn't create project config : ", err)
+		log.Error("couldn't create project config : ", err)
 	}
 
 	viper.AddConfigPath(workdir)
@@ -72,7 +72,7 @@ func createProjectConfig(workdir string, config *config.CreateCmdConfig) {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		log.Info("Using config file : ", viper.ConfigFileUsed())
+		log.Info("using config file : ", viper.ConfigFileUsed())
 	}
 	viper.WriteConfig()
 }

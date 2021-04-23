@@ -37,7 +37,7 @@ func updateModels() error {
 		var model modelPrompt.NewModel
 		model.Name = modelName
 		if err := generateModel(&model); err != nil {
-			log.Error("couldn't add " + modelName + "to config")
+			log.Error("couldn't parse " + modelName + " from files")
 			return err
 		}
 

@@ -20,7 +20,7 @@ func (cqs *ConsumeQueueService) Consume(results chan<- interface{}) {
 		url = "amqp://user:bitnami@rabbitmq:5672"
 	}
 
-	log.Info(" CONSUMING QUEUE:", cqs.Queue)
+	log.Info("CONSUMING QUEUE: ", cqs.Queue)
 
 	cfg := Config{
 		URL:        url,
