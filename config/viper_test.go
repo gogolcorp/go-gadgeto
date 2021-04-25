@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -28,7 +28,7 @@ func Test_initViper(t *testing.T) {
 
 	// Create config file
 	workdir := filesystem.GetWorkdirOrDie()
-	if _, err := os.Create(workdir + "/.go-cli-config.yml"); err != nil {
+	if _, err := os.Create(workdir + "/.go-gadgeto-config.yml"); err != nil {
 		log.Error(err)
 		return
 	}
@@ -50,7 +50,7 @@ func Test_initViper(t *testing.T) {
 		})
 	}
 
-	if err := os.Remove(workdir + "/.go-cli-config.yml"); err != nil {
+	if err := os.Remove(workdir + "/.go-gadgeto-config.yml"); err != nil {
 		log.Error("couldnt remove fake config file")
 		return
 	}

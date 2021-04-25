@@ -1,8 +1,8 @@
 package bundles
 
 import (
-	"github.com/edwinvautier/go-cli/config"
-	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-gadgeto/config"
+	"github.com/edwinvautier/go-gadgeto/helpers"
 	"github.com/spf13/viper"
 )
 

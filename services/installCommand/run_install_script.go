@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os/exec"
 
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 )
 

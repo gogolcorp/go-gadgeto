@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/edwinvautier/go-cli/cmd"
+import "github.com/edwinvautier/go-gadgeto/cmd"
 
 func main() {
 	cmd.Execute()

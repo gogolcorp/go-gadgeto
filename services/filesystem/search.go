@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/edwinvautier/go-cli/helpers"
+	"github.com/edwinvautier/go-gadgeto/helpers"
 	log "github.com/sirupsen/logrus"
 )
 

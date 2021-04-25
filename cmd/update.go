@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/edwinvautier/go-cli/config"
+	"github.com/edwinvautier/go-gadgeto/config"
 	"github.com/spf13/cobra"
 )
 

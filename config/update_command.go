@@ -3,15 +3,15 @@ package config
 import (
 	"io/ioutil"
 
-	"github.com/edwinvautier/go-cli/helpers"
-	"github.com/edwinvautier/go-cli/prompt/modelPrompt"
-	"github.com/edwinvautier/go-cli/services/filesystem"
-	"github.com/edwinvautier/go-cli/services/updateCommand"
+	"github.com/edwinvautier/go-gadgeto/helpers"
+	"github.com/edwinvautier/go-gadgeto/prompt/modelPrompt"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/updateCommand"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
-// UpdateConfig reads the project main parts in order to refresh the config store in the .go-cli-config.yml
+// UpdateConfig reads the project main parts in order to refresh the config store in the .go-gadgeto-config.yml
 func UpdateConfig() error {
 	if err := InitViper(); err != nil {
 		return err

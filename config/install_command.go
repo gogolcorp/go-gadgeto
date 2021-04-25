@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/edwinvautier/go-cli/services/filesystem"
+	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/viper"
 )
@@ -21,7 +21,7 @@ func UpdateConfigAfterInstalling(name string) {
 	workdir := filesystem.GetWorkdirOrDie()
 
 	viper.AddConfigPath(workdir)
-	viper.SetConfigName(".go-cli-config")
+	viper.SetConfigName(".go-gadgeto-config")
 	bundles := viper.GetStringSlice("bundles")
 	bundles = append(bundles, name)
 	viper.Set("bundles", bundles)
