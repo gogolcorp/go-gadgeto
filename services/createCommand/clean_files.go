@@ -10,7 +10,7 @@ import (
 func CleanAllFiles(config *config.CreateCmdConfig) error {
 	if !config.UseDocker {
 		if err := removeDockerFiles(config); err != nil {
-			log.Error("Could'nt remove docker files", err)
+			log.Error("Could'nt remove docker files: ", err)
 		}
 	}
 

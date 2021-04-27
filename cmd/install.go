@@ -34,7 +34,7 @@ var installCmd = &cobra.Command{
 				continue
 			}
 			if err := installCommand.InstallBundle(bundleName); err != nil {
-				log.Error(err)
+				log.Error(bundleName, " install failed: ", err)
 			}
 		}
 	},

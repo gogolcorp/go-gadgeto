@@ -3,7 +3,6 @@ package config
 import (
 	"github.com/edwinvautier/go-gadgeto/services/filesystem"
 	"github.com/gobuffalo/packr/v2"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -15,7 +14,6 @@ type CommandConfigInterface interface {
 
 func initBasicConfig() baseConfig {
 	if err := InitViper(); err != nil {
-		log.Error(err)
 		return baseConfig{}
 	}
 	workdir := filesystem.GetWorkdirOrDie()

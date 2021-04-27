@@ -3,7 +3,6 @@ package services
 import (
 	"os/exec"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -28,7 +27,6 @@ func getFromGit() string {
 	cmd := exec.Command("git", "config", "user.name")
 	stdout, err := cmd.Output()
 	if err != nil {
-		log.Error(err)
 		return ""
 	}
 

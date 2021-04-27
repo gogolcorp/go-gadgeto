@@ -13,7 +13,7 @@ func GetModelsList() []string {
 	workdir := GetWorkdirOrDie()
 	files, err := ioutil.ReadDir(workdir + "/api/models")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("couldn't read models directory: ", err)
 	}
 
 	models := make([]string, 0)
@@ -37,7 +37,6 @@ func GetFixturesModelsList() []string {
 	for _, file := range files {
 		name := helpers.UpperCaseFirstChar(strings.Split(file.Name(), ".go")[0])
 		if !strings.Contains(name, "json") && !strings.Contains(name, "Fixture") {
-			log.Info(name)
 			models = append(models, name)
 		}
 	}

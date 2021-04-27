@@ -58,7 +58,6 @@ func AddModelToConfig(newModel modelPrompt.NewModel) error {
 	models := viper.GetStringMap("models")
 	models[newModel.Name] = newModel
 	viper.Set("models", models)
-	log.Info("Using config file : ", viper.ConfigFileUsed())
 	viper.WriteConfig()
 
 	return nil
@@ -68,7 +67,7 @@ func AddModelToConfig(newModel modelPrompt.NewModel) error {
 func InitModelConfig(config *MakeCmdConfig) error {
 	// Get model from config
 	if err := InitViper(); err != nil {
-		log.Fatal("couldn't read config, try again")
+		return errors.New("couldn't load config, try again")
 	}
 
 	if !IsInConfig(config.Model.Name) {
@@ -78,7 +77,7 @@ func InitModelConfig(config *MakeCmdConfig) error {
 	modelData := viper.GetStringMap("models." + config.Model.Name)
 	var model modelPrompt.NewModel
 	if err := mapstructure.Decode(modelData, &model); err != nil {
-		return errors.New("error while decoding " + config.Model.Name)
+		return errors.New("error while decoding " + config.Model.Name + " from config")
 	}
 	config.Model = model
 	configBase := initBasicConfig()
@@ -127,7 +126,6 @@ func InitMakeTestsCmdConfig(config *MakeCmdConfig) error {
 // IsInConfig returns a boolean telling wether the modelName was found in config or not
 func IsInConfig(modelName string) bool {
 	if err := InitViper(); err != nil {
-		log.Error("error when loading viper")
 		return false
 	}
 	modelsStructs := viper.GetStringMap("models")
@@ -145,7 +143,7 @@ func InitUpdateModelConfig(config *MakeCmdConfig) error {
 	modelData := viper.GetStringMap("models." + config.Model.Name)
 	var model modelPrompt.NewModel
 	if err := mapstructure.Decode(modelData, &model); err != nil {
-		return errors.New("error while decoding " + config.Model.Name)
+		return errors.New("error while decoding " + config.Model.Name + " from config")
 	}
 	config.Model = model
 
