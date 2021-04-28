@@ -23,11 +23,13 @@ const (
 	Delete Typology = "delete"
 )
 
+// ReadModelInterface is the interface used for all read models. Type should respond the payload type, Project should take the aggregate ID as parameter
 type ReadModelInterface interface {
 	Project(string) (interface{}, error)
 	Type() string
 }
 
+// ReadModel is the example of a readmodel, you should create it in your domain
 type ReadModel struct {
 	AggregateID  string
 	FinalPayload interface{}
