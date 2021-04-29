@@ -31,6 +31,9 @@ func InstallBundle(name string) error {
 	config.UpdateConfigAfterInstalling(name)
 	log.Info("successfully installed ", name, " bundle")
 
+	// Get link to the bundle documentation
+	log.Info("You can go to the bundle documentation by going to the following link: https://github.com/edwinvautier/go-gadgeto/tree/main/bundles/", name)
+
 	return nil
 }
 
