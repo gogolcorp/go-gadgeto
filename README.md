@@ -72,6 +72,14 @@ Each bundle should have the following elements :
 
 The templates part must follow the same filetree as the project that is created.
 
+## Update command
+
+**go-gadgeto** reads the `.go-gadgeto-config.yml` in order to generate your models and other files. If you've created new models and want to update the config file you can run:
+
+```sh
+go-gadgeto update
+```
+
 ## Make command
 
 The make command generates files with automatic recognition of your fields.
