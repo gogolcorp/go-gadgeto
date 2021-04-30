@@ -1,5 +1,11 @@
 # go-gadgeto
 
+<p align="center">
+  <img src="assets/logo.jpg" width="300"/>
+</p>
+
+---
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9a71350a5de64095a7f175170fc81137)](https://app.codacy.com/gh/edwinvautier/go-gadgeto?utm_source=github.com&utm_medium=referral&utm_content=edwinvautier/go-gadgeto&utm_campaign=Badge_Grade_Settings)
 [![Go](https://github.com/edwinvautier/go-gadgeto/actions/workflows/go.yml/badge.svg)](https://github.com/edwinvautier/go-gadgeto/actions/workflows/go.yml)
 [![CodeQL](https://github.com/edwinvautier/go-gadgeto/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-gadgeto/actions/workflows/codeql-analysis.yml)
