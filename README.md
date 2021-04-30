@@ -14,7 +14,9 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-gadgeto.svg)](https://pkg.go.dev/github.com/edwinvautier/go-gadgeto)
 [![codecov](https://codecov.io/gh/edwinvautier/go-gadgeto/branch/main/graph/badge.svg?token=1USTLF2NA0)](https://codecov.io/gh/edwinvautier/go-gadgeto)
 
-A CLI to initialize and work on go projects, mainly designed for API's.
+A CLI to initialize and work on go projects, mainly designed for API's. 
+
+It allows you to auto init your project with a docker configuration, generate your own model files, controllers, fixtures...
 
 ## Table of contents
 
@@ -71,6 +73,9 @@ Each bundle should have the following elements :
 The templates part must follow the same filetree as the project that is created.
 
 ## Make command
+
+The make command generates files with automatic recognition of your fields.
+
 ### Make new model
 
 With **go-gadgeto**, you can use the `make model` command. It will create a new model and repository file with fields of your choice !
@@ -78,6 +83,8 @@ With **go-gadgeto**, you can use the `make model` command. It will create a new 
 ```sh
 go-gadgeto make model modelYouWant
 ```
+
+---
 
 ### Make CRUD
 
@@ -89,6 +96,8 @@ go-gadgeto make crud modelName
 
 **go-gadgeto** will eventually asks you to run the `go-gadgeto update` command, that reads the models files, and parse their fields to the config.
 
+---
+
 ### Make fixtures
 
 **go-gadgeto** can generate your fixtures, to do so, you just have to use the `make fixtures` command :
@@ -98,6 +107,8 @@ go-gadgeto make fixtures modelName
 ```
 
 **go-gadgeto** will eventually asks you to run the `go-gadgeto update` command, that reads the models files, and parse their fields to the config.
+
+---
 
 ### Make tests
 
