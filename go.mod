@@ -3,7 +3,7 @@ module github.com/edwinvautier/go-gadgeto
 go 1.15
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.2.9
+	github.com/AlecAivazis/survey/v2 v2.2.12
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gobuffalo/packd v1.0.0
 	github.com/gobuffalo/packr/v2 v2.8.1
