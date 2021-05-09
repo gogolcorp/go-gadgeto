@@ -14,6 +14,10 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-gadgeto.svg)](https://pkg.go.dev/github.com/edwinvautier/go-gadgeto)
 [![codecov](https://codecov.io/gh/edwinvautier/go-gadgeto/branch/main/graph/badge.svg?token=1USTLF2NA0)](https://codecov.io/gh/edwinvautier/go-gadgeto)
 
+<div align="center">
+  <img src="![commit activity](https://gh-readme-contrib.herokuapp.com/api/edwinvautier/go-gadgeto)"/>  
+</div>
+
 A CLI to initialize and work on go projects, mainly designed for API's. 
 
 It allows you to auto init your project with a docker configuration, generate your own model files, controllers, fixtures...
