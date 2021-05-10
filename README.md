@@ -10,9 +10,13 @@
 [![Go](https://github.com/edwinvautier/go-gadgeto/actions/workflows/go.yml/badge.svg)](https://github.com/edwinvautier/go-gadgeto/actions/workflows/go.yml)
 [![CodeQL](https://github.com/edwinvautier/go-gadgeto/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/edwinvautier/go-gadgeto/actions/workflows/codeql-analysis.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-0.0.10-orange)
+![version](https://img.shields.io/badge/version-0.0.11-orange)
 [![Go Reference](https://pkg.go.dev/badge/github.com/edwinvautier/go-gadgeto.svg)](https://pkg.go.dev/github.com/edwinvautier/go-gadgeto)
 [![codecov](https://codecov.io/gh/edwinvautier/go-gadgeto/branch/main/graph/badge.svg?token=1USTLF2NA0)](https://codecov.io/gh/edwinvautier/go-gadgeto)
+
+<div align="center">
+  <img src="https://gh-readme-contrib.herokuapp.com/api/edwinvautier/go-gadgeto"/>  
+</div>
 
 A CLI to initialize and work on go projects, mainly designed for API's. 
 
