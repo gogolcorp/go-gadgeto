@@ -1,6 +1,5 @@
 # {{.AppName}}
 
-[![CodeQL](https://{{.GoPackageFullPath}}/actions/workflows/codeql-analysis.yml/badge.svg)](https://{{.GoPackageFullPath}}/actions/workflows/codeql-analysis.yml)
 [![Build](https://{{.GoPackageFullPath}}/actions/workflows/ci.yml/badge.svg)](https://{{.GoPackageFullPath}}/actions/workflows/ci.yml)
 
 ## Setup
