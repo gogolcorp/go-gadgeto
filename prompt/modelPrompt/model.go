@@ -101,7 +101,7 @@ func GetTypeOptions() []string {
 	modelsList := filesystem.GetModelsList()
 	options := []string{
 		"string",
-		"boolean",
+		"bool",
 		"int",
 		"int16",
 		"int32",
