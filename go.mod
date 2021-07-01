@@ -15,11 +15,8 @@ require (
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/assertions v1.1.1 // indirect
-	github.com/spf13/cobra v1.1.3
-	github.com/spf13/viper v1.7.1
-	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/spf13/cobra v1.2.0
+	github.com/spf13/viper v1.8.1
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
-	golang.org/x/sys v0.0.0-20210324051608-47abb6519492 // indirect
 	golang.org/x/term v0.0.0-20210317153231-de623e64d2a6 // indirect
-	golang.org/x/text v0.3.5 // indirect
 )
