@@ -3,7 +3,7 @@ module github.com/edwinvautier/go-gadgeto
 go 1.15
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.2.12
+	github.com/AlecAivazis/survey/v2 v2.2.14
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gobuffalo/packd v1.0.0
 	github.com/gobuffalo/packr/v2 v2.8.1
@@ -18,5 +18,4 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
-	golang.org/x/term v0.0.0-20210317153231-de623e64d2a6 // indirect
 )
