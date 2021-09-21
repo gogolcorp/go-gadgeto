@@ -14,8 +14,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.4.2
 	github.com/sirupsen/logrus v1.8.1
-	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/spf13/cobra v1.2.1
-	github.com/spf13/viper v1.8.1
-	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
+	github.com/spf13/viper v1.9.0
 )
