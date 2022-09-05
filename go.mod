@@ -5,7 +5,7 @@ go 1.15
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/gobuffalo/packd v1.0.1
+	github.com/gobuffalo/packd v1.0.2
 	github.com/gobuffalo/packr/v2 v2.8.3
 	github.com/joho/godotenv v1.4.0
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
